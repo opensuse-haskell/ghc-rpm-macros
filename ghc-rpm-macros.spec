@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.13.9
+Version:        0.13.10
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -60,6 +60,10 @@ EOF
 
 
 %changelog
+* Tue Sep 13 2011 Jens Petersen <petersen@redhat.com> - 0.13.10-1
+- do not setup ghc-deps.sh when ghc_bootstrapping
+- add ghc_test build config
+
 * Wed Aug  3 2011 Jens Petersen <petersen@redhat.com> - 0.13.9-1
 - drop without_testsuite from ghc_bootstrap since it breaks koji
 

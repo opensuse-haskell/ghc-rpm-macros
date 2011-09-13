@@ -192,16 +192,20 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 
 # install bin package
 %ghc_bin_install\
+%if %{undefined ghc_bootstrapping}\
 %global _use_internal_dependency_generator 0\
 %global __find_requires %{_rpmconfigdir}/ghc-deps.sh --requires %{buildroot}%{ghclibdir}\
+%endif\
 %cabal_install\
 %ghc_strip_dynlinked
 
 # ghc_lib_install [name] [version]
 %ghc_lib_install()\
+%if %{undefined ghc_bootstrapping}\
 %global _use_internal_dependency_generator 0\
 %global __find_provides %{_rpmconfigdir}/ghc-deps.sh --provides %{buildroot}%{ghclibdir}\
 %global __find_requires %{_rpmconfigdir}/ghc-deps.sh --requires %{buildroot}%{ghclibdir}\
+%endif\
 %{?1:cd %1-%2}\
 %cabal_install\
 %cabal_pkg_conf\
@@ -215,6 +219,13 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %ghc_bootstrap\
 %global ghc_without_shared 1\
 %global ghc_without_dynamic 1\
+%global without_prof 1\
+%global without_haddock 1\
+%global without_manual 1
+
+# skip prof libs, and documentation
+# - without_hscolour needs to be set locally in the spec file
+%ghc_test\
 %global without_prof 1\
 %global without_haddock 1\
 %global without_manual 1
