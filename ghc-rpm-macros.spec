@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.13.11
+Version:        0.13.12
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -60,6 +60,9 @@ EOF
 
 
 %changelog
+* Sat Oct 15 2011 Jens Petersen <petersen@redhat.com> - 0.13.12-1
+- add ghc_exclude_docdir to exclude docdir from filelists
+
 * Fri Sep 30 2011 Jens Petersen <petersen@redhat.com> - 0.13.11-1
 - fix devel subpackage's prof and doc obsoletes and provides versions
   for multiple lib packages like ghc (reported by Henrik Nordström)
