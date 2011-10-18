@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.13.12
+Version:        0.13.13
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -60,6 +60,10 @@ EOF
 
 
 %changelog
+* Mon Oct 17 2011 Jens Petersen <petersen@redhat.com> - 0.13.13-1
+- add ghc_bootstrapping to ghc_bootstrap for packages other than ghc
+- make ghc-deps.sh also work when bootstrapping a new ghc version
+
 * Sat Oct 15 2011 Jens Petersen <petersen@redhat.com> - 0.13.12-1
 - add ghc_exclude_docdir to exclude docdir from filelists
 

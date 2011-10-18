@@ -221,7 +221,9 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %global ghc_without_dynamic 1\
 %global without_prof 1\
 %global without_haddock 1\
-%global without_manual 1
+%global without_manual 1\
+# needs to be set also in ghc.spec\
+%global ghc_bootstrapping 1
 
 # skip prof libs, and documentation
 # - without_hscolour needs to be set locally in the spec file
