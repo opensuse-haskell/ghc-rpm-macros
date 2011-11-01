@@ -61,6 +61,7 @@ EOF
 %changelog
 * Tue Nov  1 2011 Jens Petersen <petersen@redhat.com> - 0.14-1
 - replace devel ghc requires with ghc-compiler
+- disable testsuite in ghc_bootstrap
 
 * Mon Oct 17 2011 Jens Petersen <petersen@redhat.com> - 0.13.13-1
 - add ghc_bootstrapping to ghc_bootstrap for packages other than ghc
