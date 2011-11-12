@@ -51,10 +51,7 @@ fi\
 %if 0%{!?1:1} && %{undefined ghc_exclude_docdir}\
 if [ -d "%{buildroot}%{_docdir}/%{name}-%{version}" ]; then\
   echo "%{_docdir}/%{name}-%{version}" >> %{basepkg}%{?ghc_without_shared:-devel}.files\
-fi\
-%endif\
-%if 0%{!?1:1} && %{undefined ghc_exclude_docdir}\
-if [ -d "%{buildroot}%{_docdir}/ghc-%{pkgnamever}" ]; then\
+elif [ -d "%{buildroot}%{_docdir}/ghc-%{pkgnamever}" ]; then\
   echo "%{_docdir}/ghc-%{pkgnamever}" >> %{basepkg}%{?ghc_without_shared:-devel}.files\
 fi\
 %endif\

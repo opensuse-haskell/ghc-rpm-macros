@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.14
+Version:        0.14.1
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -59,6 +59,9 @@ EOF
 
 
 %changelog
+* Sat Nov 12 2011 Jens Petersen <petersen@redhat.com> - 0.14.1-1
+- fix double listing of docdir in base lib package
+
 * Tue Nov  1 2011 Jens Petersen <petersen@redhat.com> - 0.14-1
 - replace devel ghc requires with ghc-compiler
 - disable testsuite in ghc_bootstrap
