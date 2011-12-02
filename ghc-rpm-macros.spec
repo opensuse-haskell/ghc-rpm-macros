@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.14.2
+Version:        0.14.3
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -59,9 +59,13 @@ EOF
 
 
 %changelog
+* Fri Dec  2 2011 Jens Petersen <petersen@redhat.com> - 0.14.3-1
+- do not use ghc user config by default when compiling Setup
+- do not setup hscolour if without_hscolour defined
+
 * Thu Nov 17 2011 Jens Petersen <petersen@redhat.com> - 0.14.2-1
 - test for HsColour directly when running "cabal haddock" instead of
-  checking for without_haddock
+  check hscolour is available (reported by Giam Teck Choon, #753833)
 
 * Sat Nov 12 2011 Jens Petersen <petersen@redhat.com> - 0.14.1-1
 - fix double listing of docdir in base lib package

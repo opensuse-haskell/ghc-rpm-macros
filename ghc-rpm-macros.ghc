@@ -2,7 +2,7 @@
 # see https://fedoraproject.org/wiki/PackagingDrafts/Haskell for more details
 
 # "cabal"
-%cabal [ -x Setup ] || ghc --make %{!?ghc_without_shared:%{!?ghc_without_dynamic:-dynamic}} Setup\
+%cabal [ -x Setup ] || ghc --make %{!?ghc_user_conf:-no-user-package-conf} %{!?ghc_without_shared:%{!?ghc_without_dynamic:-dynamic}} Setup\
 ./Setup
 
 # check ghc version was rebuilt against self
@@ -184,7 +184,7 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %cabal_configure %{!?without_prof:-p} %{?1:--docdir=%{_docdir}/ghc-%1-%2 --htmldir=%{ghclibdocdir}/%1-%2}\
 %cabal build\
 %if %{undefined without_haddock}\
-%cabal haddock $(if [ -x %{_bindir}/HsColour ]; then echo --hyperlink-source; fi)\
+%cabal haddock %{!?without_hscolour:%(if [ -x %{_bindir}/HsColour ]; then echo --hyperlink-source; fi)}\
 %endif\
 %{?1:cd -}\
 %{nil}
