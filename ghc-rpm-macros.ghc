@@ -111,6 +111,28 @@ Requires:       ghc-%{?pkg_name}%{!?pkg_name:%{pkgname}} = %{?pkgver}%{!?pkgver:
 %ghc_package_devel\
 %{nil}
 
+# ghc_package [-l licensetag] [name] [version]
+%ghc_package(l:)\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define pkgver %{?2}%{!?2:%{version}}\
+%define basepkg ghc-%{pkgname}\
+%package -n %{basepkg}\
+Summary:        %{?common_summary}%{!?common_summary:Haskell %{pkgname} library}\
+Group:          System Environment/Libraries\
+%{?1:Version:        %{pkgver}}\
+%{-l:License:        %{-l*}}\
+%{?ghc_pkg_obsoletes:Obsoletes:      %(echo "%{ghc_pkg_obsoletes}" | sed -e "s/\\(ghc-[^, ]*\\)-devel/\\1/g")}
+
+# ghc_description [name] [version]
+%ghc_description\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define basepkg ghc-%{pkgname}\
+%description -n %{basepkg}\
+%{?common_description}%{!?common_description:Haskell %{pkgname} library.}\
+%if %{defined ghc_version} && %{undefined ghc_without_shared}\
+This package provides the shared library.\
+%endif
+
 # ghc_binlib_package [-c cdepslist] [-h pkgdepslist] [-l licensetag] [-x] [name] [version]
 %ghc_binlib_package(c:h:l:x)\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
@@ -118,18 +140,9 @@ Requires:       ghc-%{?pkg_name}%{!?pkg_name:%{pkgname}} = %{?pkgver}%{!?pkgver:
 %define pkgnamever %{pkgname}-%{pkgver}\
 %{!-x:%{?1:%global ghc_packages_list %{?ghc_packages_list} %{pkgnamever}}}\
 %define basepkg ghc-%{pkgname}\
-%package -n %{basepkg}\
-Summary:        %{?common_summary}%{!?common_summary:Haskell %{pkgname} library}\
-Group:          System Environment/Libraries\
-%{?1:Version:        %{pkgver}}\
-%{-l:License:        %{-l*}}\
-%{?ghc_pkg_obsoletes:Obsoletes:      %(echo "%{ghc_pkg_obsoletes}" | sed -e "s/\\(ghc-[^, ]*\\)-devel/\\1/g")}\
+%ghc_package\
 \
-%description -n %{basepkg}\
-%{?common_description}%{!?common_description:Haskell %{pkgname} library.}\
-%if %{defined ghc_version} && %{undefined ghc_without_shared}\
-This package provides the shared library.\
-%endif\
+%ghc_description\
 \
 %ghc_lib_package\
 %{nil}
@@ -155,11 +168,10 @@ This package provides the shared library.\
 %ghc_devel_files\
 %{nil}
 
-# ghc_package_devel [-c cdepslist] [-h pkgdepslist] [-l licensetag] [name] [version]
-%ghc_package_devel(c:h:l:)\
+# ghc_devel_package [-c cdepslist] [-h pkgdepslist] [-l licensetag] [name] [version]
+%ghc_devel_package(c:h:l:)\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define pkgver %{?2}%{!?2:%{version}}\
-%define pkgnamever %{pkgname}-%{pkgver}\
 %define basepkg ghc-%{pkgname}\
 %package -n %{basepkg}-devel\
 Summary:        %{?common_summary}%{!?common_summary:Haskell %{pkgname} library} development files\
@@ -176,11 +188,23 @@ Obsoletes:      %{basepkg}-doc < %{pkgver}-%{release}\
 Provides:       %{basepkg}-doc = %{pkgver}-%{release}\
 Obsoletes:      %{basepkg}-prof < %{pkgver}-%{release}\
 Provides:       %{basepkg}-prof = %{pkgver}-%{release}\
-\
+
+# ghc_devel_description
+%ghc_devel_description\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define basepkg ghc-%{pkgname}\
 %description -n %{basepkg}-devel\
 %{?common_description}%{!?common_description:Haskell %{pkgname} library.}\
 \
-This package contains the development files.\
+This package contains the development files.
+
+# ghc_package_devel [-c cdepslist] [-h pkgdepslist] [-l licensetag] [name] [version]
+%ghc_package_devel(c:h:l:)\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define basepkg ghc-%{pkgname}\
+%ghc_devel_package\
+\
+%ghc_devel_description\
 \
 %post -n %{basepkg}-devel\
 %ghc_pkg_recache\
