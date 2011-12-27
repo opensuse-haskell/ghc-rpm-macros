@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.14.4
+Version:        0.15
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -59,9 +59,10 @@ EOF
 
 
 %changelog
-* Thu Dec 15 2011 Jens Petersen <petersen@redhat.com> - 0.14.4-1
+* Thu Dec 15 2011 Jens Petersen <petersen@redhat.com> - 0.15-1
 - new ghc_files wrapper macro for files which takes base doc files as args
   and uses new ghc_shared_files and ghc_devel_files macros
+- when building for non-shared archs move installed docfiles to devel docdir
 
 * Fri Dec  2 2011 Jens Petersen <petersen@redhat.com> - 0.14.3-1
 - do not use ghc user config by default when compiling Setup
