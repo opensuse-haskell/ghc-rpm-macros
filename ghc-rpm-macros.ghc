@@ -198,6 +198,16 @@ Provides:       %{basepkg}-prof = %{pkgver}-%{release}\
 \
 This package contains the development files.
 
+# ghc_devel_post_postun
+%ghc_devel_post_postun\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define basepkg ghc-%{pkgname}\
+%post -n %{basepkg}-devel\
+%ghc_pkg_recache\
+\
+%postun -n %{basepkg}-devel\
+%ghc_pkg_recache
+
 # ghc_package_devel [-c cdepslist] [-h pkgdepslist] [-l licensetag] [name] [version]
 %ghc_package_devel(c:h:l:)\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
@@ -206,11 +216,7 @@ This package contains the development files.
 \
 %ghc_devel_description\
 \
-%post -n %{basepkg}-devel\
-%ghc_pkg_recache\
-\
-%postun -n %{basepkg}-devel\
-%ghc_pkg_recache\
+%ghc_devel_post_postun\
 \
 %ghc_devel_files\
 %{nil}
