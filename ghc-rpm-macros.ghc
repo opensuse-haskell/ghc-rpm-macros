@@ -73,6 +73,10 @@ fi\
 sed -i -e "s!%{buildroot}!!g" %{!?ghc_without_shared:%{basepkg}.files} %{basepkg}-devel.files\
 %{nil}
 
+%ghc_add_basepkg_file()\
+%define basepkg ghc-%{pkg_name}\
+echo "%*" >> %{basepkg}%{?ghc_without_shared:-devel}.files
+
 # compiler version
 %ghc_version %{!?ghc_version_override:%(ghc --numeric-version)}%{?ghc_version_override}
 

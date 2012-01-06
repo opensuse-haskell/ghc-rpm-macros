@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.15.2
+Version:        0.15.3
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -59,6 +59,9 @@ EOF
 
 
 %changelog
+* Fri Jan  6 2012 Jens Petersen <petersen@redhat.com> - 0.15.3-1
+- new ghc_add_basepkg_file to add a path to base lib package
+
 * Wed Dec 28 2011 Jens Petersen <petersen@redhat.com> - 0.15.2-1
 - add ghc_devel_post_postun to help koji/mock with new macros
 
