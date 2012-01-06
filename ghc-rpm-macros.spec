@@ -60,7 +60,7 @@ EOF
 
 %changelog
 * Fri Jan  6 2012 Jens Petersen <petersen@redhat.com> - 0.15.3-1
-- new ghc_add_basepkg_file to add a path to base lib package
+- new ghc_add_basepkg_file to add a path to base lib package filelist
 
 * Wed Dec 28 2011 Jens Petersen <petersen@redhat.com> - 0.15.2-1
 - add ghc_devel_post_postun to help koji/mock with new macros
