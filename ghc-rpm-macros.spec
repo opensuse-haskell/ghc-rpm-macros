@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.15.3
+Version:        0.15.4
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -59,6 +59,9 @@ EOF
 
 
 %changelog
+* Thu Jan 19 2012 Jens Petersen <petersen@redhat.com> - 0.15.4-1
+- allow dynamic linking of Setup with ghc_without_shared set
+
 * Fri Jan  6 2012 Jens Petersen <petersen@redhat.com> - 0.15.3-1
 - new ghc_add_basepkg_file to add a path to base lib package filelist
 

@@ -2,7 +2,7 @@
 # see https://fedoraproject.org/wiki/PackagingDrafts/Haskell for more details
 
 # "cabal"
-%cabal [ -x Setup ] || ghc --make %{!?ghc_user_conf:-no-user-package-conf} %{!?ghc_without_shared:%{!?ghc_without_dynamic:-dynamic}} Setup\
+%cabal [ -x Setup ] || ghc --make %{!?ghc_user_conf:-no-user-package-conf} %{!?ghc_without_dynamic:-dynamic} Setup\
 ./Setup
 
 # check ghc version was rebuilt against self
