@@ -48,18 +48,21 @@ echo "%dir %{pkgdir}" >> %{basepkg}.files\
 echo "%attr(755,root,root) %{pkgdir}/libHS%{pkgnamever}-ghc%{ghc_version}.so" >> %{basepkg}.files\
 fi\
 %endif\
+%if 0%{!?1:1} && %{defined ghc_without_shared}\
+if [ "%{name}" = "ghc-%{pkg_name}" ]; then\
+  if [ -d "%{buildroot}%{_docdir}/%{name}-%{version}" ]; then\
+    mv %{buildroot}%{_docdir}/%{name}-%{version} %{buildroot}%{_docdir}/%{name}-devel-%{version}\
+%if %{undefined ghc_exclude_docdir}\
+    echo "%{_docdir}/%{name}-devel-%{version}" >> %{basepkg}-devel.files\
+%endif\
+  fi\
+fi\
+%endif\
 %if 0%{!?1:1} && %{undefined ghc_exclude_docdir}\
 if [ -d "%{buildroot}%{_docdir}/%{name}-%{version}" ]; then\
   echo "%{_docdir}/%{name}-%{version}" >> %{basepkg}%{?ghc_without_shared:-devel}.files\
 elif [ -d "%{buildroot}%{_docdir}/ghc-%{pkgnamever}" ]; then\
   echo "%{_docdir}/ghc-%{pkgnamever}" >> %{basepkg}%{?ghc_without_shared:-devel}.files\
-fi\
-%endif\
-%if 0%{!?1:1} && %{defined ghc_without_shared}\
-if [ "%{name}" = "ghc-%{pkg_name}" ]; then\
-  if [ -d "%{buildroot}%{_docdir}/%{name}-%{version}" ]; then\
-    mv %{buildroot}%{_docdir}/%{name}-%{version} %{buildroot}%{_docdir}/%{name}-devel-%{version}\
-  fi\
 fi\
 %endif\
 echo "%{ghclibdir}/package.conf.d/%{pkgnamever}*.conf" >> %{basepkg}-devel.files\
@@ -273,21 +276,17 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %{!?1:%ghc_strip_dynlinked}\
 %{nil}
 
-# skip shared and prof libs, documentation, and testsuite
-# - without_hscolour needs to be set locally in the spec file
-%ghc_bootstrap\
-%global ghc_without_shared 1\
-%global ghc_without_dynamic 1\
-%global without_prof 1\
-%global without_haddock 1\
-%global without_manual 1\
-%global without_testsuite 1\
-# needs to be set also in ghc.spec\
-%global ghc_bootstrapping 1
+# - without_hscolour, without_testsuite, and ghc_bootstrapping
+#   need to be set locally in the spec file
 
 # skip prof libs, and documentation
-# - without_hscolour needs to be set locally in the spec file
 %ghc_test\
 %global without_prof 1\
 %global without_haddock 1\
 %global without_manual 1
+
+# skip shared and prof libs, documentation, and testsuite
+%ghc_bootstrap\
+%global ghc_without_shared 1\
+%global ghc_without_dynamic 1\
+%ghc_test

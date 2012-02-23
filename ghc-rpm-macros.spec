@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.15.4
+Version:        0.15.5
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -59,6 +59,10 @@ EOF
 
 
 %changelog
+* Thu Feb 23 2012 Jens Petersen <petersen@redhat.com> - 0.15.5-1
+- fix handling of devel docdir for non-shared builds
+- simplify ghc_bootstrap
+
 * Thu Jan 19 2012 Jens Petersen <petersen@redhat.com> - 0.15.4-1
 - allow dynamic linking of Setup with ghc_without_shared set
 
