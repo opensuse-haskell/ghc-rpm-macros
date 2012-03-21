@@ -43,7 +43,6 @@ for i in $files; do
 	    SELF=""
 	    case $LIB_FILE in
 		*.so) META=ghc ;;
-		*_p.a) META=ghc-prof SELF=ghc-devel ;;
 		*.a) META=ghc-devel
 		    if [ "$SHARED" ]; then
 			SELF=ghc
@@ -55,14 +54,14 @@ for i in $files; do
 		HASHS=$(${GHC_PKG} -f $PKGCONFDIR field $PKGVER $FIELD | sed -e "s/^$FIELD: \+//")
 		for i in $HASHS; do
 		    case $i in
-			*-*) echo $i | sed -e "s/\(.*\)-\(.*\)/$META(\1) = \2/" ;;
+			*-*) echo "$META($i)" ;;
 			*) ;;
 		    esac
 		done
 		if [ "$MODE" = "--requires" -a "$SELF" ]; then
 		    HASHS=$(${GHC_PKG} -f $PKGCONFDIR field $PKGVER id | sed -e "s/^id: \+//")
 		    for i in $HASHS; do
-			echo $i | sed -e "s/\(.*\)-\(.*\)/$SELF(\1) = \2/"
+			echo "$SELF($i)"
 		    done
 		fi
 	    fi
@@ -72,7 +71,7 @@ for i in $files; do
 	    BIN_DEPS=$(ldd $i | grep libHS | grep -v libHSrts | sed -e "s%^\\tlibHS\(.*\)-ghc${GHCVERSION}.so =.*%\1%")
 	    for p in ${BIN_DEPS}; do
 		HASH=$(${GHC_PKG} --global field $p id | sed -e "s/^id: \+//")
-		echo $HASH | sed -e "s/\(.*\)-\(.*\)/ghc(\1) = \2/"
+		echo "ghc($HASH)"
 	    done
 	fi
     fi

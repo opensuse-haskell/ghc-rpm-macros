@@ -192,9 +192,10 @@ Group:          Development/Libraries\
 %{?ghc_pkg_obsoletes:Obsoletes:      %{ghc_pkg_obsoletes}}\
 %{?ghc_pkg_obsoletes:Obsoletes:      %(echo "%{ghc_pkg_obsoletes}" | sed -e "s/\\(ghc-[^, ]*\\)-devel/\\1-doc/g")}\
 Obsoletes:      %{basepkg}-doc < %{pkgver}-%{release}\
-Provides:       %{basepkg}-doc = %{pkgver}-%{release}\
 Obsoletes:      %{basepkg}-prof < %{pkgver}-%{release}\
+%if %{undefined without_prof}\
 Provides:       %{basepkg}-prof = %{pkgver}-%{release}\
+%endif
 
 # ghc_devel_description
 %ghc_devel_description\
@@ -290,3 +291,5 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %global ghc_without_shared 1\
 %global ghc_without_dynamic 1\
 %ghc_test
+
+%ghc_exclude_docdir 1

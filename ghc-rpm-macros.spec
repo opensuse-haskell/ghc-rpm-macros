@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.15.5
+Version:        0.90
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -13,7 +13,8 @@ URL:            https://fedoraproject.org/wiki/Haskell_SIG
 
 # This is a Fedora maintained package which is specific to
 # our distribution.  Thus the source is only available from
-# within this srpm.
+# within this srpm.  But it could be moved to fedorahosted.org
+# if other rpm distros want to use it.
 Source0:        ghc-rpm-macros.ghc
 Source1:        COPYING
 Source2:        AUTHORS
@@ -59,6 +60,13 @@ EOF
 
 
 %changelog
+* Mon Mar 19 2012 Jens Petersen <petersen@redhat.com> - 0.90-1
+- use new rpm metadata hash format for ghc-7.4
+- drop prof meta hash data
+- no longer include doc files automatically by default
+- no longer provide doc subpackage
+- do not provide prof when without_prof set
+
 * Thu Feb 23 2012 Jens Petersen <petersen@redhat.com> - 0.15.5-1
 - fix handling of devel docdir for non-shared builds
 - simplify ghc_bootstrap
