@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.90
+Version:        0.91
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -60,6 +60,11 @@ EOF
 
 
 %changelog
+* Fri May 25 2012 Jens Petersen <petersen@redhat.com> - 0.91-1
+- only  build ghci .o library files on ghc_arches_with_ghci
+- support meta packages like haskell-platform without base lib files
+- make it possible not to have to use common_summary and common_description
+
 * Mon Mar 19 2012 Jens Petersen <petersen@redhat.com> - 0.90-1
 - use new rpm metadata hash format for ghc-7.4
 - drop prof meta hash data
