@@ -77,7 +77,7 @@ if [ -d "%{buildroot}%{docdir}" ]; then\
 echo "%{docdir}" >> %{basepkg}-devel.files\
 fi\
 for i in %{!?ghc_without_shared:%{basepkg}.files} %{basepkg}-devel.files; do\
-if [ -f "$i" ];\
+if [ -f "$i" ]; then\
 sed -i -e "s!%{buildroot}!!g" $i\
 fi\
 done\
@@ -146,11 +146,11 @@ Group:          System Environment/Libraries\
 %{common_description}\
 %if %{defined ghc_version} && %{undefined ghc_without_shared}\
 This package provides the shared library.\
-%endif
+%endif\
 %endif
 
-# ghc_binlib_package [-c cdepslist] [-h pkgdepslist] [-l licensetag] [-x] [name] [version]
-%ghc_binlib_package(c:h:l:x)\
+# ghc_lib_subpackage [-c cdepslist] [-h pkgdepslist] [-l licensetag] [-x] [name] [version]
+%ghc_lib_subpackage(c:h:l:x)\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define pkgver %{?2}%{!?2:%{version}}\
 %define pkgnamever %{pkgname}-%{pkgver}\
@@ -211,7 +211,7 @@ Provides:       %{basepkg}-prof = %{pkgver}-%{release}\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define basepkg ghc-%{pkgname}\
 %description -n %{basepkg}-devel\
-%if %{defined common_description}
+%if %{defined common_description}\
 %{common_description}\
 \
 This package contains the development files.\
