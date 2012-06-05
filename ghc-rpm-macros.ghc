@@ -252,16 +252,19 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %cabal_configure\
 %cabal build
 
-# ghc_lib_build [name] [version]
-%ghc_lib_build()\
+# ghc_lib_build_without_haddock [name] [version]
+%ghc_lib_build_without_haddock()\
 %global debug_package %{nil}\
-%{?1:cd %1-%2}\
 %cabal_configure %{!?without_prof:-p} %{?1:--docdir=%{_docdir}/ghc-%1-%2 --htmldir=%{ghclibdocdir}/%1-%2}\
 %cabal build\
+%{nil}
+
+# ghc_lib_build [name] [version]
+%ghc_lib_build()\
+%ghc_lib_build_without_haddock()\
 %if %{undefined without_haddock}\
 %cabal haddock %{!?without_hscolour:%(if [ -x %{_bindir}/HsColour ]; then echo --hyperlink-source; fi)}\
 %endif\
-%{?1:cd ..}\
 %{nil}
 
 # install bin package
@@ -276,10 +279,8 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %global _use_internal_dependency_generator 0\
 %global __find_provides %{_rpmconfigdir}/ghc-deps.sh --provides %{buildroot}%{ghclibdir}\
 %global __find_requires %{_rpmconfigdir}/ghc-deps.sh --requires %{buildroot}%{ghclibdir}\
-%{?1:cd %1-%2}\
 %cabal_install\
 %cabal_pkg_conf\
-%{?1:cd ..}\
 %ghc_gen_filelists\
 %{!?1:%ghc_strip_dynlinked}\
 %{nil}

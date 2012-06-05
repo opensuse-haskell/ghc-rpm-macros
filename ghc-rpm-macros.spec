@@ -60,11 +60,14 @@ EOF
 
 
 %changelog
-* Fri May 25 2012 Jens Petersen <petersen@redhat.com> - 0.91-1
-- only  build ghci .o library files on ghc_arches_with_ghci
+* Tue Jun  5 2012 Jens Petersen <petersen@redhat.com> - 0.91-1
+- only build ghci .o library files on ghc_arches_with_ghci
 - support meta packages like haskell-platform without base lib files
 - make it possible not to have to use common_summary and common_description
 - rename ghc_binlib_package to ghc_lib_subpackage
+- add ghc_lib_build_without_haddock
+- no longer drop into package dirs when subpackaging with ghc_lib_build and
+  ghc_lib_install
 
 * Mon Mar 19 2012 Jens Petersen <petersen@redhat.com> - 0.90-1
 - use new rpm metadata hash format for ghc-7.4
