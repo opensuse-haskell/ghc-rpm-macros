@@ -21,10 +21,7 @@ fi
 # configure
 %cabal_configure\
 %ghc_check_bootstrap\
-%ifnarch %{ghc_arches_with_ghci}\
-%define disable_library_for_ghci --disable-library-for-ghci\
-%endif\
-%cabal configure --prefix=%{_prefix} --libdir=%{_libdir} --docdir=%{_docdir}/%{name}-%{version} %{?pkg_name:--htmldir=%{ghclibdocdir}/%{pkg_name}-%{version}} --libsubdir='$compiler/$pkgid' --ghc %{!?ghc_without_shared:--enable-shared} %{!?ghc_without_dynamic:--enable-executable-dynamic} %{?disable_library_for_ghci} %{?cabal_configure_options}
+%cabal configure --prefix=%{_prefix} --libdir=%{_libdir} --docdir=%{_docdir}/%{name}-%{version} %{?pkg_name:--htmldir=%{ghclibdocdir}/%{pkg_name}-%{version}} --libsubdir='$compiler/$pkgid' --ghc %{!?ghc_without_shared:--enable-shared} %{!?ghc_without_dynamic:--enable-executable-dynamic} %{!?ghc_with_lib_for_ghci:--disable-library-for-ghci} %{?cabal_configure_options} $cabal_configure_extra_options
 
 # install
 %cabal_install %cabal copy --destdir=%{buildroot} -v
@@ -261,7 +258,7 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 
 # ghc_lib_build [name] [version]
 %ghc_lib_build()\
-%ghc_lib_build_without_haddock()\
+%ghc_lib_build_without_haddock\
 %if %{undefined without_haddock}\
 %cabal haddock %{!?without_hscolour:%(if [ -x %{_bindir}/HsColour ]; then echo --hyperlink-source; fi)}\
 %endif\
