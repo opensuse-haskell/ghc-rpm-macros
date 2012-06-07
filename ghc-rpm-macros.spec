@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.91
+Version:        0.92
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -60,6 +60,11 @@ EOF
 
 
 %changelog
+* Thu Jun  7 2012 Jens Petersen <petersen@redhat.com> - 0.92-1
+- move --disable-library-for-ghci to ghc_lib_build
+- revert back to fallback behaviour for common_summary and common_description
+  since it is needed for ghc and haskell-platform subpackaging
+
 * Tue Jun  5 2012 Jens Petersen <petersen@redhat.com> - 0.91-1
 - no longer build redundant ghci .o library files
 - support meta packages like haskell-platform without base lib files
