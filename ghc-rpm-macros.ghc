@@ -135,7 +135,7 @@ Group:          System Environment/Libraries\
 %{?ghc_pkg_obsoletes:Obsoletes:      %(echo "%{ghc_pkg_obsoletes}" | sed -e "s/\\(ghc-[^, ]*\\)-devel/\\1/g")}
 
 # ghc_description [name] [version]
-%ghc_description\
+%ghc_description()\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define basepkg ghc-%{pkgname}\
 %description -n %{basepkg}\
@@ -202,7 +202,7 @@ Provides:       %{basepkg}-prof = %{pkgver}-%{release}\
 %endif
 
 # ghc_devel_description
-%ghc_devel_description\
+%ghc_devel_description()\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define basepkg ghc-%{pkgname}\
 %description -n %{basepkg}-devel\
@@ -211,7 +211,7 @@ Provides:       %{basepkg}-prof = %{pkgver}-%{release}\
 This package contains the development files.
 
 # ghc_devel_post_postun
-%ghc_devel_post_postun\
+%ghc_devel_post_postun()\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define basepkg ghc-%{pkgname}\
 %post -n %{basepkg}-devel\

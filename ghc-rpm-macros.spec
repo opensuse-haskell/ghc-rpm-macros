@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.93
+Version:        0.94
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -60,6 +60,10 @@ EOF
 
 
 %changelog
+* Thu Jun  7 2012 Jens Petersen <petersen@redhat.com> - 0.94-1
+- allow ghc_description, ghc_devel_description, ghc_devel_post_postun
+  to take args
+
 * Thu Jun  7 2012 Jens Petersen <petersen@redhat.com> - 0.93-1
 - fix doc handling of subpackages for ghc_without_shared
 
