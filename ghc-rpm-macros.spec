@@ -64,6 +64,7 @@ EOF
 - move --disable-library-for-ghci to ghc_lib_build
 - revert back to fallback behaviour for common_summary and common_description
   since it is needed for ghc and haskell-platform subpackaging
+- without ghc_exclude_docdir include doc dir also for subpackages
 
 * Tue Jun  5 2012 Jens Petersen <petersen@redhat.com> - 0.91-1
 - no longer build redundant ghci .o library files
