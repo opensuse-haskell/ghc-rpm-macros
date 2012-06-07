@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.92
+Version:        0.93
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -60,6 +60,9 @@ EOF
 
 
 %changelog
+* Thu Jun  7 2012 Jens Petersen <petersen@redhat.com> - 0.93-1
+- fix doc handling of subpackages for ghc_without_shared
+
 * Thu Jun  7 2012 Jens Petersen <petersen@redhat.com> - 0.92-1
 - move --disable-library-for-ghci to ghc_lib_build
 - revert back to fallback behaviour for common_summary and common_description
