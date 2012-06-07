@@ -21,7 +21,7 @@ fi
 # configure
 %cabal_configure\
 %ghc_check_bootstrap\
-%cabal configure --prefix=%{_prefix} --libdir=%{_libdir} --docdir=%{_docdir}/%{name}-%{version} %{?pkg_name:--htmldir=%{ghclibdocdir}/%{pkg_name}-%{version}} --libsubdir='$compiler/$pkgid' --ghc %{!?ghc_without_shared:--enable-shared} %{!?ghc_without_dynamic:--enable-executable-dynamic} %{!?ghc_with_lib_for_ghci:--disable-library-for-ghci} %{?cabal_configure_options} $cabal_configure_extra_options
+%cabal configure --prefix=%{_prefix} --libdir=%{_libdir} --docdir=%{_docdir}/%{name}-%{version} %{?pkg_name:--htmldir=%{ghclibdocdir}/%{pkg_name}-%{version}} --libsubdir='$compiler/$pkgid' --ghc %{!?ghc_without_dynamic:--enable-executable-dynamic} %{?cabal_configure_options} $cabal_configure_extra_options
 
 # install
 %cabal_install %cabal copy --destdir=%{buildroot} -v
@@ -128,7 +128,7 @@ Requires:       ghc-%{?pkg_name}%{!?pkg_name:%{pkgname}} = %{?pkgver}%{!?pkgver:
 %define pkgver %{?2}%{!?2:%{version}}\
 %define basepkg ghc-%{pkgname}\
 %package -n %{basepkg}\
-%{?common_summary:Summary:        %{common_summary}}\
+Summary:        %{?common_summary}%{!?common_summary:Haskell %{pkgname} library}\
 Group:          System Environment/Libraries\
 %{?1:Version:        %{pkgver}}\
 %{-l:License:        %{-l*}}\
@@ -139,11 +139,9 @@ Group:          System Environment/Libraries\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define basepkg ghc-%{pkgname}\
 %description -n %{basepkg}\
-%if %{defined common_description}\
-%{common_description}\
+%{?common_description}%{!?common_description:Haskell %{pkgname} library.}\
 %if %{defined ghc_version} && %{undefined ghc_without_shared}\
 This package provides the shared library.\
-%endif\
 %endif
 
 # ghc_lib_subpackage [-c cdepslist] [-h pkgdepslist] [-l licensetag] [-x] [name] [version]
@@ -187,7 +185,7 @@ This package provides the shared library.\
 %define pkgver %{?2}%{!?2:%{version}}\
 %define basepkg ghc-%{pkgname}\
 %package -n %{basepkg}-devel\
-%{?common_summary:Summary:        %{common_summary} development files}\
+Summary:        %{?common_summary}%{!?common_summary:Haskell %{pkgname} library} development files\
 Group:          Development/Libraries\
 %{?1:Version:        %{pkgver}}\
 %{-l:License:        %{-l*}}\
@@ -208,11 +206,9 @@ Provides:       %{basepkg}-prof = %{pkgver}-%{release}\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define basepkg ghc-%{pkgname}\
 %description -n %{basepkg}-devel\
-%if %{defined common_description}\
-%{common_description}\
+%{?common_description}%{!?common_description:Haskell %{pkgname} library.}\
 \
-This package contains the development files.\
-%endif
+This package contains the development files.
 
 # ghc_devel_post_postun
 %ghc_devel_post_postun\
@@ -252,7 +248,7 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 # ghc_lib_build_without_haddock [name] [version]
 %ghc_lib_build_without_haddock()\
 %global debug_package %{nil}\
-%cabal_configure %{!?without_prof:-p} %{?1:--docdir=%{_docdir}/ghc-%1-%2 --htmldir=%{ghclibdocdir}/%1-%2}\
+%cabal_configure %{!?without_prof:-p} %{!?ghc_without_shared:--enable-shared} %{?1:--docdir=%{_docdir}/ghc-%1-%2 --htmldir=%{ghclibdocdir}/%1-%2} %{!?ghc_with_lib_for_ghci:--disable-library-for-ghci}\
 %cabal build\
 %{nil}
 
