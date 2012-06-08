@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.95.1
+Version:        0.95.2
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -60,6 +60,9 @@ EOF
 
 
 %changelog
+* Fri Jun  8 2012 Jens Petersen <petersen@redhat.com> - 0.95.2-1
+- ghc-deps.sh: look in buildroot package.conf.d for program deps
+
 * Fri Jun  8 2012 Jens Petersen <petersen@redhat.com> - 0.95.1-1
 - add a meta-package option to ghc_devel_package and use in ghc_devel_requires
 
