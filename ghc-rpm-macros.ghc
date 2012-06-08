@@ -102,7 +102,7 @@ install --mode=0644 %{pkgnamever}.conf %{buildroot}%{ghclibdir}/package.conf.d\
 %ghc_devel_requires Requires:       ghc-compiler = %{ghc_version}\
 Requires(post): ghc-compiler = %{ghc_version}\
 Requires(postun): ghc-compiler = %{ghc_version}\
-%if %{undefined ghc_without_shared}\
+%if %{undefined ghc_without_shared} && 0%{!?-m:1}\
 Requires:       ghc-%{?pkg_name}%{!?pkg_name:%{pkgname}} = %{?pkgver}%{!?pkgver:%{version}}-%{release}\
 %endif
 
@@ -179,8 +179,9 @@ This package provides the shared library.\
 %ghc_devel_files\
 %{nil}
 
-# ghc_devel_package [-c cdepslist] [-h pkgdepslist] [-l licensetag] [name] [version]
-%ghc_devel_package(c:h:l:)\
+# ghc_devel_package [-c cdepslist] [-h pkgdepslist] [-l licensetag] [-m] [name] [version]
+#  -m : meta-package
+%ghc_devel_package(c:h:l:m)\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define pkgver %{?2}%{!?2:%{version}}\
 %define basepkg ghc-%{pkgname}\
