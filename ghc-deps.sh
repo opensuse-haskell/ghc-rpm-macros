@@ -69,8 +69,11 @@ for i in $files; do
     elif [ "$MODE" = "--requires" ]; then
 	if file $i | grep -q 'executable, .* dynamically linked'; then
 	    BIN_DEPS=$(ldd $i | grep libHS | grep -v libHSrts | sed -e "s%^\\tlibHS\(.*\)-ghc${GHCVERSION}.so =.*%\1%")
+	    if [ -d "$PKGCONFDIR" ]; then
+		PACKAGE_CONF_OPT="--package-conf=$PKGCONFDIR"
+	    fi
 	    for p in ${BIN_DEPS}; do
-		HASH=$(${GHC_PKG} --global --package-conf=$PKGCONFDIR field $p id | sed -e "s/^id: \+//")
+		HASH=$(${GHC_PKG} --global $PACKAGE_CONF_OPT field $p id | sed -e "s/^id: \+//")
 		echo "ghc($HASH)"
 	    done
 	fi
