@@ -19,6 +19,7 @@ Source0:        ghc-rpm-macros.ghc
 Source1:        COPYING
 Source2:        AUTHORS
 Source3:        ghc-deps.sh
+Source4:        cabal-tweak-dep-ver
 Requires:       redhat-rpm-config
 
 %description
@@ -41,6 +42,8 @@ install -p -D -m 0644 %{SOURCE0} ${RPM_BUILD_ROOT}/%{macros_file}
 
 install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
 
+install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
+
 # this is why this package is now arch-dependent:
 # turn off shared libs and dynamic linking on secondary archs
 %ifnarch %{ix86} x86_64
@@ -57,11 +60,12 @@ EOF
 %doc COPYING AUTHORS
 %config(noreplace) %{macros_file}
 %{_prefix}/lib/rpm/ghc-deps.sh
+%{_bindir}/cabal-tweak-dep-ver
 
 
 %changelog
 * Fri Jun 22 2012 Jens Petersen <petersen@redhat.com> - 0.95.4-1
-- add cabal_tweak_dep_ver macro to tweak a depend's version bound in .cabal
+- new cabal-tweak-dep-ver script to tweak depends version bounds in .cabal
 
 * Sat Jun  9 2012 Jens Petersen <petersen@redhat.com> - 0.95.3-1
 - ghc-dep.sh: only use buildroot package.conf.d if it exists
