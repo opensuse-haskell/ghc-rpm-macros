@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.95.4.1
+Version:        0.95.5
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -64,9 +64,11 @@ EOF
 
 
 %changelog
-* Fri Jun 22 2012 Jens Petersen <petersen@redhat.com> - 0.95.4.1-1
-- cabal-tweak-dep-ver: show file name when no match
-- cabal-tweak-dep-ver: backslash quote . and * in the match string
+* Fri Jun 22 2012 Jens Petersen <petersen@redhat.com> - 0.95.5-1
+- some cabal-tweak-dep-ver improvements:
+- show file name when no match
+- backslash quote . and * in the match string
+- create a backup file if none exists
 
 * Fri Jun 22 2012 Jens Petersen <petersen@redhat.com> - 0.95.4-1
 - new cabal-tweak-dep-ver script to tweak depends version bounds in .cabal
