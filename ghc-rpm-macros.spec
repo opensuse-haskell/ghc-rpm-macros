@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.95.5
+Version:        0.95.5.1
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -64,6 +64,10 @@ EOF
 
 
 %changelog
+* Fri Jun 22 2012 Jens Petersen <petersen@redhat.com> - 0.95.5.1-1
+- cabal-tweak-dep-ver: be careful only to match complete dep name and
+  do not match beyond ","
+
 * Fri Jun 22 2012 Jens Petersen <petersen@redhat.com> - 0.95.5-1
 - some cabal-tweak-dep-ver improvements:
 - show file name when no match
