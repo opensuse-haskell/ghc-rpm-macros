@@ -3,7 +3,7 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.95.3
+Version:        0.95.4
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -60,6 +60,9 @@ EOF
 
 
 %changelog
+* Fri Jun 22 2012 Jens Petersen <petersen@redhat.com> - 0.95.4-1
+- add cabal_tweak_dep_ver macro to tweak a depend's version bound in .cabal
+
 * Sat Jun  9 2012 Jens Petersen <petersen@redhat.com> - 0.95.3-1
 - ghc-dep.sh: only use buildroot package.conf.d if it exists
 

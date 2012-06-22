@@ -18,6 +18,14 @@ proceeding, to avoid dependency ABI breakage from a future ghc rebuild."\
 %endif\
 fi
 
+# tweak depends versions
+# cabal_tweak_dep_ver dep old new [backup]
+%cabal_tweak_dep_ver()\
+if ! grep -q "%1[ >=].*%2"; then\
+   exit 1\
+fi\
+sed -i.%{?3}%{!?3:%1} -e "s/\(%1[ >=].*\)%2/\1%3/g" %{pkg_name}-%{version}/%{pkg_name}.cabal
+
 # configure
 %cabal_configure\
 %ghc_check_bootstrap\
