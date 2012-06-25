@@ -197,6 +197,7 @@ Group:          Development/Libraries\
 %{?ghc_pkg_obsoletes:Obsoletes:      %{ghc_pkg_obsoletes}}\
 %{?ghc_pkg_obsoletes:Obsoletes:      %(echo "%{ghc_pkg_obsoletes}" | sed -e "s/\\(ghc-[^, ]*\\)-devel/\\1-doc/g")}\
 Obsoletes:      %{basepkg}-doc < %{pkgver}-%{release}\
+Provides:       %{basepkg}-doc = %{pkgver}-%{release}\
 Obsoletes:      %{basepkg}-prof < %{pkgver}-%{release}\
 %if %{undefined without_prof}\
 Provides:       %{basepkg}-prof = %{pkgver}-%{release}\
