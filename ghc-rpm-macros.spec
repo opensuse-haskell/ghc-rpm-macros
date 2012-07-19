@@ -4,7 +4,7 @@
 
 Name:           ghc-rpm-macros
 Version:        0.95.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Macros for building packages for GHC
 
 Group:          Development/Libraries
@@ -64,6 +64,9 @@ EOF
 
 
 %changelog
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.95.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Mon Jun 25 2012 Jens Petersen <petersen@redhat.com> - 0.95.6-1
 - provide doc from devel a little longer to silence rpmlint
 
