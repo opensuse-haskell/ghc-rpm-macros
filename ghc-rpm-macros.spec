@@ -11,10 +11,10 @@ Group:          Development/Libraries
 License:        GPLv3
 URL:            https://fedoraproject.org/wiki/Haskell_SIG
 
-# This is a Fedora maintained package which is specific to
-# our distribution.  Thus the source is only available from
-# within this srpm.  But it could be moved to fedorahosted.org
-# if other rpm distros want to use it.
+# This is a Fedora maintained package, originally made for
+# the distribution.  Hence the source is currently only available
+# from this package.  But it could be hosted on fedorahosted.org
+# for example if other rpm distros would prefer that.
 Source0:        ghc-rpm-macros.ghc
 Source1:        COPYING
 Source2:        AUTHORS
