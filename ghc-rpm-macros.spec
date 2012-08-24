@@ -3,8 +3,8 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 Name:           ghc-rpm-macros
-Version:        0.95.6
-Release:        2%{?dist}
+Version:        0.96
+Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
 Group:          Development/Libraries
@@ -64,6 +64,10 @@ EOF
 
 
 %changelog
+* Fri Aug 24 2012 Jens Petersen <petersen@redhat.com> - 0.96-1
+- make haddock build hoogle files
+- Fedora ghc-7.4.2 Cabal will not build ghci lib files by default
+
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.95.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
