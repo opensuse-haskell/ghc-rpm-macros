@@ -26,7 +26,8 @@ Source4:        cabal-tweak-dep-ver
 Requires:       redhat-rpm-config
 %if %{undefined without_hscolour}
 ExclusiveArch:  %{ghc_arches}
-BuildRequires:  ghc-rpm-macros, hscolour
+BuildRequires:  ghc-rpm-macros
+BuildRequires:  hscolour
 Requires:       hscolour
 %endif
 
@@ -69,6 +70,8 @@ cat >> %{buildroot}/%{macros_file} <<EOF
 # bootstrap
 %%without_hscolour 1
 EOF
+%endif
+
 
 %files
 %doc COPYING AUTHORS
