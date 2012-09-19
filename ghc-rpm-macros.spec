@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        0.97
+Version:        0.97.1
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -81,6 +81,10 @@ EOF
 
 
 %changelog
+* Wed Sep 19 2012 Jens Petersen <petersen@redhat.com> - 0.97.1-1
+- fix broken duplicate hash output for haskell-platform binaries buildhack
+  when haskell-platform locally installed
+
 * Sat Sep  8 2012 Jens Petersen <petersen@redhat.com> - 0.97-1
 - ghc-rpm-macros now requires hscolour so packages no longer need to BR it
 - this can be disabled for bootstrapping by setting without_hscolour
