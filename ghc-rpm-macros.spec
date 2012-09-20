@@ -7,7 +7,7 @@
 
 Name:           ghc-rpm-macros
 Version:        0.97.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Macros for building packages for GHC
 
 Group:          Development/Libraries
@@ -27,7 +27,6 @@ Requires:       redhat-rpm-config
 %if %{undefined without_hscolour}
 ExclusiveArch:  %{ghc_arches}
 BuildRequires:  ghc-rpm-macros
-BuildRequires:  hscolour
 Requires:       hscolour
 %endif
 
@@ -81,6 +80,9 @@ EOF
 
 
 %changelog
+* Thu Sep 20 2012 Jens Petersen <petersen@redhat.com> - 0.97.1-2
+- no need to BR hscolour
+
 * Wed Sep 19 2012 Jens Petersen <petersen@redhat.com> - 0.97.1-1
 - fix broken duplicate hash output for haskell-platform binaries buildhack
   when haskell-platform locally installed
