@@ -1,0 +1,26 @@
+#!/bin/sh
+
+PKG=$1
+
+fedpkg clone -a $PKG
+cd $PKG
+
+sudo yum build-depends $PKG
+
+fedpkg local
+
+mkdir -p test
+
+cd $(arch)
+
+PKGS=$(rpm -qp --qf "%{name}\n" *)
+
+sudo yum install $PKGS
+
+for i in $PKGS; do
+  for k in requires provides; do
+    rpm -qp --$k $i*.rpm > ../test/$i.$k.test
+    rpm -q --$k $i > ../test/$i.$k.installed
+    diff -u ../test/$i.$k.installed ../test/$i.$k.test > ../$i.$k.diff
+  done
+done

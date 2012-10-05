@@ -4,6 +4,8 @@
 
 # uncomment to bootstrap without hscolour
 #%%global without_hscolour 1
+# uncomment to unbootstrap hscolour on again
+#%%undefine without_hscolour
 
 Name:           ghc-rpm-macros
 Version:        0.97.1
