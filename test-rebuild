@@ -10,14 +10,14 @@ if [ -n "$2" ]; then
   fedpkg switch-branch $2
 fi
 
-sudo yum builddep $PKG.spec
+sudo yum-builddep $PKG.spec
 fedpkg local
 
 mkdir -p test
 
 cd $(arch)
 
-PKGS=$(rpm -qp --qf "%{name}\n" *)
+PKGS=$(rpm -qp --qf "%{name}-%{version}\n" *)
 
 sudo yum install $PKGS
 
