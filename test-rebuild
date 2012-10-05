@@ -13,7 +13,10 @@ fi
 sudo yum-builddep $PKG.spec
 fedpkg local
 
-mkdir -p test
+TMP=test-tmp
+
+rm -r $TMP/
+mkdir $TMP/
 
 cd $(arch)
 
@@ -23,8 +26,8 @@ sudo yum install $PKGS
 
 for i in $PKGS; do
   for k in requires provides; do
-    rpm -qp --$k $(ls $i*.rpm | head) > ../test/$i.$k.test
-    rpm -q --$k $i > ../test/$i.$k.installed
-    diff -u ../test/$i.$k.installed ../test/$i.$k.test > ../$i.$k.diff
+    rpm -qp --$k $(ls -t $i*.rpm | head) > ../$TMP/$i.$k.test
+    rpm -q --$k $i > ../$TMP/$i.$k.installed
+    diff -u --exclude="rpmlib(FileDigests)" ../$TMP/$i.$k.installed ../$TMP/$i.$k.test > ../$k.$i.diff
   done
 done
