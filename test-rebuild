@@ -2,11 +2,11 @@
 
 PKG=$1
 
-fedpkg clone -a $PKG
-cd $PKG
+[ -d "$PKG" -o -f "$PKG.spec" ] || fedpkg clone -a $PKG
 
-sudo yum builddep $PKG
+[ -d "$PKG" ] && cd $PKG
 
+sudo yum builddep $PKG.spec
 fedpkg local
 
 mkdir -p test
