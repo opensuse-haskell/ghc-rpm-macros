@@ -6,6 +6,10 @@ PKG=$1
 
 [ -d "$PKG" ] && cd $PKG
 
+if [ -n "$2" ]; then
+  fedpkg switch-branch $2
+fi
+
 sudo yum builddep $PKG.spec
 fedpkg local
 
