@@ -31,7 +31,7 @@ mkdir -p $TMP/
 
 cd $ARCH
 
-PKGS=$(rpm -qp *-$VERREL)
+PKGS=$(rpm -qp $(ls *-$VERREL*.rpm))
 
 for i in $PKGS; do
   sudo yum install -q $i
