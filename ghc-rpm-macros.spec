@@ -8,8 +8,8 @@
 #%%undefine without_hscolour
 
 Name:           ghc-rpm-macros
-Version:        0.97.1
-Release:        2%{?dist}
+Version:        0.97.2
+Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
 Group:          Development/Libraries
@@ -82,6 +82,9 @@ EOF
 
 
 %changelog
+* Tue Oct  9 2012 Jens Petersen <petersen@redhat.com> - 0.97.2-1
+- "cabal haddock" needs --html option with --hoogle to output html
+
 * Thu Sep 20 2012 Jens Petersen <petersen@redhat.com> - 0.97.1-2
 - no need to BR hscolour
 
