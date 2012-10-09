@@ -37,12 +37,6 @@ for i in $PKGS; do
   for k in list requires provides; do
     rpm -qp --$k $i.rpm | grep -v rpmlib > ../$TMP/$i.$k.test
     rpm -q --$k $i | grep -v rpmlib > ../$TMP/$i.$k.installed
-    DIFF=$(diff -u ../$TMP/$i.$k.installed ../$TMP/$i.$k.test || :)
-    if [ -z "$DIFF" ]; then
-	echo "$i $k: same"
-    else
-	echo $DIFF
-	echo $DIFF > ../$k.$i.diff
-    fi
+    diff -u ../$TMP/$i.$k.installed ../$TMP/$i.$k.test || :
   done
 done
