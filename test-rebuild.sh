@@ -29,15 +29,13 @@ TMP=test-tmp
 
 mkdir -p $TMP/
 
-cd $ARCH
-
-PKGS=$(rpm -qp $(ls *-$VERREL*.rpm))
+PKGS=$(cd $ARCH; rpm -qp $(ls *-$VERREL*.rpm))
 
 for i in $PKGS; do
   sudo yum install -q $i
   for k in list requires provides; do
-    rpm -qp --$k $i.rpm | grep -v rpmlib > ../$TMP/$i.$k.test
-    rpm -q --$k $i | grep -v rpmlib > ../$TMP/$i.$k.installed
-    diff -u ../$TMP/$i.$k.installed ../$TMP/$i.$k.test || :
+    rpm -qp --$k $ARCH/$i.rpm | grep -v rpmlib > $TMP/$i.$k.test
+    rpm -q --$k $i | grep -v rpmlib > $TMP/$i.$k.installed
+    diff -u $TMP/$i.$k.installed $TMP/$i.$k.test || :
   done
 done
