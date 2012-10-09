@@ -31,9 +31,8 @@ cd $ARCH
 
 PKGS=$(rpm -qp *)
 
-sudo yum install $PKGS
-
 for i in $PKGS; do
+  sudo yum install $i
   for k in list requires provides; do
     rpm -qp --$k $i.rpm | grep -v rpmlib > ../$TMP/$i.$k.test
     rpm -q --$k $i | grep -v rpmlib > ../$TMP/$i.$k.installed
