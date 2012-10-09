@@ -2,7 +2,7 @@
 
 set -e
 
-PKG=$1
+PKG=${1:-$(fedpkg gimmespec | sed -e "s/.spec//")}
 
 [ -d "$PKG" -o -f "$PKG.spec" ] || fedpkg clone -a $PKG
 
