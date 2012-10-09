@@ -34,7 +34,7 @@ cd $ARCH
 PKGS=$(rpm -qp *-$VERREL)
 
 for i in $PKGS; do
-  sudo yum install $i
+  sudo yum install -q $i
   for k in list requires provides; do
     rpm -qp --$k $i.rpm | grep -v rpmlib > ../$TMP/$i.$k.test
     rpm -q --$k $i | grep -v rpmlib > ../$TMP/$i.$k.installed
