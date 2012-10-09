@@ -23,13 +23,13 @@ sudo yum-builddep $PKG.spec
 
 fedpkg local
 
+VERREL=$(fedpkg verrel | sed -e "s/^$PKG-//")
+
 TMP=test-tmp
 
 mkdir -p $TMP/
 
 cd $ARCH
-
-VERREL=$(fedpkg verrel | sed -e "s/^$PKG-//")
 
 PKGS=$(rpm -qp *-$VERREL)
 
