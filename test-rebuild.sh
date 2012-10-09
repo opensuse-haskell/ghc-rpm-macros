@@ -41,8 +41,8 @@ for i in $PKGS; do
     if [ -z "$DIFF" ]; then
 	echo "$i $k: same"
     else
+	echo $DIFF
 	echo $DIFF > ../$k.$i.diff
-	cat ../$k.$i.diff
     fi
   done
 done
