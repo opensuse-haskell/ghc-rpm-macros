@@ -34,8 +34,8 @@ PKGS=$(cd $ARCH; rpm -qp $(ls *-$VERREL*.rpm))
 for i in $PKGS; do
   rpm -q --quiet $i || sudo yum install -q $i
   for k in list requires provides scripts; do
-    rpm -qp --$k $ARCH/$i.rpm | grep -v rpmlib > $TMP/$i.$k.test
-    rpm -q --$k $i | grep -v rpmlib > $TMP/$i.$k.installed
+    rpm -qp --$k $ARCH/$i.rpm | grep -v rpmlib > $TMP/$i.$k.test || :
+    rpm -q --$k $i | grep -v rpmlib > $TMP/$i.$k.installed || :
     diff -u $TMP/$i.$k.installed $TMP/$i.$k.test || :
   done
 done
