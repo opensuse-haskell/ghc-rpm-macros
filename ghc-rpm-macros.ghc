@@ -218,9 +218,19 @@ This package contains the development files.
 %define basepkg ghc-%{pkgname}\
 %post -n %{basepkg}-devel\
 %ghc_pkg_recache\
+if [ -d %{_localstatedir}/lib/rpm-state/ghc/ ]; then\
+  touch %{_localstatedir}/lib/rpm-state/ghc/haddock-reindex\
+fi\
 \
 %postun -n %{basepkg}-devel\
-%ghc_pkg_recache
+%ghc_pkg_recache\
+\
+%posttrans -n %{basepkg}-devel\
+if [ -f %{_localstatedir}/lib/rpm-state/ghc/haddock-reindex ]; then\
+  cd %{ghcdocbasedir}/libraries\
+  ./gen_contents_index\
+  rm %{_localstatedir}/lib/rpm-state/ghc/haddock-reindex\
+fi
 
 # ghc_package_devel [-c cdepslist] [-h pkgdepslist] [-l licensetag] [name] [version]
 %ghc_package_devel(c:h:l:)\
