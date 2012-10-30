@@ -230,13 +230,13 @@ if [ $1 -gt 1 ] ; then\
   fi\
 else\
   cd %{ghcdocbasedir}/libraries\
-  ./gen_contents_index\
+  ./gen_contents_index >/dev/null\
 fi\
 \
 %posttrans -n %{basepkg}-devel\
 if [ -f %{_localstatedir}/lib/rpm-state/ghc/haddock-reindex ]; then\
   cd %{ghcdocbasedir}/libraries\
-  ./gen_contents_index\
+  ./gen_contents_index >/dev/null\
   rm %{_localstatedir}/lib/rpm-state/ghc/haddock-reindex\
 fi
 
