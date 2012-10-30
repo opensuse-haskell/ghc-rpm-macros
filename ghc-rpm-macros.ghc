@@ -224,6 +224,14 @@ fi\
 \
 %postun -n %{basepkg}-devel\
 %ghc_pkg_recache\
+if [ $1 -gt 1 ] ; then\
+  if [ -d %{_localstatedir}/lib/rpm-state/ghc/ ]; then\
+    touch %{_localstatedir}/lib/rpm-state/ghc/haddock-reindex\
+  fi\
+else\
+  cd %{ghcdocbasedir}/libraries\
+  ./gen_contents_index\
+fi\
 \
 %posttrans -n %{basepkg}-devel\
 if [ -f %{_localstatedir}/lib/rpm-state/ghc/haddock-reindex ]; then\

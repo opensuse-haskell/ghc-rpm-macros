@@ -73,8 +73,8 @@ EOF
 
 %changelog
 * Mon Oct 29 2012 Jens Petersen <petersen@redhat.com> - 0.98-1
-- gen_contents_index is now run once from posttrans (#870694)
-  http://fedoraproject.org/wiki/Packaging:ScriptletSnippets#Saving_state_between_scriptlets
+- gen_contents_index is now run once from posttrans or after removal (#870694)
+  see http://fedoraproject.org/wiki/Packaging:ScriptletSnippets#Saving_state_between_scriptlets
 
 * Thu Oct 25 2012 Jens Petersen <petersen@redhat.com> - 0.97.3-1
 - BR redhat-rpm-config instead of ghc-rpm-macros
