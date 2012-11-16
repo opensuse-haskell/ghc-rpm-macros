@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        0.98
+Version:        0.97.3
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -72,10 +72,6 @@ EOF
 
 
 %changelog
-* Mon Oct 29 2012 Jens Petersen <petersen@redhat.com> - 0.98-1
-- gen_contents_index is now run once from posttrans or after removal (#870694)
-  see http://fedoraproject.org/wiki/Packaging:ScriptletSnippets#Saving_state_between_scriptlets
-
 * Thu Oct 25 2012 Jens Petersen <petersen@redhat.com> - 0.97.3-1
 - BR redhat-rpm-config instead of ghc-rpm-macros
 - no longer set without_hscolour in macros.ghc for bootstrapping
