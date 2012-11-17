@@ -3,10 +3,10 @@
 %global macros_file %{_sysconfdir}/rpm/macros.ghc
 
 # uncomment to bootstrap without hscolour
-%global without_hscolour 1
+#%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        0.97.3.1
+Version:        0.97.4
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -72,6 +72,9 @@ EOF
 
 
 %changelog
+* Sat Nov 17 2012 Jens Petersen <petersen@redhat.com> - 0.97.4-1
+- enable hscolour again
+
 * Sat Nov 17 2012 Jens Petersen <petersen@redhat.com> - 0.97.3.1-1
 - bootstrap hscolour
 
