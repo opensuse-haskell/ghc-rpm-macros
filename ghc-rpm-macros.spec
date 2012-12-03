@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        0.97.4
+Version:        0.97.5
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -23,6 +23,7 @@ Source1:        COPYING
 Source2:        AUTHORS
 Source3:        ghc-deps.sh
 Source4:        cabal-tweak-dep-ver
+Source5:        cabal-tweak-flag
 Requires:       redhat-rpm-config
 %if %{undefined without_hscolour}
 BuildRequires:  redhat-rpm-config
@@ -51,6 +52,7 @@ install -p -D -m 0644 %{SOURCE0} ${RPM_BUILD_ROOT}/%{macros_file}
 install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
 
 install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
+install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 
 # this is why this package is now arch-dependent:
 # turn off shared libs and dynamic linking on secondary archs
@@ -69,9 +71,13 @@ EOF
 %config(noreplace) %{macros_file}
 %{_prefix}/lib/rpm/ghc-deps.sh
 %{_bindir}/cabal-tweak-dep-ver
+%{_bindir}/cabal-tweak-flag
 
 
 %changelog
+* Mon Dec  3 2012 Jens Petersen <petersen@redhat.com> - 0.97.5-1
+- add cabal-tweak-flag script for toggling flag default
+
 * Sat Nov 17 2012 Jens Petersen <petersen@redhat.com> - 0.97.4-1
 - enable hscolour again
 
