@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        0.97.5
+Version:        0.97.6
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -75,6 +75,9 @@ EOF
 
 
 %changelog
+* Fri Jan 18 2013 Jens Petersen <petersen@redhat.com> - 0.97.6-1
+- be more careful about library pkgdir ownership (#893777)
+
 * Mon Dec  3 2012 Jens Petersen <petersen@redhat.com> - 0.97.5-1
 - add cabal-tweak-flag script for toggling flag default
 
