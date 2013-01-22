@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        0.98
+Version:        0.98.1
 Release:        1%{?dist}
 Summary:        Macros for building packages for GHC
 
@@ -75,6 +75,9 @@ EOF
 
 
 %changelog
+* Tue Jan 22 2013 Jens Petersen <petersen@redhat.com> - 0.98.1-1
+- simplify cabal-tweak-flag script to take one flag value
+
 * Mon Jan 21 2013 Jens Petersen <petersen@redhat.com> - 0.98-1
 - new ghc_fix_dynamic_rpath macro for cleaning up package executables
   linked against their own libraries
