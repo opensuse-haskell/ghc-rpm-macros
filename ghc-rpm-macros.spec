@@ -7,7 +7,7 @@
 
 Name:           ghc-rpm-macros
 Version:        0.98.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Macros for building packages for GHC
 
 Group:          Development/Libraries
@@ -75,6 +75,9 @@ EOF
 
 
 %changelog
+* Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.98.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Tue Jan 22 2013 Jens Petersen <petersen@redhat.com> - 0.98.1-1
 - simplify cabal-tweak-flag script to take one flag value
 
