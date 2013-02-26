@@ -42,12 +42,12 @@ fi
 %define pkgdir %{ghclibdir}/%{pkgnamever}\
 %define docdir %{ghclibdocdir}/%{pkgnamever}\
 rm -f %{basepkg}.files %{basepkg}-devel.files\
+if [ -d "%{buildroot}%{pkgdir}" ]; then\
 echo "%dir %{pkgdir}" >> %{basepkg}%{?ghc_without_shared:-devel}.files\
 %if %{undefined ghc_without_shared}\
-if [ -d "%{buildroot}%{pkgdir}" ]; then\
 echo "%attr(755,root,root) %{pkgdir}/libHS%{pkgnamever}-ghc%{ghc_version}.so" >> %{basepkg}.files\
-fi\
 %endif\
+fi\
 %if %{defined ghc_without_shared}\
 if [ "%{name}" = "%{basepkg}" -o -n "%{?1}" ]; then\
   if [ -d "%{buildroot}%{_docdir}/%{basepkg}-%{pkgver}" ]; then\
