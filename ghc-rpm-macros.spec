@@ -7,7 +7,7 @@
 
 Name:           ghc-rpm-macros
 Version:        0.98.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Macros for building packages for GHC
 
 Group:          Development/Libraries
@@ -75,6 +75,12 @@ EOF
 
 
 %changelog
+* Tue Feb 26 2013 Jens Petersen <petersen@redhat.com> - 0.98.1-3
+- only add lib pkgdir to filelist if it exists
+  to fix haskell-platform build on secondary archs (no shared libs)
+- add ghc_with_lib_for_ghci which re-enables ghci library .o files
+  (should not normally be necessary since ghci can load .a files)
+
 * Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.98.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
