@@ -7,7 +7,7 @@
 
 Name:           ghc-rpm-macros
 Version:        0.98.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Macros for building packages for GHC
 
 Group:          Development/Libraries
@@ -68,13 +68,17 @@ EOF
 
 %files
 %doc COPYING AUTHORS
-%config(noreplace) %{macros_file}
+%{macros_file}
 %{_prefix}/lib/rpm/ghc-deps.sh
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-flag
 
 
 %changelog
+* Wed Mar 20 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.98.1-4
+- Remove %%config from %%{_sysconfdir}/rpm/macros.*
+  (https://fedorahosted.org/fpc/ticket/259).
+
 * Tue Feb 26 2013 Jens Petersen <petersen@redhat.com> - 0.98.1-3
 - only add lib pkgdir to filelist if it exists
   to fix haskell-platform build on secondary archs (no shared libs)
