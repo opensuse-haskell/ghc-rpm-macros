@@ -14,7 +14,7 @@ PKGCONFDIR=$PKGBASEDIR/package.conf.d
 GHC_VER=$(basename $PKGBASEDIR | sed -e s/ghc-//)
 
 if [ ! -x "/usr/bin/ghc-pkg-${GHC_VER}" -a -x "$PKGBASEDIR/ghc-pkg" ]; then
-    GHC_PKG="$PKGBASEDIR/ghc-pkg --global-conf=$PKGCONFDIR"
+    GHC_PKG="$PKGBASEDIR/ghc-pkg --global-package-db=$PKGCONFDIR"
 else
     GHC_PKG="/usr/bin/ghc-pkg"
 fi

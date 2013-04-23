@@ -2,7 +2,7 @@
 # see https://fedoraproject.org/wiki/Packaging:Haskell for more details
 
 # "cabal"
-%cabal [ -x Setup ] || ghc --make %{!?ghc_user_conf:-no-user-package-conf} %{!?ghc_without_dynamic:-dynamic} Setup\
+%cabal [ -x Setup ] || ghc --make %{!?ghc_user_conf:--no-user-package-db} %{!?ghc_without_dynamic:-dynamic} Setup\
 ./Setup
 
 # check ghc version was rebuilt against self
@@ -83,7 +83,7 @@ Requires(post): ghc-compiler = %{ghc_version}\
 Requires(postun): ghc-compiler = %{ghc_version}\
 Requires:       ghc-%{?pkg_name}%{!?pkg_name:%{pkgname}} = %{?pkgver}%{!?pkgver:%{version}}-%{release}
 
-%ghc_pkg_recache %{_bindir}/ghc-pkg recache --no-user-package-conf || :
+%ghc_pkg_recache %{_bindir}/ghc-pkg recache --no-user-package-db || :
 
 # ghc_strip_dynlinked
 %ghc_strip_dynlinked\

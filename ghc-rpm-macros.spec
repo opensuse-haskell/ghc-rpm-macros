@@ -96,6 +96,8 @@ EOF
 - move spec section metamacros and multiple library packaging macros still
   needed for ghc and haskell-platform to new extra subpackage
 - drop ghc_add_basepkg_file macro and ghc_exclude_docdir
+- for ghc-7.6 --global-package-db replaces --global-conf and
+  --no-user-package-db deprecates --no-user-package-conf
 
 * Wed Mar 20 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.98.1-4
 - Remove %%config from %%{_sysconfdir}/rpm/macros.*
