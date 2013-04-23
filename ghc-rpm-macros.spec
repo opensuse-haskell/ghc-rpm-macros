@@ -1,16 +1,15 @@
 %global debug_package %{nil}
 
-%global macros_file %{_sysconfdir}/rpm/macros.ghc
+%global macros_dir %{_sysconfdir}/rpm
 
 # uncomment to bootstrap without hscolour
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        0.98.1
-Release:        4%{?dist}
-Summary:        Macros for building packages for GHC
+Version:        0.99
+Release:        1%{?dist}
+Summary:        RPM macros for building packages for GHC
 
-Group:          Development/Libraries
 License:        GPLv3
 URL:            https://fedoraproject.org/wiki/Haskell_SIG
 
@@ -24,6 +23,7 @@ Source2:        AUTHORS
 Source3:        ghc-deps.sh
 Source4:        cabal-tweak-dep-ver
 Source5:        cabal-tweak-flag
+Source6:        ghc-rpm-macros.ghc-extra
 Requires:       redhat-rpm-config
 %if %{undefined without_hscolour}
 BuildRequires:  redhat-rpm-config
@@ -37,6 +37,13 @@ of the Fedora Haskell SIG.  ghc needs to be installed in order to make use of
 these macros.
 
 
+%package extra
+Summary:        Extra RPM macros for building Haskell packages with several libs
+Requires:       %{name} = %{version}-%{release}
+
+%description extra
+
+
 %prep
 %setup -c -T
 cp %{SOURCE1} %{SOURCE2} .
@@ -47,7 +54,8 @@ echo no build stage needed
 
 
 %install
-install -p -D -m 0644 %{SOURCE0} ${RPM_BUILD_ROOT}/%{macros_file}
+install -p -D -m 0644 %{SOURCE0} ${RPM_BUILD_ROOT}/%{macros_dir}/macros.ghc
+install -p -D -m 0644 %{SOURCE6} ${RPM_BUILD_ROOT}/%{macros_dir}/macros.ghc-extra
 
 install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
 
@@ -57,7 +65,7 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 # this is why this package is now arch-dependent:
 # turn off shared libs and dynamic linking on secondary archs
 %ifnarch %{ix86} x86_64
-cat >> %{buildroot}/%{macros_file} <<EOF
+cat >> %{buildroot}/%{macros_dir}/macros.ghc <<EOF
 
 # shared libraries are only supported on primary intel archs
 %%ghc_without_dynamic 1
@@ -68,13 +76,27 @@ EOF
 
 %files
 %doc COPYING AUTHORS
-%{macros_file}
+%{macros_dir}/macros.ghc
 %{_prefix}/lib/rpm/ghc-deps.sh
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-flag
 
 
+%files extra
+%{macros_dir}/macros.ghc-extra
+
+
 %changelog
+* Tue Apr 23 2013 Jens Petersen <petersen@redhat.com> - 0.99-1
+- update for simplified revised Haskell Packaging Guidelines
+  (https://fedorahosted.org/fpc/ticket/194)
+- packaging for without_shared is now done the same way as shared
+  to make non-shared arch packages same as shared ones:
+  so all archs will now have base library binary packages
+- move spec section metamacros and multiple library packaging macros still
+  needed for ghc and haskell-platform to new extra subpackage
+- drop ghc_add_basepkg_file macro and ghc_exclude_docdir
+
 * Wed Mar 20 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.98.1-4
 - Remove %%config from %%{_sysconfdir}/rpm/macros.*
   (https://fedorahosted.org/fpc/ticket/259).

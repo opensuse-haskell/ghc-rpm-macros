@@ -1,0 +1,120 @@
+# RPM Macros for packaging Haskell packages with multiple libs  -*-rpm-spec-*-
+
+%ghc_shared_files\
+%files -n %{basepkg} -f %{basepkg}.files\
+%{?base_doc_files:%doc %base_doc_files}\
+%{nil}
+
+# ghc_lib_package [-c cdepslist] [-h pkgdepslist]
+%ghc_lib_package(c:h:)\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define basepkg ghc-%{pkgname}\
+%ghc_shared_files\
+\
+%ghc_package_devel\
+%{nil}
+
+# ghc_package [-l licensetag] [name] [version]
+%ghc_package(l:)\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define pkgver %{?2}%{!?2:%{version}}\
+%define basepkg ghc-%{pkgname}\
+%package -n %{basepkg}\
+Summary:        %{?common_summary}%{!?common_summary:Haskell %{pkgname} library}\
+%{?1:Version:        %{pkgver}}\
+%{-l:License:        %{-l*}}\
+%{?ghc_pkg_obsoletes:Obsoletes:      %(echo "%{ghc_pkg_obsoletes}" | sed -e "s/\\(ghc-[^, ]*\\)-devel/\\1/g")}
+
+# ghc_description [name] [version]
+%ghc_description()\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define basepkg ghc-%{pkgname}\
+%description -n %{basepkg}\
+%{?common_description}%{!?common_description:Haskell %{pkgname} library.}
+
+# ghc_lib_subpackage [-c cdepslist] [-h pkgdepslist] [-l licensetag] [-x] [name] [version]
+%ghc_lib_subpackage(c:h:l:x)\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define pkgver %{?2}%{!?2:%{version}}\
+%define pkgnamever %{pkgname}-%{pkgver}\
+%{!-x:%{?1:%global ghc_packages_list %{?ghc_packages_list} %{pkgnamever}}}\
+%define basepkg ghc-%{pkgname}\
+%ghc_package\
+\
+%ghc_description\
+\
+%ghc_lib_package\
+%{nil}
+
+%ghc_pkg_recache %{_bindir}/ghc-pkg recache --no-user-package-conf || :
+
+# (deprecated) for docs post and postun
+%ghc_reindex_haddock :
+
+%ghc_devel_files\
+%files -n %{basepkg}-devel -f %{basepkg}-devel.files\
+%{?devel_doc_files:%doc %devel_doc_files}\
+%{nil}
+
+%ghc_files()\
+%{?1:%define base_doc_files %*}\
+%define basepkg ghc-%{pkg_name}\
+%ghc_shared_files\
+\
+%ghc_devel_files\
+%{nil}
+
+# ghc_devel_package [-c cdepslist] [-h pkgdepslist] [-l licensetag] [-m] [name] [version]
+#  -m : meta-package
+%ghc_devel_package(c:h:l:m)\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define pkgver %{?2}%{!?2:%{version}}\
+%define basepkg ghc-%{pkgname}\
+%package -n %{basepkg}-devel\
+Summary:        %{?common_summary}%{!?common_summary:Haskell %{pkgname} library} development files\
+%{?1:Version:        %{pkgver}}\
+%{-l:License:        %{-l*}}\
+%{?ghc_devel_requires}\
+%{-h:Requires:       %{-h*}}\
+%{?ghc_pkg_c_deps:Requires:       %{ghc_pkg_c_deps}}\
+%{-c:Requires:       %{-c*}}\
+%{?ghc_pkg_obsoletes:Obsoletes:      %{ghc_pkg_obsoletes}}\
+%{?ghc_pkg_obsoletes:Obsoletes:      %(echo "%{ghc_pkg_obsoletes}" | sed -e "s/\\(ghc-[^, ]*\\)-devel/\\1-doc/g")}\
+Obsoletes:      %{basepkg}-doc < %{pkgver}-%{release}\
+Provides:       %{basepkg}-doc = %{pkgver}-%{release}\
+Obsoletes:      %{basepkg}-prof < %{pkgver}-%{release}\
+%if %{undefined without_prof}\
+Provides:       %{basepkg}-prof = %{pkgver}-%{release}\
+%endif
+
+# ghc_devel_description
+%ghc_devel_description()\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define basepkg ghc-%{pkgname}\
+%description -n %{basepkg}-devel\
+%{?common_description}%{!?common_description:Haskell %{pkgname} library.}\
+\
+This package contains the development files.
+
+# ghc_devel_post_postun
+%ghc_devel_post_postun()\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define basepkg ghc-%{pkgname}\
+%post -n %{basepkg}-devel\
+%ghc_pkg_recache\
+\
+%postun -n %{basepkg}-devel\
+%ghc_pkg_recache
+
+# ghc_package_devel [-c cdepslist] [-h pkgdepslist] [-l licensetag] [name] [version]
+%ghc_package_devel(c:h:l:)\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define basepkg ghc-%{pkgname}\
+%ghc_devel_package\
+\
+%ghc_devel_description\
+\
+%ghc_devel_post_postun\
+\
+%ghc_devel_files\
+%{nil}
