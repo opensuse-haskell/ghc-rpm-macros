@@ -133,7 +133,7 @@ for i in %*; do\
   PROG=%{buildroot}%{_bindir}/$i\
   RPATH=$(chrpath $PROG| sed -e "s@^$PROG: RPATH=@@")\
   case $RPATH in\
-    $PDIR*)\
+    *$PDIR*)\
       NEWRPATH=$(echo $RPATH | sed -e "s@$PDIR@%{ghclibdir}@g" -e "s@/dist/build@@g")\
       chrpath -r $NEWRPATH $PROG\
       ;;\
