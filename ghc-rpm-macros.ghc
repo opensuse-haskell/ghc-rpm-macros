@@ -66,8 +66,6 @@ done\
 # compiler version
 %ghc_version %{!?ghc_version_override:%(ghc --numeric-version)}%{?ghc_version_override}
 
-%ghc_compiler ghc-compiler = %{ghc_version}
-
 # create and install package.conf file
 # cabal_pkg_conf [name] [version]
 %cabal_pkg_conf()\
