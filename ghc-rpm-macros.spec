@@ -6,12 +6,12 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        0.99
+Version:        0.99.2
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3
-URL:            https://fedoraproject.org/wiki/Haskell_SIG
+URL:            https://fedoraproject.org/wiki/Packaging:Haskell
 
 # This is a Fedora maintained package, originally made for
 # the distribution.  Hence the source is currently only available
@@ -87,6 +87,12 @@ EOF
 
 
 %changelog
+* Wed Jun  5 2013 Jens Petersen <petersen@redhat.com> - 0.99.2-1
+- drop -h option from extra macros and make -m work again
+
+* Fri May 17 2013 Jens Petersen <petersen@redhat.com> - 0.99.1-1
+- drop new ghc_compiler macro since it is not good for koji
+
 * Tue Apr 23 2013 Jens Petersen <petersen@redhat.com> - 0.99-1
 - update for simplified revised Haskell Packaging Guidelines
   (https://fedorahosted.org/fpc/ticket/194)
