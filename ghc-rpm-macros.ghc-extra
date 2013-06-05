@@ -69,7 +69,7 @@ Summary:        %{?common_summary}%{!?common_summary:Haskell %{pkgname} library}
 Requires(post): ghc-compiler = %{ghc_version}\
 Requires(postun): ghc-compiler = %{ghc_version}\
 %if 0%{!?-m:1}\
-Requires:       ghc-%{?pkg_name}%{!?pkg_name:%{pkgname}} = %{?pkgver}%{!?pkgver:%{version}}-%{release}
+Requires:       ghc-%{?pkg_name}%{!?pkg_name:%{pkgname}} = %{?pkgver}%{!?pkgver:%{version}}-%{release}\
 %endif
 
 # ghc_devel_package [-c cdepslist] [-l licensetag] [-m] [name] [version]
