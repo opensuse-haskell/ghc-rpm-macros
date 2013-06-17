@@ -8,19 +8,16 @@
 %{!-x:%{?1:%global ghc_packages_list %{?ghc_packages_list} %{pkgnamever}}}\
 %define basepkg ghc-%{pkgname}\
 %package -n %{basepkg}\
-Summary:        %{?common_summary}%{!?common_summary:Haskell %{pkgname} library}\
+Summary:        Haskell %{pkgname} library\
 %{?1:Version:        %{pkgver}}\
 %{-l:License:        %{-l*}}\
-%{?ghc_pkg_obsoletes:Obsoletes:      %(echo "%{ghc_pkg_obsoletes}" | sed -e "s/\\(ghc-[^, ]*\\)-devel/\\1/g")}
+%{?ghc_pkg_obsoletes:Obsoletes:      %(echo "%{ghc_pkg_obsoletes}" | sed -e "s/\\(ghc-[^, ]*\\)-devel/\\1/g")}\
 \
 %description -n %{basepkg}\
-This package provides the Haskell %{pkgname} library.
-\
-%files -n %{basepkg} -f %{basepkg}.files\
-%{?base_doc_files:%doc %base_doc_files}\
+This package provides the Haskell %{pkgname} library.\
 \
 %package -n %{basepkg}-devel\
-Summary:        %{?common_summary}%{!?common_summary:Haskell %{pkgname} library} development files\
+Summary:        Haskell %{pkgname} library development files\
 %{?1:Version:        %{pkgver}}\
 %{-l:License:        %{-l*}}\
 Requires(post): ghc-compiler = %{ghc_version}\
@@ -38,13 +35,16 @@ Provides:       %{basepkg}-prof = %{pkgver}-%{release}\
 %endif\
 \
 %description -n %{basepkg}-devel\
-This package provides the Haskell %{pkgname} library development files.
+This package provides the Haskell %{pkgname} library development files.\
 \
 %post -n %{basepkg}-devel\
 %ghc_pkg_recache\
 \
 %postun -n %{basepkg}-devel\
 %ghc_pkg_recache\
+\
+%files -n %{basepkg} -f %{basepkg}.files\
+%{?base_doc_files:%doc %base_doc_files}\
 \
 %files -n %{basepkg}-devel -f %{basepkg}-devel.files\
 %{?devel_doc_files:%doc %devel_doc_files}\
