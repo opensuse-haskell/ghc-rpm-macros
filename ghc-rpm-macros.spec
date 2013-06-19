@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        0.99.4
+Version:        1.0
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -87,6 +87,9 @@ EOF
 
 
 %changelog
+* Wed Jun 19 2013 Jens Petersen <petersen@redhat.com> - 1.0-1
+- add --global to cabal_configure
+
 * Mon Jun 17 2013 Jens Petersen <petersen@redhat.com> - 0.99.4-1
 - merge remaining extra macros into ghc_lib_subpackage
 
