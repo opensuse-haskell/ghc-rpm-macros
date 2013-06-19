@@ -22,7 +22,7 @@ Summary:        Haskell %{pkgname} library development files\
 %{-l:License:        %{-l*}}\
 Requires(post): ghc-compiler = %{ghc_version}\
 Requires(postun): ghc-compiler = %{ghc_version}\
-Requires:       ghc-%{pkgname} = %{pkgver}-%{release}\
+Requires:       ghc-%{pkgname}%{?_isa} = %{pkgver}-%{release}\
 %{?ghc_pkg_c_deps:Requires:       %{ghc_pkg_c_deps}}\
 %{-c:Requires:       %{-c*}}\
 %{?ghc_pkg_obsoletes:Obsoletes:      %{ghc_pkg_obsoletes}}\
