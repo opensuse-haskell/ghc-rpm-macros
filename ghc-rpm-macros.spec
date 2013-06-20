@@ -6,8 +6,8 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.0
-Release:        3%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3
@@ -87,6 +87,9 @@ EOF
 
 
 %changelog
+* Thu Jun 20 2013 Jens Petersen <petersen@redhat.com> - 1.0.1-1
+- only configure with --global if not subpackaging libs
+
 * Thu Jun 20 2013 Jens Petersen <petersen@redhat.com> - 1.0-3
 - reenable hscolour
 
@@ -107,6 +110,7 @@ EOF
 
 * Fri May 17 2013 Jens Petersen <petersen@redhat.com> - 0.99.1-1
 - drop new ghc_compiler macro since it is not good for koji
+- ghc_fix_dynamic_rpath: do not assume first RPATH
 
 * Tue Apr 23 2013 Jens Petersen <petersen@redhat.com> - 0.99-1
 - update for simplified revised Haskell Packaging Guidelines
