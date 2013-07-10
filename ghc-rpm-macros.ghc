@@ -77,12 +77,6 @@ mkdir -p %{buildroot}%{ghclibdir}/package.conf.d\
 install --mode=0644 %{pkgnamever}.conf %{buildroot}%{ghclibdir}/package.conf.d\
 %{nil}
 
-# ghc_strip_dynlinked
-%ghc_strip_dynlinked\
-%if %{undefined __debug_package}\
-find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \\; -exec strip "{}" \\;\
-%endif
-
 # ghc_bin_build
 %ghc_bin_build\
 %global debug_package %{nil}\
@@ -104,15 +98,23 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %endif\
 %{nil}
 
+# ghc_strip_dynlinked
+%ghc_strip_dynlinked\
+%if %{undefined __debug_package}\
+find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \\; -exec strip "{}" \\;\
+%endif
+
+# ghc_clear_execstack
+%ghc_clear_execstack\
+find %{buildroot}%{_bindir} -type f -exec sh -c "file {} | grep -q ' ELF '" \\; -exec execstack -c "{}" \\;
+
 # install bin package
 %ghc_bin_install()\
 %global _use_internal_dependency_generator 0\
 %global __find_requires %{_rpmconfigdir}/ghc-deps.sh --requires %{buildroot}%{ghclibdir}\
 %cabal_install\
 %{!?1:%ghc_strip_dynlinked}\
-%if %{undefined ghc_executable_stack}\
-execstack -c %{_buildroot}%{_bindir}/*\
-%endif\
+%{!?1:%ghc_clear_execstack}\
 %{nil}
 
 # ghc_lib_install [name] [version]
@@ -124,6 +126,7 @@ execstack -c %{_buildroot}%{_bindir}/*\
 %cabal_pkg_conf\
 %ghc_gen_filelists\
 %{!?1:%ghc_strip_dynlinked}\
+%{!?1:%ghc_clear_execstack}\
 %{nil}
 
 # ghc_fix_dynamic_rpath prog ...
