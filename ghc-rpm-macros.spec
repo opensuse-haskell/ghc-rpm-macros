@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.0.1
+Version:        1.0.2
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -30,6 +30,8 @@ BuildRequires:  redhat-rpm-config
 ExclusiveArch:  %{ghc_arches}
 Requires:       hscolour
 %endif
+# for execstack
+Requires:       prelink
 
 %description
 A set of macros for building GHC packages following the Haskell Guidelines
@@ -87,6 +89,10 @@ EOF
 
 
 %changelog
+* Tue Jul  9 2013 Jens Petersen <petersen@redhat.com> - 1.0.2-1
+- drop doc and prof obsoletes and provides from ghc_lib_subpackage
+- clear executable stack flag when installing package executables (#973512)
+
 * Thu Jun 20 2013 Jens Petersen <petersen@redhat.com> - 1.0.1-1
 - only configure with --global if not subpackaging libs
 

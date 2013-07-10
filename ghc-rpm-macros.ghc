@@ -110,6 +110,9 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %global __find_requires %{_rpmconfigdir}/ghc-deps.sh --requires %{buildroot}%{ghclibdir}\
 %cabal_install\
 %{!?1:%ghc_strip_dynlinked}\
+%if %{undefined ghc_executable_stack}\
+execstack -c %{_buildroot}%{_bindir}/*\
+%endif\
 %{nil}
 
 # ghc_lib_install [name] [version]
