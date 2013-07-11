@@ -106,7 +106,9 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 
 # ghc_clear_execstack
 %ghc_clear_execstack\
-find %{buildroot}%{_bindir} -type f -exec sh -c "file {} | grep -q ' ELF '" \\; -exec execstack -c "{}" \\;
+if [ -d "%{buildroot}%{_bindir}" ]; then\
+find %{buildroot}%{_bindir} -type f -exec sh -c "file {} | grep -q ' ELF '" \\; -exec execstack -c "{}" \\;\
+fi
 
 # install bin package
 %ghc_bin_install()\

@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.0.3
+Version:        1.0.4
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -89,8 +89,12 @@ EOF
 
 
 %changelog
+* Thu Jul 11 2013 Jens Petersen <petersen@redhat.com> - 1.0.4-1
+- check for bindir before looking for executables in ghc_clear_execstack
+
 * Wed Jul 10 2013 Jens Petersen <petersen@redhat.com> - 1.0.3-1
 - add ghc_clear_execstack and use it also in ghc_lib_install (#973512)
+  and require prelink for execstack
 
 * Tue Jul  9 2013 Jens Petersen <petersen@redhat.com> - 1.0.2-1
 - drop doc and prof obsoletes and provides from ghc_lib_subpackage
