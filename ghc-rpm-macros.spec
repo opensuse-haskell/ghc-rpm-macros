@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.0.4
+Version:        1.0.5
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -89,6 +89,9 @@ EOF
 
 
 %changelog
+* Fri Jul 26 2013 Jens Petersen <petersen@redhat.com> - 1.0.5-1
+- F20 Change: docdir's are now unversioned
+
 * Thu Jul 11 2013 Jens Petersen <petersen@redhat.com> - 1.0.4-1
 - check for bindir before looking for executables in ghc_clear_execstack
 
