@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.0.6
+Version:        1.0.7
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -90,6 +90,9 @@ EOF
 
 
 %changelog
+* Fri Jul 26 2013 Jens Petersen <petersen@redhat.com> - 1.0.7-1
+- add ghc_docdir for package's docdir since not provided by standard macros
+
 * Fri Jul 26 2013 Jens Petersen <petersen@redhat.com> - 1.0.6-1
 - also make %ghc_lib_build docdir unversioned
 - require redhat-rpm-config >= 9.1.0-50.fc20 for unversioned docdir
