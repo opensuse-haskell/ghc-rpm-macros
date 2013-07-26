@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.0.5
+Version:        1.0.6
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -24,7 +24,8 @@ Source3:        ghc-deps.sh
 Source4:        cabal-tweak-dep-ver
 Source5:        cabal-tweak-flag
 Source6:        ghc-rpm-macros.ghc-extra
-Requires:       redhat-rpm-config
+# ver-rel for unversioned docdir
+Requires:       redhat-rpm-config >= 9.1.0-50.fc20
 %if %{undefined without_hscolour}
 BuildRequires:  redhat-rpm-config
 ExclusiveArch:  %{ghc_arches}
@@ -89,6 +90,10 @@ EOF
 
 
 %changelog
+* Fri Jul 26 2013 Jens Petersen <petersen@redhat.com> - 1.0.6-1
+- also make %ghc_lib_build docdir unversioned
+- require redhat-rpm-config >= 9.1.0-50.fc20 for unversioned docdir
+
 * Fri Jul 26 2013 Jens Petersen <petersen@redhat.com> - 1.0.5-1
 - F20 Change: docdir's are now unversioned
 
