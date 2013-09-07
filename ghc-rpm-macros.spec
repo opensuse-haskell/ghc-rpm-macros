@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.0.8
+Version:        1.1
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -90,6 +90,9 @@ EOF
 
 
 %changelog
+* Sat Sep  7 2013 Jens Petersen <petersen@redhat.com> - 1.1-1
+- update ghc-deps.sh to handling ghc-7.8 rts
+
 * Tue Aug 27 2013 Jens Petersen <petersen@redhat.com> - 1.0.8-1
 - drop ghc_docdir in favor of _pkgdocdir
 - no longer version package htmldirs
