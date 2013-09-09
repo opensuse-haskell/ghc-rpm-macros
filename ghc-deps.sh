@@ -8,6 +8,8 @@
 
 [ $# -ne 2 ] && echo "Usage: `basename $0` [--provides|--requires] %{buildroot}%{ghclibdir}" && exit 1
 
+#set -x
+
 MODE=$1
 PKGBASEDIR=$2
 PKGCONFDIR=$PKGBASEDIR/package.conf.d
@@ -29,11 +31,7 @@ if [ -d "$PKGBASEDIR" ]; then
   SHARED=$(find $PKGBASEDIR -type f -name '*.so')
 fi
 
-GHCVERSION=$(ghc --numeric-version)
-
 files=$(cat)
-
-#set -x
 
 for i in $files; do
     LIB_FILE=$(echo $i | grep /libHS | egrep -v "/libHSrts")
@@ -68,7 +66,7 @@ for i in $files; do
 	fi
     elif [ "$MODE" = "--requires" ]; then
 	if file $i | grep -q 'executable, .* dynamically linked'; then
-	    BIN_DEPS=$(objdump -p $i | grep NEEDED | grep libHS | grep -v libHSrts | sed -e "s%^  NEEDED *libHS\(.*\)-ghc${GHCVERSION}.so%\1%")
+	    BIN_DEPS=$(objdump -p $i | grep NEEDED | grep libHS | grep -v libHSrts | sed -e "s%^ *NEEDED *libHS\(.*\)-ghc${GHC_VER}.so%\1%")
 	    if [ -d "$PKGCONFDIR" ]; then
 		PACKAGE_CONF_OPT="--package-conf=$PKGCONFDIR"
 	    fi
