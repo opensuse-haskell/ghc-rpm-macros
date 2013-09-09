@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.1
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -90,6 +90,9 @@ EOF
 
 
 %changelog
+* Mon Sep  9 2013 Jens Petersen <petersen@redhat.com> - 1.1.1-1
+- use objdump -p instead of ldd to read executable dependencies
+
 * Sat Sep  7 2013 Jens Petersen <petersen@redhat.com> - 1.1-1
 - update ghc-deps.sh to handling ghc-7.8 rts
 

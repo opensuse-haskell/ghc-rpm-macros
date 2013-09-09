@@ -68,7 +68,7 @@ for i in $files; do
 	fi
     elif [ "$MODE" = "--requires" ]; then
 	if file $i | grep -q 'executable, .* dynamically linked'; then
-	    BIN_DEPS=$(ldd $i | grep libHS | grep -v libHSrts | sed -e "s%^\\tlibHS\(.*\)-ghc${GHCVERSION}.so => .*%\1%")
+	    BIN_DEPS=$(objdump -p $i | grep NEEDED | grep libHS | grep -v libHSrts | sed -e "s%^  NEEDED *libHS\(.*\)-ghc${GHCVERSION}.so%\1%")
 	    if [ -d "$PKGCONFDIR" ]; then
 		PACKAGE_CONF_OPT="--package-conf=$PKGCONFDIR"
 	    fi
