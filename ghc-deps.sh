@@ -8,17 +8,20 @@
 
 [ $# -ne 2 ] && echo "Usage: `basename $0` [--provides|--requires] %{buildroot}%{ghclibdir}" && exit 1
 
-#set -x
+set +x
 
 MODE=$1
 PKGBASEDIR=$2
 PKGCONFDIR=$PKGBASEDIR/package.conf.d
 GHC_VER=$(basename $PKGBASEDIR | sed -e s/ghc-//)
 
-if [ ! -x "/usr/bin/ghc-pkg-${GHC_VER}" -a -x "$PKGBASEDIR/ghc-pkg" ]; then
+if [ -x "$PKGBASEDIR/bin/ghc-pkg" ]; then
+    # ghc-7.7
+    GHC_PKG="$PKGBASEDIR/bin/ghc-pkg --global-package-db=$PKGCONFDIR"
+elif [ -x "$PKGBASEDIR/ghc-pkg" ]; then
     GHC_PKG="$PKGBASEDIR/ghc-pkg --global-package-db=$PKGCONFDIR"
 else
-    GHC_PKG="/usr/bin/ghc-pkg"
+    GHC_PKG="/usr/bin/ghc-pkg-${GHC_VER}"
 fi
 
 case $MODE in

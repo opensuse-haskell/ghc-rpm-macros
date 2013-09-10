@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.1.2
+Version:        1.1.3
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -90,6 +90,9 @@ EOF
 
 
 %changelog
+* Tue Sep 10 2013 Jens Petersen <petersen@redhat.com> - 1.1.3-1
+- ghc-deps.sh: fix ghc-pkg path when bootstrapping new ghc version
+
 * Mon Sep  9 2013 Jens Petersen <petersen@redhat.com> - 1.1.2-1
 - fix ghc-deps.sh when bootstrapping a new ghc version
 
