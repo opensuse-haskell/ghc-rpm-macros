@@ -30,6 +30,8 @@ fi
 %ghcdocbasedir %{_docdir}/ghc/html
 # libraries doc dir
 %ghclibdocdir %{ghcdocbasedir}/libraries
+# pkg doc dir
+%ghcpkgdocdir %{ghcdocbasedir}/libraries/%{pkg_name}
 # top library dir
 %ghclibdir %{_libdir}/ghc-%{ghc_version}
 
@@ -73,8 +75,7 @@ done\
 %define pkgver %{?2}%{!?2:%{version}}\
 %define pkgnamever %{pkgname}-%{pkgver}\
 %cabal register --gen-pkg-config\
-mkdir -p %{buildroot}%{ghclibdir}/package.conf.d\
-install --mode=0644 %{pkgnamever}.conf %{buildroot}%{ghclibdir}/package.conf.d\
+install -D --mode=0644 %{pkgnamever}.conf %{buildroot}%{ghclibdir}/package.conf.d/%{pkgnamever}.conf\
 %{nil}
 
 # ghc_bin_build

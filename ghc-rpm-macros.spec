@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.1.3
+Version:        1.2
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -57,8 +57,8 @@ echo no build stage needed
 
 
 %install
-install -p -D -m 0644 %{SOURCE0} ${RPM_BUILD_ROOT}/%{macros_dir}/macros.ghc
-install -p -D -m 0644 %{SOURCE6} ${RPM_BUILD_ROOT}/%{macros_dir}/macros.ghc-extra
+install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc
+install -p -D -m 0644 %{SOURCE6} %{buildroot}/%{macros_dir}/macros.ghc-extra
 
 install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
 
@@ -90,6 +90,9 @@ EOF
 
 
 %changelog
+* Tue Oct 15 2013 Jens Petersen <petersen@redhat.com> - 1.2-1
+- add ghcpkgdocdir, which like _pkgdocdir allows for unversioned haddock dirs
+
 * Tue Sep 10 2013 Jens Petersen <petersen@redhat.com> - 1.1.3-1
 - ghc-deps.sh: fix ghc-pkg path when bootstrapping new ghc version
 
