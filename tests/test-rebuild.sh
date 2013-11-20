@@ -29,7 +29,7 @@ if [ -n "$2" ]; then
   fedpkg switch-branch $2
 fi
 
-if [ "* $BRANCH" != "$(git branch --list $BRANCH" ]; then
+if [ "* $BRANCH" != "$(git branch --list $BRANCH)" ]; then
   echo "Git branch does not match Fedora installation!"
   exit 1
 fi
