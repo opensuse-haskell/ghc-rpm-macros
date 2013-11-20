@@ -4,7 +4,7 @@
 # In a pkg dir run
 #   $ ./test-rebuild.sh
 # or clone a pkg branch:
-#   $ ./test-rebuild.sh [pkg] [branch]
+#   $ ./test-rebuild.sh [pkg]
 
 set -e
 
@@ -22,12 +22,12 @@ ARCH=$(arch)
 #fi
 
 eval $(grep VERSION_ID /etc/os-release)
-BRANCH="f$VERSION_ID"
+case $VERSION_ID in
+    21) BRANCH=master ;;
+    *) BRANCH="f$VERSION_ID" ;;
+esac
 
-# maybe use BRANCH here too?
-if [ -n "$2" ]; then
-  fedpkg switch-branch $2
-fi
+fedpkg switch-branch $BRANCH
 
 if [ "* $BRANCH" != "$(git branch --list $BRANCH)" ]; then
   echo "Git branch does not match Fedora installation!"
