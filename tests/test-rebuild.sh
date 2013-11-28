@@ -21,11 +21,17 @@ ARCH=$(arch)
 #  exit 1
 #fi
 
-eval $(grep VERSION_ID /etc/os-release)
-case $VERSION_ID in
-    21) BRANCH=master ;;
-    *) BRANCH="f$VERSION_ID" ;;
-esac
+if [ -f /etc/os-release ]; then
+    eval $(grep VERSION_ID /etc/os-release)
+    case $VERSION_ID in
+        21) BRANCH=master ;;
+        7.*) BRANCH=el7 ;;
+        *) BRANCH="f$VERSION_ID" ;;
+    esac
+else
+# assume RHEL6
+    BRANCH=el6
+fi
 
 fedpkg switch-branch $BRANCH
 
@@ -33,6 +39,8 @@ if [ "* $BRANCH" != "$(git branch --list $BRANCH)" ]; then
   echo "Git branch does not match Fedora installation!"
   exit 1
 fi
+
+git pull
 
 sudo yum-builddep $PKG.spec
 
