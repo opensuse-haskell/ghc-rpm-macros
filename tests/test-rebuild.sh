@@ -35,7 +35,7 @@ fi
 
 fedpkg switch-branch $BRANCH
 
-if [ "* $BRANCH" != "$(git branch --list $BRANCH)" ]; then
+if [ "* $BRANCH" != "$(git branch | grep '^*')" ]; then
   echo "Git branch does not match Fedora installation!"
   exit 1
 fi
