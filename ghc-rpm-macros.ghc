@@ -147,7 +147,7 @@ for i in %*; do\
          ;;\
     esac\
   else\
-    echo "%ghc_fix_dynamic_rpath: no such file $PROG"\
+    echo "%%ghc_fix_dynamic_rpath: no such file $PROG"\
     exit 1\
   fi\
 done\

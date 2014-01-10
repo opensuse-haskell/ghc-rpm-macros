@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.2.1
+Version:        1.2.2
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -90,6 +90,9 @@ EOF
 
 
 %changelog
+* Fri Jan 10 2014 Jens Petersen <petersen@redhat.com> - 1.2.2-1
+- quote the ghc_fix_dynamic_rpath error message
+
 * Fri Jan 10 2014 Jens Petersen <petersen@redhat.com> - 1.2.1-1
 - ghc_fix_dynamic_rpath: abort for non-existent executable name
 - cabal-tweak-flag: add manual field to enforce flag changes
