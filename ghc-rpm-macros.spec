@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.2.2
+Version:        1.2.3
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -90,6 +90,9 @@ EOF
 
 
 %changelog
+* Mon Feb 10 2014 Jens Petersen <petersen@redhat.com> - 1.2.3-1
+- set datasubdir in cabal_configure for ghc-7.8
+
 * Fri Jan 10 2014 Jens Petersen <petersen@redhat.com> - 1.2.2-1
 - quote the ghc_fix_dynamic_rpath error message
 
