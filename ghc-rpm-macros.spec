@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
-%global macros_dir %{_sysconfdir}/rpm
+%global macros_dir %{_rpmconfigdir}/macros.d
 
 # uncomment to bootstrap without hscolour
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
 Version:        1.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3
@@ -90,6 +90,9 @@ EOF
 
 
 %changelog
+* Thu Feb 13 2014 Ville Skyttä <ville.skytta@iki.fi> - 1.2.3-2
+- Install macros to %%{_rpmconfigdir}/macros.d.
+
 * Mon Feb 10 2014 Jens Petersen <petersen@redhat.com> - 1.2.3-1
 - set datasubdir in cabal_configure for ghc-7.8
 
