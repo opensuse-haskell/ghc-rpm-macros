@@ -6,8 +6,8 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.2.3
-Release:        2%{?dist}
+Version:        1.2.4
+Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3
@@ -90,6 +90,9 @@ EOF
 
 
 %changelog
+* Mon Mar 17 2014 Jens Petersen <petersen@redhat.com> - 1.2.4-1
+- abort ghc_fix_dynamic_rpath if no chrpath
+
 * Thu Feb 13 2014 Ville Skyttä <ville.skytta@iki.fi> - 1.2.3-2
 - Install macros to %%{_rpmconfigdir}/macros.d.
 

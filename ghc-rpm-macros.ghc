@@ -135,6 +135,7 @@ fi
 # ghc_fix_dynamic_rpath prog ...
 %ghc_fix_dynamic_rpath()\
 %if %{undefined ghc_without_dynamic}\
+if ! type chrpath > /dev/null; then exit 1; fi\
 PDIR=$(cd ..; pwd)\
 for i in %*; do\
   PROG=%{buildroot}%{_bindir}/$i\
