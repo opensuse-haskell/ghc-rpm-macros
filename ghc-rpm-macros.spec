@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.2.4
+Version:        1.2.5
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -90,6 +90,9 @@ EOF
 
 
 %changelog
+* Fri Mar 28 2014 Jens Petersen <petersen@redhat.com> - 1.2.5-1
+- handle no _pkgdocdir in RHEL7 and docdir path different to F20+
+
 * Mon Mar 17 2014 Jens Petersen <petersen@redhat.com> - 1.2.4-1
 - abort ghc_fix_dynamic_rpath if no chrpath
 
