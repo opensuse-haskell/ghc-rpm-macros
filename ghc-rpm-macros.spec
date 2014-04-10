@@ -7,7 +7,7 @@
 
 Name:           ghc-rpm-macros
 Version:        1.2.5
-Release:        1%{?dist}
+Release:        1.1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3
@@ -65,17 +65,6 @@ install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
 install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
 install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 
-# this is why this package is now arch-dependent:
-# turn off shared libs and dynamic linking on secondary archs
-%ifnarch %{ix86} x86_64
-cat >> %{buildroot}/%{macros_dir}/macros.ghc <<EOF
-
-# shared libraries are only supported on primary intel archs
-%%ghc_without_dynamic 1
-%%ghc_without_shared 1
-EOF
-%endif
-
 
 %files
 %doc COPYING AUTHORS
@@ -90,6 +79,10 @@ EOF
 
 
 %changelog
+* Thu Apr 10 2014 Jens Petersen <petersen@redhat.com> - 1.2.5-1.1
+- shared libs now available for all archs in ghc-7.8!
+- cabal_configure --disable-shared with ghc_without_shared
+
 * Fri Mar 28 2014 Jens Petersen <petersen@redhat.com> - 1.2.5-1
 - handle no _pkgdocdir in RHEL7 and docdir path different to F20+
 
