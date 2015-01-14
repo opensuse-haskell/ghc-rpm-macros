@@ -49,7 +49,7 @@ rm -f %{basepkg}.files %{basepkg}-devel.files\
 if [ -d "%{buildroot}%{pkgdir}" ]; then\
 echo "%dir %{pkgdir}" >> %{basepkg}.files\
 %if %{undefined ghc_without_shared}\
-echo "%attr(755,root,root) %{pkgdir}/libHS%{pkgnamever}-ghc%{ghc_version}.so" >> %{basepkg}.files\
+echo "%attr(755,root,root) %{pkgdir}/libHS*-ghc%{ghc_version}.so" >> %{basepkg}.files\
 %endif\
 fi\
 echo "%{ghclibdir}/package.conf.d/%{pkgnamever}*.conf" >> %{basepkg}-devel.files\

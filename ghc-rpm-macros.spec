@@ -24,8 +24,6 @@ Source3:        ghc-deps.sh
 Source4:        cabal-tweak-dep-ver
 Source5:        cabal-tweak-flag
 Source6:        macros.ghc-extra
-Source7:        ghc_bin.attr
-Source8:        ghc_lib.attr
 Requires:       ghc-srpm-macros
 # macros.ghc-srpm moved out from redhat-rpm-config-21
 Requires:       redhat-rpm-config > 20-1.fc21
@@ -66,8 +64,6 @@ install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc
 install -p -D -m 0644 %{SOURCE6} %{buildroot}/%{macros_dir}/macros.ghc-extra
 
 install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
-install -p -D -m 0644 %{SOURCE7} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc_bin.attr
-install -p -D -m 0644 %{SOURCE8} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc_lib.attr
 
 install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
 install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
@@ -76,9 +72,6 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 %files
 %doc COPYING AUTHORS
 %{macros_dir}/macros.ghc
-%{_prefix}/lib/rpm/fileattrs/ghc_bin.attr
-%{_prefix}/lib/rpm/fileattrs/ghc_lib.attr
-%{_prefix}/lib/rpm/ghc-deps.sh
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-flag
 
@@ -90,6 +83,8 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 %changelog
 * Wed Jan 14 2015 Jens Petersen <petersen@redhat.com> - 1.3.90-1
 - rebase to rawhide 1.3.10
+- specify libHS*.so more loosely for ghc-7.10
+- drop ghc_*.attr and ghc-deps.sh for ghc-7.10 for now
 
 * Fri Nov 14 2014 Jens Petersen <petersen@redhat.com> - 1.3.10-1
 - split ghc.attr into ghc_lib.attr and ghc_bin.attr for finer grained handling
