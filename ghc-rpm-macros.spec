@@ -6,8 +6,8 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.2.11
-Release:        1.1%{?dist}
+Version:        1.3.90
+Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3+
@@ -24,18 +24,17 @@ Source3:        ghc-deps.sh
 Source4:        cabal-tweak-dep-ver
 Source5:        cabal-tweak-flag
 Source6:        macros.ghc-extra
-Source7:        macros.ghc-srpm
-Requires:       ghc-srpm-macros = %{version}-%{release}
+Source7:        ghc_bin.attr
+Source8:        ghc_lib.attr
+Requires:       ghc-srpm-macros
 # macros.ghc-srpm moved out from redhat-rpm-config-21
 Requires:       redhat-rpm-config > 20-1.fc21
+# for ghc_version
+Requires:       ghc-compiler
 %if %{undefined without_hscolour}
-%ifarch %{ix86} %{ix86} x86_64 ppc ppc64 alpha sparcv9 armv7hl armv5tel s390 s390x
+%ifarch %{ix86} %{ix86} x86_64 ppc ppc64 alpha sparcv9 armv7hl armv5tel s390 s390x ppc64le aarch64
 Requires:       hscolour
 %endif
-%endif
-# for execstack (hack not needed for ghc-7.8)
-%ifnarch ppc64le aarch64
-Requires:       prelink
 %endif
 
 %description
@@ -53,15 +52,6 @@ Extra macros used for subpackaging of Haskell libraries,
 for example in ghc and haskell-platform.
 
 
-%package -n ghc-srpm-macros
-Summary:        RPM macros for building Haskell source packages
-BuildArch:      noarch
-
-
-%description -n ghc-srpm-macros
-Macros used when generating source Haskell rpm packages.
-
-
 %prep
 %setup -c -T
 cp %{SOURCE1} %{SOURCE2} .
@@ -74,9 +64,10 @@ echo no build stage needed
 %install
 install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc
 install -p -D -m 0644 %{SOURCE6} %{buildroot}/%{macros_dir}/macros.ghc-extra
-install -p -D -m 0644 %{SOURCE7} %{buildroot}/%{macros_dir}/macros.ghc-srpm
 
 install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
+install -p -D -m 0644 %{SOURCE7} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc_bin.attr
+install -p -D -m 0644 %{SOURCE8} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc_lib.attr
 
 install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
 install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
@@ -85,6 +76,8 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 %files
 %doc COPYING AUTHORS
 %{macros_dir}/macros.ghc
+%{_prefix}/lib/rpm/fileattrs/ghc_bin.attr
+%{_prefix}/lib/rpm/fileattrs/ghc_lib.attr
 %{_prefix}/lib/rpm/ghc-deps.sh
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-flag
@@ -94,14 +87,63 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 %{macros_dir}/macros.ghc-extra
 
 
-%files -n ghc-srpm-macros
-%{macros_dir}/macros.ghc-srpm
-
-
 %changelog
-* Sun Jun  1 2014 Jens Petersen <petersen@redhat.com> - 1.2.11-1.1
+* Wed Jan 14 2015 Jens Petersen <petersen@redhat.com> - 1.3.90-1
+- rebase to rawhide 1.3.10
+
+* Fri Nov 14 2014 Jens Petersen <petersen@redhat.com> - 1.3.10-1
+- split ghc.attr into ghc_lib.attr and ghc_bin.attr for finer grained handling
+- require ghc-compiler for ghc_version
+
+* Mon Oct 27 2014 Jens Petersen <petersen@redhat.com> - 1.3.9-1
+- macros.ghc: cabal_configure now passes CFLAGS and LDFLAGS to ghc (#1138982)
+  (thanks to Sergei Trofimovich and Ville Skyttä)
+
+* Thu Oct 23 2014 Jens Petersen <petersen@redhat.com> - 1.3.8-1
+- ghc-deps.sh: support ghc-pkg for ghc builds <= 7.4.2 as well
+
+* Thu Oct 16 2014 Jens Petersen <petersen@redhat.com> - 1.3.7-1
+- ghc.attr needs to handle requires for /usr/bin files too
+
+* Wed Sep 10 2014 Jens Petersen <petersen@redhat.com> - 1.3.6-1
+- improve ghc_fix_dynamic_rpath not to assume cwd = pkg_name
+
+* Fri Aug 29 2014 Jens Petersen <petersen@redhat.com> - 1.3.5-1
+- no longer disable debuginfo by default:
+  packages now need to explicitly opt out of debuginfo if appropriate
+
+* Thu Aug 28 2014 Jens Petersen <petersen@redhat.com> - 1.3.4-1
+- drop -O2 for ghc-7.8: it uses too much build mem
+
+* Fri Aug 22 2014 Jens Petersen <petersen@redhat.com> - 1.3.3-1
+- temporarily revert to ghc-7.6 config for shared libs
+  until we move to ghc-7.8
+
+* Thu Aug 21 2014 Jens Petersen <petersen@redhat.com> - 1.3.2-1
+- add an rpm .attr file for ghc-deps.sh rather than running it
+  as an external dep generator (#1132275)
+  (see http://rpm.org/wiki/PackagerDocs/DependencyGenerator)
+
+* Wed Aug 20 2014 Jens Petersen <petersen@redhat.com> - 1.3.1-1
+- fix warning in macros.ghc-extra about unused pkgnamever
+
+* Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
+* Sat Aug  2 2014 Jens Petersen <petersen@redhat.com> - 1.3.0-1
 - shared libs available for all archs in ghc-7.8
 - cabal_configure --disable-shared with ghc_without_shared
+- ghc_clear_execstack no longer needed
+
+* Fri Jun 27 2014 Jens Petersen <petersen@redhat.com> - 1.2.13-2
+- ghc-srpm-macros is now a separate source package
+
+* Fri Jun  6 2014 Jens Petersen <petersen@redhat.com> - 1.2.13-1
+- add aarch64
+
+* Sun Jun  1 2014 Jens Petersen <petersen@redhat.com> - 1.2.12-1
+- add missing ppc64, s390, and s390x to ghc_arches
+- add new ppc64le to ghc_arches
 
 * Fri May 30 2014 Jens Petersen <petersen@redhat.com> - 1.2.11-1
 - condition use of execstack since no prelink on ppc64le or arm64
