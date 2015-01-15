@@ -63,8 +63,6 @@ echo no build stage needed
 install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc
 install -p -D -m 0644 %{SOURCE6} %{buildroot}/%{macros_dir}/macros.ghc-extra
 
-install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
-
 install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
 install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 
@@ -85,6 +83,7 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 - rebase to rawhide 1.3.10
 - specify libHS*.so more loosely for ghc-7.10
 - drop ghc_*.attr and ghc-deps.sh for ghc-7.10 for now
+- update ghc_gen_filelists to use new keyed library filepaths
 
 * Fri Nov 14 2014 Jens Petersen <petersen@redhat.com> - 1.3.10-1
 - split ghc.attr into ghc_lib.attr and ghc_bin.attr for finer grained handling

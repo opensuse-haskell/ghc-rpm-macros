@@ -43,19 +43,24 @@ LDFLAGS="${LDFLAGS:-%__global_ldflags}"; export LDFLAGS\
 %define pkgver %{?2}%{!?2:%{version}}\
 %define pkgnamever %{pkgname}-%{pkgver}\
 %define basepkg ghc-%{pkgname}\
-%define pkgdir %{ghclibdir}/%{pkgnamever}\
+if [ "%{pkgname}" = "rts" ]; then\
+pkgdir=%{ghclibdir}/rts\
+else\
+keyname=$(echo %{pkgname} | sed -e "s/-//g" | cut -c 1-5)\
+pkgdir=$(ls -d %{buildroot}%{ghclibdir}/${keyname}_* | sed -e "s@^%{buildroot}@@")\
+fi\
 %define docdir %{ghclibdocdir}/%{pkgname}\
 rm -f %{basepkg}.files %{basepkg}-devel.files\
-if [ -d "%{buildroot}%{pkgdir}" ]; then\
-echo "%dir %{pkgdir}" >> %{basepkg}.files\
+if [ -d "%{buildroot}${pkgdir}" ]; then\
+echo "%dir ${pkgdir}" >> %{basepkg}.files\
 %if %{undefined ghc_without_shared}\
-echo "%attr(755,root,root) %{pkgdir}/libHS*-ghc%{ghc_version}.so" >> %{basepkg}.files\
+echo "%attr(755,root,root) ${pkgdir}/libHS*-ghc%{ghc_version}.so" >> %{basepkg}.files\
 %endif\
 fi\
 echo "%{ghclibdir}/package.conf.d/%{pkgnamever}*.conf" >> %{basepkg}-devel.files\
-if [ -d "%{buildroot}%{pkgdir}" ]; then\
-find %{buildroot}%{pkgdir} -mindepth 1 -type d | sed "s/^/%dir /" >> %{basepkg}-devel.files\
-find %{buildroot}%{pkgdir} ! \\( -type d -o -name "libHS*.so" \\) >> %{basepkg}-devel.files\
+if [ -d "%{buildroot}${pkgdir}" ]; then\
+find %{buildroot}${pkgdir} -mindepth 1 -type d | sed "s/^/%dir /" >> %{basepkg}-devel.files\
+find %{buildroot}${pkgdir} ! \\( -type d -o -name "libHS*.so" \\) >> %{basepkg}-devel.files\
 fi\
 if [ -d "%{buildroot}%{docdir}" ]; then\
 echo "%{docdir}" >> %{basepkg}-devel.files\
