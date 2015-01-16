@@ -33,9 +33,10 @@ files=$(cat)
 
 for i in $files; do
     case $i in
-	$PKGCONFDIR/*.conf)
+        # exclude builtin_rts.conf
+	$PKGCONFDIR/*-*.conf)
 	    PKGVER=$(echo $i | sed -e "s%$PKGCONFDIR/\(.\+\)-.\+.conf%\1%")
-	    DEPS=$(${GHC_PKG} -f $PKGCONFDIR field $PKGVER depends | sed -e "s/^depends: \+//")
+	    DEPS=$(${GHC_PKG} -f $PKGCONFDIR field $PKGVER depends | sed -e "s/^depends: \+//" -e "s/builtin_rts//" -e "s/\(bin-package-db\|ghc-prim\|integer-gmp\)-[^ ]\+//")
 	    for d in $DEPS; do
 		case $d in
 		    *-*) echo "$d" | sed -e "s%\(.\+\)-\(.\+\)-.\+%ghc-\1-devel = \2%" ;;
