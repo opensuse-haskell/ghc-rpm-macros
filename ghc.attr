@@ -1,2 +1,2 @@
-%__ghc_lib_requires	%{_rpmconfigdir}/ghc-deps.sh %{buildroot}%{ghclibdir}
-%__ghc_lib_path		^%{ghclibdir}/package.conf.d/*.conf
+%__ghc_requires	%{_rpmconfigdir}/ghc-deps.sh %{buildroot}%{ghclibdir}
+%__ghc_path		^%{ghclibdir}/package.conf.d/.*\.conf$
