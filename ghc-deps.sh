@@ -14,15 +14,14 @@ INPLACE_GHCPKG=$PKGBASEDIR/../../bin/ghc-pkg-$GHC_VER
 
 if [ -x "$INPLACE_GHCPKG" ]; then
     case $GHC_VER in
-        7.4.*)
-            GHC_PKG="$PKGBASEDIR/ghc-pkg --global-conf=$PKGCONFDIR"
+        7.8.*)
+            GHC_PKG="$PKGBASEDIR/bin/ghc-pkg --global-package-db=$PKGCONFDIR"
             ;;
         7.6.*)
             GHC_PKG="$PKGBASEDIR/ghc-pkg --global-package-db=$PKGCONFDIR"
             ;;
-        # 7.8+
         *)
-            GHC_PKG="$PKGBASEDIR/bin/ghc-pkg --global-package-db=$PKGCONFDIR"
+            GHC_PKG="$PKGBASEDIR/ghc-pkg --global-conf=$PKGCONFDIR"
             ;;
     esac
 else

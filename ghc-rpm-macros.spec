@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.4.90
+Version:        1.4.91
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -85,6 +85,22 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 
 
 %changelog
+* Fri May  1 2015 Jens Petersen <petersen@redhat.com> - 1.4.91-1
+- use utf8 locale for cabal
+- sync with 1.4.14:
+- add explicit --enable-shared again for arm64
+- introduce ghc_pkgdocdir since no _pkgdocdir in RHEL 7 and earlier
+- allow overriding ghc- prefix with ghc_name (for ghc784 etc)
+- version ghc-pkg in ghc_pkg_recache
+- have to turn off hardening in cabal_configure: set _hardened_ldflags to nil
+- add cabal_test macro
+- only run cabal haddock for real libraries with modules
+- make sure basepkg.files is also created for meta packages
+- fix the R*PATH regexp
+- version ghcpkgdocdir
+- add new names ghc_html_dir, ghc_html_libraries_dir, and ghc_html_pkg_dir
+- correct cabal-tweak-flag error message for missing flag (#1184508)
+
 * Sat Jan 17 2015 Jens Petersen <petersen@redhat.com> - 1.4.90-1
 - changes needed for ghc-7.10:
 - update ghc_gen_filelists to use new keyed library filepaths
@@ -98,8 +114,6 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 * Sat Jan 17 2015 Jens Petersen <petersen@redhat.com> - 1.4.0-1
 - enable shared libraries and dynamic linking on all arch's
   since ghc-7.8 now supports that
-- disable debuginfo until ghc-7.10 which will support dwarf debugging output
-  (#1138982)
 
 * Fri Nov 14 2014 Jens Petersen <petersen@redhat.com> - 1.3.10-1
 - split ghc.attr into ghc_lib.attr and ghc_bin.attr for finer grained handling
