@@ -63,7 +63,7 @@ tests
 %define pkgver %{?2}%{!?2:%{version}}\
 %define pkgnamever %{pkgname}-%{pkgver}\
 %define basepkg %{?ghc_name}%{!?ghc_name:ghc}-%{pkgname}\
-%define pkgdir %{ghclibdir}/%{pkgnamever}\
+#%%define pkgdir %{ghclibdir}/%{pkgnamever}\
 %define docdir %{ghclibdocdir}/%{pkgnamever}\
 if [ "%{pkgname}" = "rts" ]; then\
 pkgdir=%{ghclibdir}/rts\

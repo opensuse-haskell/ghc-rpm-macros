@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.4.91
+Version:        1.4.92
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -85,6 +85,9 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 
 
 %changelog
+* Fri May  1 2015 Jens Petersen <petersen@redhat.com> - 1.4.92-1
+- local pkgdir macro is redundant
+
 * Fri May  1 2015 Jens Petersen <petersen@redhat.com> - 1.4.91-1
 - use utf8 locale for cabal
 - sync with 1.4.14:
