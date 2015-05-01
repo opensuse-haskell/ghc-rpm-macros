@@ -1,6 +1,5 @@
 COPR_REPO = ghc-7.10.1
 
-TARBALL = ""
+NO_TARBALL = yes
 
 include ../common/common.mk
-
