@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.4.92
+Version:        1.4.93
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -85,6 +85,9 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 
 
 %changelog
+* Thu May  7 2015 Jens Petersen <petersen@fedoraproject.org> - 1.4.93-1
+- fix ghc-pkg path in ghc-deps.sh for ghc-7.10
+
 * Fri May  1 2015 Jens Petersen <petersen@redhat.com> - 1.4.92-1
 - local pkgdir macro is redundant
 
