@@ -7,7 +7,7 @@
 
 Name:           ghc-rpm-macros
 Version:        1.4.93
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3+
@@ -25,9 +25,13 @@ Source4:        cabal-tweak-dep-ver
 Source5:        cabal-tweak-flag
 Source6:        macros.ghc-extra
 Source7:        ghc.attr
+%if 0%{?fedora} >= 21
 Requires:       ghc-srpm-macros
 # macros.ghc-srpm moved out from redhat-rpm-config-21
 Requires:       redhat-rpm-config > 20-1.fc21
+%else
+Requires:       redhat-rpm-config
+%endif
 # for ghc_version
 Requires:       ghc-compiler
 %if %{undefined without_hscolour}
@@ -85,6 +89,9 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 
 
 %changelog
+* Sat May  9 2015 Jens Petersen <petersen@fedoraproject.org> - 1.4.93-2
+- handle no ghc-srpm-macros for fedora < 21
+
 * Thu May  7 2015 Jens Petersen <petersen@fedoraproject.org> - 1.4.93-1
 - fix ghc-pkg path in ghc-deps.sh for ghc-7.10
 
