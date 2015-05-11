@@ -25,13 +25,7 @@ Source4:        cabal-tweak-dep-ver
 Source5:        cabal-tweak-flag
 Source6:        macros.ghc-extra
 Source7:        ghc.attr
-%if 0%{?fedora} >= 21
-Requires:       ghc-srpm-macros
-# macros.ghc-srpm moved out from redhat-rpm-config-21
-Requires:       redhat-rpm-config > 20-1.fc21
-%else
 Requires:       redhat-rpm-config
-%endif
 # for ghc_version
 Requires:       ghc-compiler
 %if %{undefined without_hscolour}
