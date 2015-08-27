@@ -40,8 +40,10 @@ This package provides the Haskell %{pkgname} library development files.\
 %ghc_pkg_recache\
 \
 %files -n %{basepkg} -f %{basepkg}.files\
+%defattr(-,root,root,-)\
 %{?base_doc_files:%doc %base_doc_files}\
 \
 %files -n %{basepkg}-devel -f %{basepkg}-devel.files\
+%defattr(-,root,root,-)\
 %{?devel_doc_files:%doc %devel_doc_files}\
 %{nil}
