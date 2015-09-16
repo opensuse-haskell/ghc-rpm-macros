@@ -6,8 +6,8 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.4.93
-Release:        2%{?dist}
+Version:        1.4.94
+Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3+
@@ -83,6 +83,9 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 
 
 %changelog
+* Wed Sep 16 2015 Jens Petersen <petersen@redhat.com> - 1.4.94-1
+- configure libsubdir using pkgkey like ghc-cabal
+
 * Sat May  9 2015 Jens Petersen <petersen@fedoraproject.org> - 1.4.93-2
 - handle no ghc-srpm-macros for fedora < 21
 
