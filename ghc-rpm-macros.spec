@@ -6,7 +6,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.4.94
+Version:        1.4.95
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -25,6 +25,7 @@ Source4:        cabal-tweak-dep-ver
 Source5:        cabal-tweak-flag
 Source6:        macros.ghc-extra
 Source7:        ghc.attr
+Source8:        ghc-pkg-wrapper
 Requires:       redhat-rpm-config
 # for ghc_version
 Requires:       ghc-compiler
@@ -67,6 +68,7 @@ install -p -D -m 0644 %{SOURCE7} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc.a
 
 install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
 install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
+install -p -D -m 0755 %{SOURCE8} %{buildroot}/%{_libexecdir}/ghc-pkg-wrapper
 
 
 %files
@@ -76,6 +78,7 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 %{_prefix}/lib/rpm/ghc-deps.sh
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-flag
+%{_libexecdir}/ghc-pkg-wrapper
 
 
 %files extra
@@ -83,6 +86,10 @@ install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 
 
 %changelog
+* Sat Oct  3 2015 Jens Petersen <petersen@fedoraproject.org> - 1.4.95-1
+- add and use ghc-pkg-wrapper script
+- use ghc-pkg key field (for ghc-7.10)
+
 * Wed Sep 16 2015 Jens Petersen <petersen@redhat.com> - 1.4.94-1
 - configure libsubdir using pkgkey like ghc-cabal
 - disable debuginfo again
