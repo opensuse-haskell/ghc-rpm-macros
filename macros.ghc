@@ -65,22 +65,16 @@ tests
 %define basepkg %{?ghc_name}%{!?ghc_name:ghc}-%{pkgname}\
 #%%define pkgdir %{ghclibdir}/%{pkgnamever}\
 %define docdir %{ghclibdocdir}/%{pkgnamever}\
-if [ "%{pkgname}" = "rts" ]; then\
-pkgdir=%{ghclibdir}/rts\
-else\
 keyname=$(/usr/libexec/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field %{pkgname} key | sed -e "s/key: //")\
-pkgdir=$(ls -d %{buildroot}%{ghclibdir}/${keyname} | sed -e "s@^%{buildroot}@@")\
-fi\
+pkgdir="%{ghclibdir}/${keyname}"\
 rm -f %{basepkg}.files %{basepkg}-devel.files\
 touch %{basepkg}.files %{basepkg}-devel.files\
+echo "%{ghclibdir}/package.conf.d/%{pkgnamever}*.conf" >> %{basepkg}-devel.files\
 if [ -d "%{buildroot}${pkgdir}" ]; then\
 echo "%dir ${pkgdir}" >> %{basepkg}.files\
 %if %{undefined ghc_without_shared}\
 echo "%attr(755,root,root) ${pkgdir}/libHS*-ghc%{ghc_version}.so" >> %{basepkg}.files\
 %endif\
-fi\
-echo "%{ghclibdir}/package.conf.d/%{pkgnamever}*.conf" >> %{basepkg}-devel.files\
-if [ -d "%{buildroot}${pkgdir}" ]; then\
 find %{buildroot}${pkgdir} -mindepth 1 -type d | sed "s/^/%dir /" >> %{basepkg}-devel.files\
 find %{buildroot}${pkgdir} ! \\( -type d -o -name "libHS*.so" \\) >> %{basepkg}-devel.files\
 fi\
