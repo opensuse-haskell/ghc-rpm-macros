@@ -68,7 +68,7 @@ tests
 if [ "%{pkgname}" = "rts" ]; then\
 pkgdir=%{ghclibdir}/rts\
 else\
-keyname=$(/usr/libexec/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field %{pkgname} key)\
+keyname=$(/usr/libexec/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field %{pkgname} key | sed -e "s/key: //")\
 pkgdir=$(ls -d %{buildroot}%{ghclibdir}/${keyname} | sed -e "s@^%{buildroot}@@")\
 fi\
 rm -f %{basepkg}.files %{basepkg}-devel.files\
