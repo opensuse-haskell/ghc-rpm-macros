@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.4.96
+Version:        1.4.97
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -98,6 +98,9 @@ EOF
 
 
 %changelog
+* Fri Oct 23 2015 Jens Petersen <petersen@redhat.com> - 1.4.97-1
+- fix some missing quoting for deps generation
+
 * Fri Oct 23 2015 Jens Petersen <petersen@redhat.com> - 1.4.96-1
 - support el6 (no fileattrs or /usr/lib/rpm/macros.d)
 - change url to github
