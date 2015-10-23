@@ -1,22 +1,22 @@
 %global debug_package %{nil}
 
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %global macros_dir %{_rpmconfigdir}/macros.d
+%else
+%global macros_dir %{_sysconfdir}/rpm
+%endif
 
 # uncomment to bootstrap without hscolour
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.4.95
+Version:        1.4.96
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3+
-URL:            https://fedoraproject.org/wiki/Packaging:Haskell
-
-# This is a Fedora maintained package, originally made for
-# the distribution.  Hence the source is currently only available
-# from this package.  But it could be hosted on fedorahosted.org
-# for example if other rpm distros would prefer that.
+URL:            https://github.com/fedora-haskell/ghc-rpm-macros
+# Currently source is only in git but tarballs could be made if it helps
 Source0:        macros.ghc
 Source1:        COPYING
 Source2:        AUTHORS
@@ -64,17 +64,29 @@ install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc
 install -p -D -m 0644 %{SOURCE6} %{buildroot}/%{macros_dir}/macros.ghc-extra
 
 install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
+
+%if 0%{?fedora} || 0%{?rhel} >= 7
 install -p -D -m 0644 %{SOURCE7} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc.attr
+%endif
 
 install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
 install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 install -p -D -m 0755 %{SOURCE8} %{buildroot}/%{_libexecdir}/ghc-pkg-wrapper
 
+%if 0%{?rhel} < 7
+cat >> %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh <<EOF
+
+echo $files | tr [:blank:] '\n' | /usr/lib/rpm/rpmdeps --requires
+EOF
+%endif
+
 
 %files
 %doc COPYING AUTHORS
 %{macros_dir}/macros.ghc
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{_prefix}/lib/rpm/fileattrs/ghc.attr
+%endif
 %{_prefix}/lib/rpm/ghc-deps.sh
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-flag
@@ -86,6 +98,10 @@ install -p -D -m 0755 %{SOURCE8} %{buildroot}/%{_libexecdir}/ghc-pkg-wrapper
 
 
 %changelog
+* Fri Oct 23 2015 Jens Petersen <petersen@redhat.com> - 1.4.96-1
+- support el6 (no fileattrs or /usr/lib/rpm/macros.d)
+- change url to github
+
 * Sat Oct  3 2015 Jens Petersen <petersen@fedoraproject.org> - 1.4.95-1
 - add and use ghc-pkg-wrapper script
 - use ghc-pkg key field (for ghc-7.10)
