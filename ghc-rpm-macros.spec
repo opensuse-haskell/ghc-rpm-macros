@@ -76,7 +76,7 @@ install -p -D -m 0755 %{SOURCE8} %{buildroot}/%{_libexecdir}/ghc-pkg-wrapper
 %if 0%{?rhel} < 7
 cat >> %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh <<EOF
 
-echo $files | tr [:blank:] '\n' | /usr/lib/rpm/rpmdeps --requires
+echo \$files | tr [:blank:] '\n' | /usr/lib/rpm/rpmdeps --requires
 EOF
 %endif
 
