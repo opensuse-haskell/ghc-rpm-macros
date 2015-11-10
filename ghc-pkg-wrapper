@@ -10,7 +10,7 @@ PKGCONFDIR=$PKGBASEDIR/package.conf.d
 GHC_VER=$(basename $PKGBASEDIR | sed -e s/ghc-//)
 
 # for a ghc build use the new ghc-pkg
-INPLACE_GHCPKG=$PKGBASEDIR/../../bin/ghc-pkg-$GHC_VER
+INPLACE_GHCPKG=$PKGBASEDIR/../../bin/ghc-pkg
 
 if [ -x "$INPLACE_GHCPKG" ]; then
     case $GHC_VER in
