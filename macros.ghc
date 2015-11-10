@@ -186,3 +186,13 @@ done\
 %global without_prof 1\
 %global without_haddock 1\
 %global without_manual 1
+
+# ghc_suse_disable_debug_packages
+%ghc_suse_disable_debug_packages\
+%global debug_package %{nil}\
+%global __debug_install_post %{nil}\
+%global suse_insert_debug_package %{nil}\
+echo "/usr/lib/debug" > debugfiles.list\
+mkdir -p %{buildroot}/usr/lib/debug\
+echo "/usr/src/debug" > debugsources.list\
+mkdir -p %{buildroot}/usr/src/debug
