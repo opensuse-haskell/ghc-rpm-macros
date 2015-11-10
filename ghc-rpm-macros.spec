@@ -73,7 +73,7 @@ install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
 install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
 install -p -D -m 0755 %{SOURCE8} %{buildroot}/%{_libexecdir}/ghc-pkg-wrapper
 
-%if 0%{?rhel} < 7
+%if 0%{?rhel} && 0%{?rhel} < 7
 cat >> %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh <<EOF
 
 echo \$files | tr [:blank:] '\n' | /usr/lib/rpm/rpmdeps --requires
