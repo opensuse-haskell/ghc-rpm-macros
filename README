@@ -1,8 +1,2 @@
-This repo is for experimental packaging of Fedora Haskell packages.
-
-It is currently used in https://copr.fedoraproject.org/coprs/petersen/ghc-7.8/
-
-Changes to packaging may be first tested here
-before getting merged into Fedora Package git,
-and changes from there should also be merged here
-to keep up this repo up to date.
+This repo is for openSUSE and SUSE fork of fedora-haskell/ghc-rpm-macros used for
+build openSUSE and SUSE haskell packages in https://build.opensuse.org 
