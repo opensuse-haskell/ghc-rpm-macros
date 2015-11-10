@@ -19,6 +19,9 @@ proceeding, to avoid dependency ABI breakage from a future ghc rebuild."\
 %endif\
 fi
 
+# no _pkgdocdir in openSUSE
+%_pkgdocdir %{_docdir}/%{name}
+
 # configure
 %cabal_configure\
 %ghc_check_bootstrap\
@@ -40,9 +43,9 @@ LDFLAGS="${LDFLAGS:-%{?__global_ldflags}}"; export LDFLAGS\
 %ghc_pkgdocdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
 
 # root dir for ghc docs (used by ghc.spec)
-%ghc_html_dir %{_docdir}/ghc/html
+%ghc_html_dir %{_datadir}/doc/ghc/html
 # deprecates
-%ghcdocbasedir %{_docdir}/ghc/html
+%ghcdocbasedir %{_datadir}/doc/ghc/html
 
 # libraries doc dir (internal)
 %ghc_html_libraries_dir %{ghc_html_dir}/libraries
