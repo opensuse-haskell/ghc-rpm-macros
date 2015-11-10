@@ -11,7 +11,7 @@
 
 Name:           ghc-rpm-macros
 Version:        1.4.97
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3+
@@ -98,6 +98,9 @@ EOF
 
 
 %changelog
+* Tue Nov 10 2015 Jens Petersen <petersen@redhat.com> - 1.4.97-2
+- condition rpmdeps use correctly for rhel < 7
+
 * Fri Oct 23 2015 Jens Petersen <petersen@redhat.com> - 1.4.97-1
 - fix some missing quoting for deps generation
 
