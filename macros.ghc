@@ -133,7 +133,7 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 
 # install bin package
 %ghc_bin_install()\
-%if 0%{?rhel} && 0%{?rhel} < 7\
+%if 0%{?rhel} && 0%{?rhel} < 7 || 0%{?suse_version} == 1110\
 %global _use_internal_dependency_generator 0\
 %global __find_requires %{_rpmconfigdir}/ghc-deps.sh %{buildroot}%{ghclibdir}\
 %endif\
@@ -143,7 +143,7 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 
 # ghc_lib_install [name] [version]
 %ghc_lib_install()\
-%if 0%{?rhel} && 0%{?rhel} < 7\
+%if 0%{?rhel} && 0%{?rhel} < 7 || 0%{?suse_version} == 1110\
 %global _use_internal_dependency_generator 0\
 %global __find_provides /usr/lib/rpm/rpmdeps --provides\
 %global __find_requires %{_rpmconfigdir}/ghc-deps.sh %{buildroot}%{ghclibdir}\
