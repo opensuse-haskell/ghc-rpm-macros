@@ -10,8 +10,8 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.4.97
-Release:        2%{?dist}
+Version:        1.4.98
+Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
 License:        GPLv3+
@@ -71,7 +71,7 @@ install -p -D -m 0644 %{SOURCE7} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc.a
 
 install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
 install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
-install -p -D -m 0755 %{SOURCE8} %{buildroot}/%{_libexecdir}/ghc-pkg-wrapper
+install -p -D -m 0755 %{SOURCE8} %{buildroot}/%{_prefix}/lib/rpm/ghc-pkg-wrapper
 
 %if 0%{?rhel} && 0%{?rhel} < 7
 cat >> %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh <<EOF
@@ -88,9 +88,9 @@ EOF
 %{_prefix}/lib/rpm/fileattrs/ghc.attr
 %endif
 %{_prefix}/lib/rpm/ghc-deps.sh
+%{_prefix}/lib/rpm/ghc-pkg-wrapper
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-flag
-%{_libexecdir}/ghc-pkg-wrapper
 
 
 %files extra
@@ -98,6 +98,9 @@ EOF
 
 
 %changelog
+* Wed Nov 11 2015 Jens Petersen <petersen@redhat.com> - 1.4.98-1
+- move ghc-pkg-wrapper to /usr/lib/rpm (#2)
+
 * Tue Nov 10 2015 Jens Petersen <petersen@redhat.com> - 1.4.97-2
 - condition rpmdeps use correctly for rhel < 7
 

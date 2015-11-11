@@ -15,7 +15,7 @@ for i in $files; do
         # exclude builtin_rts.conf
 	$PKGCONFDIR/*-*.conf)
 	    PKGVER=$(echo $i | sed -e "s%$PKGCONFDIR/\(.\+\)-.\+.conf%\1%")
-	    DEPS=$(/usr/libexec/ghc-pkg-wrapper $PKGBASEDIR field $PKGVER depends | sed -e "s/^depends: \+//" -e "s/builtin_rts//" -e "s/\(bin-package-db\|ghc-prim\|integer-gmp\)-[^ ]\+//")
+	    DEPS=$(/usr/lib/rpm/ghc-pkg-wrapper $PKGBASEDIR field $PKGVER depends | sed -e "s/^depends: \+//" -e "s/builtin_rts//" -e "s/\(bin-package-db\|ghc-prim\|integer-gmp\)-[^ ]\+//")
 	    for d in $DEPS; do
 		case $d in
 		    *-*) echo "$d" | sed -e "s%\(.\+\)-\(.\+\)-.\+%ghc-\1-devel = \2%" ;;
