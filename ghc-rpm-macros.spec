@@ -76,7 +76,7 @@ install -p -D -m 0755 %{SOURCE8} %{buildroot}/%{_prefix}/lib/rpm/ghc-pkg-wrapper
 %if 0%{?rhel} && 0%{?rhel} < 7
 cat >> %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh <<EOF
 
-echo \$files | tr [:blank:] '\n' | /usr/lib/rpm/rpmdeps --requires
+echo \$files | tr [:blank:] '\n' | %{_rpmconfigdir}/rpmdeps --requires
 EOF
 %endif
 
@@ -100,6 +100,8 @@ EOF
 %changelog
 * Wed Nov 11 2015 Jens Petersen <petersen@redhat.com> - 1.4.98-1
 - move ghc-pkg-wrapper to /usr/lib/rpm (#2)
+- also override deps gen on SLE11 (mimi1vx)
+- use _rpmconfigdir macro
 
 * Tue Nov 10 2015 Jens Petersen <petersen@redhat.com> - 1.4.97-2
 - condition rpmdeps use correctly for rhel < 7

@@ -64,7 +64,7 @@ LDFLAGS="${LDFLAGS:-%{?__global_ldflags}}"; export LDFLAGS\
 %define pkgnamever %{pkgname}-%{pkgver}\
 %define basepkg %{?ghc_name}%{!?ghc_name:ghc}-%{pkgname}\
 %define docdir %{ghclibdocdir}/%{pkgnamever}\
-keyname=$(/usr/lib/rpm/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field %{pkgname} key | sed -e "s/key: //")\
+keyname=$(%{_rpmconfigdir}/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field %{pkgname} key | sed -e "s/key: //")\
 pkgdir="%{ghclibdir}/${keyname}"\
 rm -f %{basepkg}.files %{basepkg}-devel.files\
 touch %{basepkg}.files %{basepkg}-devel.files\
@@ -145,7 +145,7 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %ghc_lib_install()\
 %if 0%{?rhel} && 0%{?rhel} < 7 || 0%{?suse_version} == 1110\
 %global _use_internal_dependency_generator 0\
-%global __find_provides /usr/lib/rpm/rpmdeps --provides\
+%global __find_provides %{_rpmconfigdir}/rpmdeps --provides\
 %global __find_requires %{_rpmconfigdir}/ghc-deps.sh %{buildroot}%{ghclibdir}\
 %endif\
 %cabal_install\
