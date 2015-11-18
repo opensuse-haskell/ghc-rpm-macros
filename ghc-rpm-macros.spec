@@ -100,8 +100,9 @@ EOF
 %changelog
 * Wed Nov 11 2015 Jens Petersen <petersen@redhat.com> - 1.4.98-1
 - move ghc-pkg-wrapper to /usr/lib/rpm (#2)
-- also override deps gen on SLE11 (mimi1vx)
+- just override deps gen when no fileattrs (mimi1vx)
 - use _rpmconfigdir macro
+
 
 * Tue Nov 10 2015 Jens Petersen <petersen@redhat.com> - 1.4.97-2
 - condition rpmdeps use correctly for rhel < 7
