@@ -1,12 +1,19 @@
 #!/bin/sh
-# find rpm requires for Haskell GHC libraries
+# find rpm provides and requires for Haskell GHC libraries
 
-[ $# -ne 1 ] && echo "Usage: `basename $0` %{buildroot}%{ghclibdir}" && exit 1
+[ $# -ne 2 ] && echo "Usage: `basename $0` [--provides|--requires] %{buildroot}%{ghclibdir}" && exit 1
 
 set +x
 
-PKGBASEDIR=$1
+MODE=$1
+PKGBASEDIR=$2
 PKGCONFDIR=$PKGBASEDIR/package.conf.d
+
+case $MODE in
+    --provides) FIELD=id ;;
+    --requires) FIELD=depends ;;
+    *) echo "`basename $0`: Need --provides or --requires" ; exit 1
+esac
 
 files=$(cat)
 
@@ -15,10 +22,10 @@ for i in $files; do
         # exclude builtin_rts.conf
 	$PKGCONFDIR/*-*.conf)
 	    PKGVER=$(echo $i | sed -e "s%$PKGCONFDIR/\(.\+\)-.\+.conf%\1%")
-	    DEPS=$(/usr/lib/rpm/ghc-pkg-wrapper $PKGBASEDIR field $PKGVER depends | sed -e "s/^depends: \+//" -e "s/builtin_rts//" -e "s/\(bin-package-db\|ghc-prim\|integer-gmp\)-[^ ]\+//")
-	    for d in $DEPS; do
+	    OUT=$(./ghc-pkg-wrapper $PKGBASEDIR field $PKGVER $FIELD | sed -e "s/^depends: \+//" -e "s/rts//" -e "s/\(bin-package-db\|ghc-prim\|integer-gmp\)-[^ ]\+//")
+	    for d in $OUT; do
 		case $d in
-		    *-*) echo "$d" | sed -e "s%\(.\+\)-\(.\+\)-.\+%ghc-\1-devel = \2%" ;;
+		    *-*) echo "ghc-devel($d)" ;;
 		    *) ;;
 		esac
 	    done
