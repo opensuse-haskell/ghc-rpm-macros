@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.4.98
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -98,11 +98,14 @@ EOF
 
 
 %changelog
+* Wed Feb  3 2016 Jens Petersen <petersen@redhat.com> - 1.5.0-1
+- update for ghc-8.0
+- ghc-deps uses --provides and --requires again
+
 * Wed Nov 11 2015 Jens Petersen <petersen@redhat.com> - 1.4.98-1
 - move ghc-pkg-wrapper to /usr/lib/rpm (#2)
 - just override deps gen when no fileattrs (mimi1vx)
 - use _rpmconfigdir macro
-
 
 * Tue Nov 10 2015 Jens Petersen <petersen@redhat.com> - 1.4.97-2
 - condition rpmdeps use correctly for rhel < 7
