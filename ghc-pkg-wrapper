@@ -22,7 +22,7 @@ if [ -x "$INPLACE_GHCPKG" ]; then
             ;;
         # 7.8 and 7.10
         *)
-            GHC_PKG="$PKGBASEDIR/bin/ghc-pkg --global-package-db=$PKGCONFDIR"
+            GHC_PKG="$PKGBASEDIR/bin/ghc-pkg --global --global-package-db=$PKGCONFDIR"
             ;;
     esac
 else
