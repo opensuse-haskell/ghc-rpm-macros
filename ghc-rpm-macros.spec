@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.5.0
+Version:        1.5.1
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -98,6 +98,9 @@ EOF
 
 
 %changelog
+* Mon Feb 22 2016 Jens Petersen <petersen@redhat.com> - 1.5.1-1
+- ghc-deps.sh hopefully working right now
+
 * Wed Feb  3 2016 Jens Petersen <petersen@redhat.com> - 1.5.0-1
 - update for ghc-8.0
 - ghc-deps uses --provides and --requires again
