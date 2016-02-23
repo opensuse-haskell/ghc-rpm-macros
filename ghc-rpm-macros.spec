@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.5.1
+Version:        1.5.2
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -98,6 +98,9 @@ EOF
 
 
 %changelog
+* Tue Feb 23 2016 Jens Petersen <petersen@redhat.com> - 1.5.2-1
+- ghc-deps.sh no longer filter out ghc-prim and integer-gmp
+
 * Mon Feb 22 2016 Jens Petersen <petersen@redhat.com> - 1.5.1-1
 - ghc-deps.sh hopefully working right now
 
