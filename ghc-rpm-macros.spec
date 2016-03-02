@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.5.2
+Version:        1.5.3
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -98,6 +98,10 @@ EOF
 
 
 %changelog
+* Wed Mar  2 2016 Jens Petersen <petersen@redhat.com> - 1.5.3-1
+- ghc_gen_filelists: determine keyname with pkgnamever not just pkgname
+  (fixes building newer version of installed package)
+
 * Tue Feb 23 2016 Jens Petersen <petersen@redhat.com> - 1.5.2-1
 - ghc-deps.sh no longer filter out ghc-prim and integer-gmp
 
