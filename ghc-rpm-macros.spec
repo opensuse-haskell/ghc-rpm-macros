@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.5.3
+Version:        1.6.90
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 

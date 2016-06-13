@@ -42,17 +42,17 @@ LDFLAGS="${LDFLAGS:-%{?__global_ldflags}}"; export LDFLAGS\
 # root dir for ghc docs (used by ghc.spec)
 %ghc_html_dir %{_docdir}/ghc/html
 # deprecates
-%ghcdocbasedir %{_docdir}/ghc/html
+%ghcdocbasedir %ghc_html_dir
 
 # libraries doc dir (internal)
 %ghc_html_libraries_dir %{ghc_html_dir}/libraries
 # deprecates
-%ghclibdocdir %{ghcdocbasedir}/libraries
+%ghclibdocdir %ghc_html_libraries_dir
 
 # pkg doc dir
 %ghc_html_pkg_dir %{ghc_html_libraries_dir}/%{pkg_name}-%{version}
 # deprecates
-%ghcpkgdocdir %{ghclibdocdir}/%{pkg_name}-%{version}
+%ghcpkgdocdir %ghc_html_pkg_dir
 
 # top library dir
 %ghclibdir %{_libdir}/ghc-%{ghc_version}
