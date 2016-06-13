@@ -98,6 +98,9 @@ EOF
 
 
 %changelog
+* Mon Jun 13 2016 Jens Petersen <petersen@redhat.com> - 1.6.90-1
+- ghc_gen_filelists: uniq keyname to prevent build failure for installed version
+
 * Wed Mar  2 2016 Jens Petersen <petersen@redhat.com> - 1.5.3-1
 - ghc_gen_filelists: determine keyname with pkgnamever not just pkgname
   (fixes building newer version of installed package)
