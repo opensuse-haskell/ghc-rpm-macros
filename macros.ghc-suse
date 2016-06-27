@@ -1,0 +1,7 @@
+# SUSE specific macros/variables for haskell packaging
+
+#build binary packages statically linked
+%ghc_without_dynamic 1
+
+#cabal verbosity
+%cabal_verbose -v 

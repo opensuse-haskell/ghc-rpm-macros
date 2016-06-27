@@ -1,9 +1,6 @@
 # RPM Macros for packaging Haskell cabalized packages  -*-rpm-spec-*-
 # see https://fedoraproject.org/wiki/Packaging:Haskell for more details
 
-#cabal verbosity
-%cabal_verbose -v 
-
 # "cabal"
 %cabal [ -x Setup ] || ghc --make %{!?ghc_user_conf:-no-user-package-db} %{!?ghc_without_dynamic:-dynamic} Setup\
 LANG=en_US.utf8\
