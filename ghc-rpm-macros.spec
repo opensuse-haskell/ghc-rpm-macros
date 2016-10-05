@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.6.90
+Version:        1.6.91
 Release:        1%{?dist}
 Summary:        RPM macros for building packages for GHC
 
@@ -44,6 +44,7 @@ these macros.
 %package extra
 Summary:        Extra RPM macros for building Haskell library subpackages
 Requires:       %{name} = %{version}-%{release}
+Requires:       chrpath
 
 %description extra
 Extra macros used for subpackaging of Haskell libraries,
@@ -98,6 +99,14 @@ EOF
 
 
 %changelog
+* Wed Oct  5 2016 Jens Petersen <petersen@redhat.com> - 1.6.91-1
+- forward port changes from Fedora 25:
+- ghc-pkg-wrapper is now quiet with simple output
+- install and package license file under _defaultlicensedir when available
+- new ghc_fix_rpath macro deprecates ghc_fix_dynamic_rpath
+- ghc_lib_subpackage now takes name-version
+- new ghc_libs_build and ghc_libs_install extra macros
+
 * Mon Jun 13 2016 Jens Petersen <petersen@redhat.com> - 1.6.90-1
 - ghc_gen_filelists: uniq keyname to prevent build failure for installed version
 
