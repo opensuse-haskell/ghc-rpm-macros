@@ -1,6 +1,6 @@
-This repo is for experimental packaging of Fedora Haskell packages.
+This repo is used for latest packaging of ghc and Haskell packages.
 
-It is currently used in https://copr.fedoraproject.org/coprs/petersen/ghc-7.8/
+It is currently used in https://copr.fedoraproject.org/coprs/petersen/ghc-*/
 
 Changes to packaging may be first tested here
 before getting merged into Fedora Package git,
