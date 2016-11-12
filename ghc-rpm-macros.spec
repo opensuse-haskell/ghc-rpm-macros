@@ -12,7 +12,7 @@
 Name:           ghc-rpm-macros
 Version:        1.6.91
 Release:        1%{?dist}
-Summary:        RPM macros for building packages for GHC
+Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPLv3+
 URL:            https://github.com/fedora-haskell/ghc-rpm-macros
@@ -30,7 +30,7 @@ Requires:       redhat-rpm-config
 # for ghc_version
 Requires:       ghc-compiler
 %if %{undefined without_hscolour}
-%ifarch %{ix86} %{ix86} x86_64 ppc ppc64 alpha sparcv9 armv7hl armv5tel s390 s390x ppc64le aarch64
+%ifarch %{ix86} x86_64 ppc ppc64 alpha sparcv9 armv7hl armv5tel s390 s390x ppc64le aarch64
 Requires:       hscolour
 %endif
 %endif
@@ -83,7 +83,8 @@ EOF
 
 
 %files
-%doc COPYING AUTHORS
+%license COPYING
+%doc AUTHORS
 %{macros_dir}/macros.ghc
 %if 0%{?fedora} || 0%{?rhel} >= 7
 %{_prefix}/lib/rpm/fileattrs/ghc.attr
@@ -99,8 +100,14 @@ EOF
 
 
 %changelog
+* Sat Nov 12 2016 Jens Petersen <petersen@redhat.com> - 1.6.91-1
+- a few more forward ports from Fedora:
+- make ghc_lib_subpackage backward compatible with older 2 args form
+- only pass CFLAGS and LDFLAGS to ghc if set
+
 * Wed Oct  5 2016 Jens Petersen <petersen@redhat.com> - 1.6.91-1
 - forward port changes from Fedora 25:
+- macros.ghc-extra requires chrpath
 - ghc-pkg-wrapper is now quiet with simple output
 - install and package license file under _defaultlicensedir when available
 - new ghc_fix_rpath macro deprecates ghc_fix_dynamic_rpath
