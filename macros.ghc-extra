@@ -99,3 +99,36 @@ cd ..\
 done\
 %ghc_fix_rpath $args\
 %{nil}
+
+# ghc_gen_filelists [name] [version]
+%ghc_gen_filelists()\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define pkgver %{?2}%{!?2:%{version}}\
+%define pkgnamever %{pkgname}-%{pkgver}\
+%define basepkg %{?ghc_name}%{!?ghc_name:ghc}-%{pkgname}\
+%define docdir %{ghclibdocdir}/%{pkgnamever}\
+keyname=$(%{_rpmconfigdir}/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field %{pkgnamever} key | uniq)\
+pkgdir="%{ghclibdir}/${keyname}"\
+rm -f %{basepkg}.files %{basepkg}-devel.files\
+touch %{basepkg}.files %{basepkg}-devel.files\
+echo "%{ghclibdir}/package.conf.d/%{pkgnamever}*.conf" >> %{basepkg}-devel.files\
+if [ -d "%{buildroot}${pkgdir}" ]; then\
+echo "%%dir ${pkgdir}" >> %{basepkg}.files\
+%if %{undefined ghc_without_shared}\
+echo "%%attr(755,root,root) ${pkgdir}/libHS*-ghc%{ghc_version}.so" >> %{basepkg}.files\
+%endif\
+find %{buildroot}${pkgdir} -mindepth 1 -type d | sed "s/^/%dir /" >> %{basepkg}-devel.files\
+find %{buildroot}${pkgdir} ! \\( -type d -o -name "libHS*.so" \\) >> %{basepkg}-devel.files\
+fi\
+if [ -d "%{buildroot}%{docdir}" ]; then\
+echo "%{docdir}" >> %{basepkg}-devel.files\
+fi\
+for i in $(ls %{buildroot}%{?_defaultlicensedir}%{!?_defaultlicensedir:%_docdir}/%{!?1:%{name}}%{?1:%{basepkg}}); do\
+echo "%%license %{?1:%{pkgnamever}/}$i" >> %{basepkg}.files\
+done\
+for i in %{basepkg}.files %{basepkg}-devel.files; do\
+if [ -f "$i" ]; then\
+sed -i -e "s!%{buildroot}!!g" $i\
+fi\
+done\
+%{nil}
