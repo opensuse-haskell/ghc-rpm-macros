@@ -25,11 +25,17 @@ esac
 
 case $3 in
     dynlibdir)
-        if [ "$CABAL_VER" = "1.24.1.0" -o "$CABAL_VER" = "1.24.2.0" ]; then
-            echo "$(dirname ${ghclibdir})"
-        else
-            echo "${pkglibdir}"
-        fi
+        case $CABAL_VER in
+            1.24.0.*)
+                echo "${pkglibdir}"
+                ;;
+            1.24.*)
+                echo "$(dirname ${ghclibdir})"
+                ;;
+            *)
+                echo "${pkglibdir}"
+                ;;
+        esac
         ;;
     pkglibdir)
         echo "${pkglibdir}"
