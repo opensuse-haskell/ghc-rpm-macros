@@ -26,15 +26,18 @@ fi
 %cabal_configure\
 %ghc_check_bootstrap\
 %global _hardened_ldflags %{nil}\
-%cabal configure -v --prefix=%{_prefix} --libdir=%{_libdir} --docdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}} --libsubdir='$compiler/$pkgkey' --datasubdir='$pkgid' --ghc %{!?ghc_without_dynamic:--enable-executable-dynamic} %{?with_tests:--enable-tests} %{?cabal_configure_options} $cabal_configure_extra_options
+%if "%{Cabal_version}" == "1.24.1.0" || "%{Cabal_version}" == "1.24.2.0"\
+dynlibdir="--dynlibdir=%{_libdir}"\
+%endif\
+%cabal configure %{?cabal_configure_verbose} --prefix=%{_prefix} --libdir=%{_libdir} --docdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}} --libsubdir='$compiler/$pkgkey' ${dynlibdir} --datasubdir='$pkgid' --ghc %{!?ghc_without_dynamic:--enable-executable-dynamic} %{?with_tests:--enable-tests} %{?cabal_configure_options} $cabal_configure_extra_options
 
 # install
-%cabal_install %cabal copy %{?cabal_verbose} %{!?cabal_verbose:-v} --destdir=%{buildroot}
+%cabal_install %cabal copy %{?cabal_install_verbose} --destdir=%{buildroot}
 
 # tests
 %cabal_test\
 %if %{with tests}\
-%cabal test %{?cabal_verbose}\
+%cabal test %{?cabal_test_verbose}\
 %endif
 
 # no _pkgdocdir in EPEL <= 7
@@ -58,41 +61,14 @@ fi
 # top library dir
 %ghclibdir %{_libdir}/ghc-%{ghc_version}
 
-# ghc_gen_filelists [name] [version]
-%ghc_gen_filelists()\
-%define pkgname %{?1}%{!?1:%{pkg_name}}\
-%define pkgver %{?2}%{!?2:%{version}}\
-%define pkgnamever %{pkgname}-%{pkgver}\
-%define basepkg %{?ghc_name}%{!?ghc_name:ghc}-%{pkgname}\
-%define docdir %{ghclibdocdir}/%{pkgnamever}\
-keyname=$(%{_rpmconfigdir}/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field %{pkgnamever} key | sed -e "s/key: //" | uniq)\
-pkgdir="%{ghclibdir}/${keyname}"\
-rm -f %{basepkg}.files %{basepkg}-devel.files\
-touch %{basepkg}.files %{basepkg}-devel.files\
-echo "%{ghclibdir}/package.conf.d/%{pkgnamever}*.conf" >> %{basepkg}-devel.files\
-if [ -d "%{buildroot}${pkgdir}" ]; then\
-echo "%%dir ${pkgdir}" >> %{basepkg}.files\
-%if %{undefined ghc_without_shared}\
-echo "%%attr(755,root,root) ${pkgdir}/libHS*-ghc%{ghc_version}.so" >> %{basepkg}.files\
-%endif\
-find %{buildroot}${pkgdir} -mindepth 1 -type d | sed "s/^/%dir /" >> %{basepkg}-devel.files\
-find %{buildroot}${pkgdir} ! \\( -type d -o -name "libHS*.so" \\) >> %{basepkg}-devel.files\
-fi\
-if [ -d "%{buildroot}%{docdir}" ]; then\
-echo "%{docdir}" >> %{basepkg}-devel.files\
-fi\
-for i in $(ls %{buildroot}%{?_defaultlicensedir}%{!?_defaultlicensedir:%_docdir}/%{!?1:%{name}}%{?1:%{basepkg}}); do\
-echo "%%license %{?1:%{pkgnamever}/}$i" >> %{basepkg}.files\
-done\
-for i in %{basepkg}.files %{basepkg}-devel.files; do\
-if [ -f "$i" ]; then\
-sed -i -e "s!%{buildroot}!!g" $i\
-fi\
-done\
-%{nil}
+%_ghcdynlibdir %(%{_rpmconfigdir}/ghc-dirs.sh %{_libdir} %{pkg_name}-%{version} dynlibdir)
+
+%_ghcpkglibdir %(%{_rpmconfigdir}/ghc-dirs.sh %{_libdir} %{pkg_name}-%{version} pkglibdir)
 
 # compiler version
 %ghc_version %{!?ghc_version_override:%(ghc --numeric-version)}%{?ghc_version_override}
+
+%Cabal_version %(ghc-pkg --global --simple-output list Cabal | sed -e "s/Cabal-//")
 
 # create and install package.conf file
 # cabal_pkg_conf [name] [version]
@@ -107,12 +83,12 @@ install -D --mode=0644 %{pkgnamever}.conf %{buildroot}%{ghclibdir}/package.conf.
 # ghc_bin_build
 %ghc_bin_build\
 %cabal_configure\
-%cabal build %{_smp_mflags} %{?cabal_verbose}
+%cabal build %{_smp_mflags} %{?cabal_build_verbose}
 
 # ghc_lib_build_without_haddock [name] [version]
 %ghc_lib_build_without_haddock()\
 %cabal_configure %{!?without_prof:-p} %{!?ghc_without_shared:--enable-shared} %{?ghc_without_shared:--disable-shared} %{?pkg_name:--htmldir=%{ghclibdocdir}/%{pkg_name}-%{version}} %{?1:--docdir=%{_docdir}/ghc-%1%{!?fedora:-%2} --htmldir=%{ghclibdocdir}/%1-%2} %{!?1:--global} %{?ghc_with_lib_for_ghci:--enable-library-for-ghci}\
-%cabal build %{_smp_mflags} %{?cabal_verbose}\
+%cabal build %{_smp_mflags} %{?cabal_build_verbose}\
 %{nil}
 
 # ghc_lib_build [name] [version]
@@ -122,7 +98,7 @@ install -D --mode=0644 %{pkgnamever}.conf %{buildroot}%{ghclibdir}/package.conf.
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define pkgver %{?2}%{!?2:%{version}}\
 if [ -f dist/build/libHS%{pkgname}-%{pkgver}.a ]; then\
-%cabal haddock --html %{!?without_hscolour:%(if [ -x %{_bindir}/HsColour ]; then echo --hyperlink-source; fi)} --hoogle\
+%cabal haddock %{?cabal_haddock_verbose} --html %{!?without_hscolour:%(if [ -x %{_bindir}/HsColour ]; then echo --hyperlink-source; fi)} --hoogle\
 fi\
 %endif\
 %{nil}
@@ -148,7 +124,6 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %{!?_fileattrsdir:%global __find_requires %{_rpmconfigdir}/ghc-deps.sh %{buildroot}%{ghclibdir}}\
 %cabal_install\
 %cabal_pkg_conf\
-%ghc_gen_filelists\
 %{!?1:%ghc_strip_dynlinked}\
 %{nil}
 
@@ -214,13 +189,3 @@ done\
 %global without_prof 1\
 %global without_haddock 1\
 %global without_manual 1
-
-# ghc_suse_disable_debug_packages
-%ghc_suse_disable_debug_packages\
-%global debug_package %{nil}\
-%global __debug_install_post %{nil}\
-%global suse_insert_debug_package %{nil}\
-echo "/usr/lib/debug" > debugfiles.list\
-mkdir -p %{buildroot}/usr/lib/debug\
-echo "/usr/src/debug" > debugsources.list\
-mkdir -p %{buildroot}/usr/src/debug

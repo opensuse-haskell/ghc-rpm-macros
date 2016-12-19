@@ -1,2 +1,4 @@
-This repo is for openSUSE and SUSE fork of fedora-haskell/ghc-rpm-macros used for
-build openSUSE and SUSE haskell packages in https://build.opensuse.org 
+This repo is used for latest rpm packaging of ghc and Haskell packages.
+
+It is used for experimental packaging for new versions of ghc
+and as upstream to Fedora and OpenSUSE Haskell packaging.

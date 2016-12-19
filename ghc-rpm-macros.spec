@@ -10,9 +10,9 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.6.91
+Version:        1.6.94
 Release:        1%{?dist}
-Summary:        RPM macros for building packages for GHC
+Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPLv3+
 URL:            https://github.com/fedora-haskell/ghc-rpm-macros
@@ -26,11 +26,14 @@ Source5:        cabal-tweak-flag
 Source6:        macros.ghc-extra
 Source7:        ghc.attr
 Source8:        ghc-pkg-wrapper
+# put your distro macros here
+Source9:        macros.ghc-fedora
+Source10:       ghc-dirs.sh
 Requires:       redhat-rpm-config
 # for ghc_version
 Requires:       ghc-compiler
 %if %{undefined without_hscolour}
-%ifarch %{ix86} %{ix86} x86_64 ppc ppc64 alpha sparcv9 armv7hl armv5tel s390 s390x ppc64le aarch64
+%ifarch %{ix86} x86_64 ppc ppc64 alpha sparcv9 armv7hl armv5tel s390 s390x ppc64le aarch64
 Requires:       hscolour
 %endif
 %endif
@@ -63,8 +66,10 @@ echo no build stage needed
 %install
 install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc
 install -p -D -m 0644 %{SOURCE6} %{buildroot}/%{macros_dir}/macros.ghc-extra
+install -p -D -m 0644 %{SOURCE9} %{buildroot}/%{macros_dir}/macros.ghc-fedora
 
 install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
+install -p -D -m 0755 %{SOURCE10} %{buildroot}/%{_prefix}/lib/rpm/ghc-dirs.sh
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
 install -p -D -m 0644 %{SOURCE7} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc.attr
@@ -83,12 +88,15 @@ EOF
 
 
 %files
-%doc COPYING AUTHORS
+%license COPYING
+%doc AUTHORS
 %{macros_dir}/macros.ghc
+%{macros_dir}/macros.ghc-fedora
 %if 0%{?fedora} || 0%{?rhel} >= 7
 %{_prefix}/lib/rpm/fileattrs/ghc.attr
 %endif
 %{_prefix}/lib/rpm/ghc-deps.sh
+%{_prefix}/lib/rpm/ghc-dirs.sh
 %{_prefix}/lib/rpm/ghc-pkg-wrapper
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-flag
@@ -99,8 +107,26 @@ EOF
 
 
 %changelog
+* Mon Dec 19 2016 Jens Petersen <petersen@redhat.com> - 1.6.94-1
+- check Cabal version for dynlibdir and ghc-dirs.sh
+
+* Wed Dec 14 2016 Jens Petersen <petersen@redhat.com> - 1.6.93-1
+- add macros.ghc-fedora for Fedora specific config
+- replace cabal_verbose with cabal_configure_verbose, cabal_build_verbose,
+  cabal_install_verbose, cabal_haddock_verbose, and cabal_test_verbose
+- for ghc-8.0.2 install dynlibs in _libdir
+- new _ghcdocdir,
+- new _ghcdynlibdir and _ghcpkglibdir defined by ghc-dirs.sh
+- move ghc_gen_filelists to macros.ghc-extra and no longer use by default
+
+* Sat Nov 12 2016 Jens Petersen <petersen@redhat.com> - 1.6.92-1
+- a few more forward ports from Fedora:
+- make ghc_lib_subpackage backward compatible with older 2 args form
+- only pass CFLAGS and LDFLAGS to ghc if set
+
 * Wed Oct  5 2016 Jens Petersen <petersen@redhat.com> - 1.6.91-1
 - forward port changes from Fedora 25:
+- macros.ghc-extra requires chrpath
 - ghc-pkg-wrapper is now quiet with simple output
 - install and package license file under _defaultlicensedir when available
 - new ghc_fix_rpath macro deprecates ghc_fix_dynamic_rpath
