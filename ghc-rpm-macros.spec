@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.6.94
+Version:        1.6.95
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -107,6 +107,11 @@ EOF
 
 
 %changelog
+* Thu Dec 22 2016 Jens Petersen <petersen@fedoraproject.org> - 1.6.95-1
+- move gen_contents_index back to macros.ghc and use it again for lib
+  installs for now for back compatibility with existing spec files
+- rename cabal_*_verbose to cabal_*_options
+
 * Mon Dec 19 2016 Jens Petersen <petersen@redhat.com> - 1.6.94-1
 - check Cabal version for dynlibdir and ghc-dirs.sh
 
