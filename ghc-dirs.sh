@@ -7,12 +7,12 @@ set +x
 libdir=$1
 pkgver=$2
 
-GHC_VER=$(ghc --numeric-version)
-CABAL_VER=$(ghc-pkg --global --simple-output list Cabal | sed -e "s/Cabal-//")
+ghc_ver=$(ghc --numeric-version)
+cabal_ver=$(ghc-pkg --global --simple-output list Cabal | sed -e "s/Cabal-//")
 
-ghclibdir=${libdir}/ghc-${GHC_VER}
+ghclibdir=${libdir}/ghc-${ghc_ver}
 
-case $CABAL_VER in
+case $cabal_ver in
     1.24.*)
         pkglibdir="${ghclibdir}/${pkgver}-*"
         ;;
@@ -21,11 +21,12 @@ case $CABAL_VER in
         ;;
     1.18.*)
         pkglibdir="${ghclibdir}/${pkgver}"
+        ;;
 esac
 
 case $3 in
     dynlibdir)
-        case $CABAL_VER in
+        case $cabal_ver in
             1.24.0.*)
                 echo "${pkglibdir}"
                 ;;

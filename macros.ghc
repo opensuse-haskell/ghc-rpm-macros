@@ -167,16 +167,16 @@ find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \
 %ghc_fix_rpath()\
 %if %{undefined ghc_without_dynamic}\
 if ! type chrpath > /dev/null; then exit 1; fi\
-PDIR=$(pwd)\
+pdir=$(pwd)\
 for lib in %*; do\
 for i in $(find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically linked'" \\; -print); do\
   if [ -x "$i" ]; then\
-    RPATH=$(chrpath $i | sed -e "s@^$i: R.*PATH=@@")\
-    case $RPATH in\
-         *$PDIR/$lib/*)\
-         SYSPATH=$(%{_rpmconfigdir}/ghc-pkg-wrapper %{buildroot}%{ghclibdir} --package-db=%{buildroot}%{ghclibdir}/package.conf.d field $lib library-dirs | uniq)\
-         NEWRPATH=$(echo $RPATH | sed -e "s@$PDIR/$lib/dist/build@${SYSPATH}@g")\
-         chrpath -r $NEWRPATH $i\
+    rpath=$(chrpath $i | sed -e "s@^$i: R.*PATH=@@")\
+    case $rpath in\
+         *$pdir/$lib/*)\
+         syspath=$(%{_rpmconfigdir}/ghc-pkg-wrapper %{buildroot}%{ghclibdir} --package-db=%{buildroot}%{ghclibdir}/package.conf.d field $lib library-dirs | uniq)\
+         NEWRPATH=$(echo $rpath | sed -e "s@$pdir/$lib/dist/build@${syspath}@g")\
+         chrpath -r $newrpath $i\
          ;;\
     esac\
   else\
@@ -193,22 +193,22 @@ done\
 %ghc_fix_dynamic_rpath()\
 %if %{undefined ghc_without_dynamic}\
 if ! type chrpath > /dev/null; then exit 1; fi\
-PDIR=$(pwd)\
+pdir=$(pwd)\
 for i in %*; do\
   case $i in\
-    /*) PROG=%{buildroot}$i ;;\
-    *) PROG=%{buildroot}%{_bindir}/$i ;;\
+    /*) prog=%{buildroot}$i ;;\
+    *) prog=%{buildroot}%{_bindir}/$i ;;\
   esac\
-  if [ -x "$PROG" ]; then\
-    RPATH=$(chrpath $PROG | sed -e "s@^$PROG: R.*PATH=@@")\
-    case $RPATH in\
-         *$PDIR*)\
-         NEWRPATH=$(echo $RPATH | sed -e "s@$PDIR/dist/build@%{ghclibdir}/%{pkg_name}-%{version}@g")\
-         chrpath -r $NEWRPATH $PROG\
+  if [ -x "$prog" ]; then\
+    RPATH=$(chrpath $prog | sed -e "s@^$prog: R.*PATH=@@")\
+    case $rpath in\
+         *$pdir*)\
+         newrpath=$(echo $rpath | sed -e "s@$pdir/dist/build@%{ghclibdir}/%{pkg_name}-%{version}@g")\
+         chrpath -r $newrpath $prog\
          ;;\
     esac\
   else\
-    echo "%%ghc_fix_dynamic_rpath: no such file $PROG"\
+    echo "%%ghc_fix_dynamic_rpath: no such file $prog"\
     exit 1\
   fi\
 done\
