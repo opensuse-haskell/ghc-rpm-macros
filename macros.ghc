@@ -77,7 +77,7 @@ esac\
 %define pkgnamever %{pkgname}-%{pkgver}\
 %define basepkg %{?ghc_name}%{!?ghc_name:ghc}-%{pkgname}\
 %define docdir %{ghclibdocdir}/%{pkgnamever}\
-keyname=$(%{_rpmconfigdir}/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field %{pkgnamever} key | uniq)\
+keyname=$(%{_rpmconfigdir}/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field %{pkgnamever} key)\
 pkgdir="%{ghclibdir}/${keyname}"\
 rm -f %{basepkg}.files %{basepkg}-devel.files\
 touch %{basepkg}.files %{basepkg}-devel.files\
@@ -174,7 +174,7 @@ for i in $(find %{buildroot} -type f -exec sh -c "file {} | grep -q 'dynamically
     rpath=$(chrpath $i | sed -e "s@^$i: R.*PATH=@@")\
     case $rpath in\
          *$pdir/$lib/*)\
-         syspath=$(%{_rpmconfigdir}/ghc-pkg-wrapper %{buildroot}%{ghclibdir} --package-db=%{buildroot}%{ghclibdir}/package.conf.d field $lib library-dirs | uniq)\
+         syspath=$(%{_rpmconfigdir}/ghc-pkg-wrapper %{buildroot}%{ghclibdir} --package-db=%{buildroot}%{ghclibdir}/package.conf.d field $lib library-dirs)\
          NEWRPATH=$(echo $rpath | sed -e "s@$pdir/$lib/dist/build@${syspath}@g")\
          chrpath -r $newrpath $i\
          ;;\
