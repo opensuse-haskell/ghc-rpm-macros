@@ -2,4 +2,4 @@
 
 %_ghcdocdir %{?_defaultlicensedir}%{!?_defaultlicensedir:%_docdir}/%{name}
 
-%cabal_install_verbose -v
+%cabal_install_options -v

@@ -6,9 +6,11 @@
 #build binary packages statically linked
 %ghc_without_dynamic 1
 
-%cabal_configure_verbose -v
-%cabal_install_verbose -v
-%cabal_test_verbose -v
+#cabal verbosity
+%cabal_configure_options -v
+%cabal_install_options -v
+%cabal_test_options -v
+%cabal_build_options -v
 
 # ghc_suse_disable_debug_packages
 %ghc_suse_disable_debug_packages\
