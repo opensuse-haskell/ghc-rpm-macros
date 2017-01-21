@@ -1,4 +1,6 @@
 This repo is used for latest rpm packaging of ghc and Haskell packages.
 
-It is used for experimental packaging for new versions of ghc
+It is used for packaging for new versions of ghc
 and as upstream to Fedora and OpenSUSE Haskell packaging.
+
+The aim now is to make it work across multiple ghc versions.
