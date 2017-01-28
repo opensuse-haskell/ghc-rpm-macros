@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.6.96
+Version:        1.6.97
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -29,6 +29,7 @@ Source8:        ghc-pkg-wrapper
 # put your distro macros here
 Source9:        macros.ghc-fedora
 Source10:       ghc-dirs.sh
+Source11:       cabal-tweak-drop-dep
 Requires:       redhat-rpm-config
 # for ghc_version
 Requires:       ghc-compiler
@@ -77,6 +78,7 @@ install -p -D -m 0644 %{SOURCE7} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc.a
 
 install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
 install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
+install -p -D -m 0755 %{SOURCE11} %{buildroot}/%{_bindir}/cabal-tweak-drop-dep
 install -p -D -m 0755 %{SOURCE8} %{buildroot}/%{_prefix}/lib/rpm/ghc-pkg-wrapper
 
 %if 0%{?rhel} && 0%{?rhel} < 7
@@ -99,6 +101,7 @@ EOF
 %{_prefix}/lib/rpm/ghc-dirs.sh
 %{_prefix}/lib/rpm/ghc-pkg-wrapper
 %{_bindir}/cabal-tweak-dep-ver
+%{_bindir}/cabal-tweak-drop-dep
 %{_bindir}/cabal-tweak-flag
 
 
@@ -107,6 +110,10 @@ EOF
 
 
 %changelog
+* Sat Jan 28 2017 Jens Petersen <petersen@redhat.com> - 1.6.97-1
+- autopackage license if subpackaging
+- add new cabal-tweak-drop-dep script for excluding trivial deps
+
 * Thu Jan 19 2017 Jens Petersen <petersen@redhat.com> - 1.6.96-1
 - move uniq to ghc-pkg-wrapper
 - drop dynlibdir override for now
