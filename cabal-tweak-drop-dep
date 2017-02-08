@@ -22,4 +22,9 @@ if [ ! -f $CABALFILE.orig ]; then
     BACKUP=.orig
 fi
 
+if grep $DEP $CABALFILE | sed -e "s/$DEP//" | grep -q -e "[A-Za-z]\+[A-Za-z-]*"; then
+    echo "$0: deleting whole $DEP lines not safe"
+    exit 1
+fi
+
 sed -i$BACKUP -e "/$DEP/d" $CABALFILE

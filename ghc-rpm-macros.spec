@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.6.98
+Version:        1.6.99
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -110,6 +110,9 @@ EOF
 
 
 %changelog
+* Tue Feb  7 2017 Jens Petersen <petersen@redhat.com> - 1.6.99-1
+- cabal-tweak-drop-dep now checks if safe to remove matching lines
+
 * Sun Jan 29 2017 Jens Petersen <petersen@redhat.com> - 1.6.98-1
 - no longer use a topdir for subpackage building
 
