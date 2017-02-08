@@ -6,6 +6,9 @@
 LANG=en_US.utf8\
 ./Setup
 
+# compiler version
+%ghc_version %{!?ghc_version_override:%(ghc --numeric-version)}%{?ghc_version_override}
+
 # check ghc version was rebuilt against self
 %ghc_check_bootstrap\
 if [ ! "$(ghc --info | grep \\"Booter\\ version\\",\\"%{ghc_version}\\")" ]; then\
@@ -60,9 +63,6 @@ LDFLAGS="${LDFLAGS:-%{?__global_ldflags}}"; export LDFLAGS\
 %_ghcdynlibdir %(%{_rpmconfigdir}/ghc-dirs.sh %{_libdir} %{pkg_name}-%{version} dynlibdir)
 
 %_ghcpkglibdir %(%{_rpmconfigdir}/ghc-dirs.sh %{_libdir} %{pkg_name}-%{version} pkglibdir)
-
-# compiler version
-%ghc_version %{!?ghc_version_override:%(ghc --numeric-version)}%{?ghc_version_override}
 
 %Cabal_version %(ghc-pkg --global --simple-output list Cabal | sed -e "s/Cabal-//")
 

@@ -138,7 +138,7 @@ EOF
 - replace cabal_verbose with cabal_configure_verbose, cabal_build_verbose,
   cabal_install_verbose, cabal_haddock_verbose, and cabal_test_verbose
 - for ghc-8.0.2 install dynlibs in _libdir
-- new _ghcdocdir,
+- new _ghcdocdir
 - new _ghcdynlibdir and _ghcpkglibdir defined by ghc-dirs.sh
 - move ghc_gen_filelists to macros.ghc-extra and no longer use by default
 
