@@ -91,7 +91,7 @@ echo "%{docdir}" >> %{basepkg}-devel.files\
 fi\
 %if 0%{?1:1}\
 for i in $(ls %{buildroot}%{?_defaultlicensedir}%{!?_defaultlicensedir:%_docdir}/%{!?1:%{name}}%{?1:%{basepkg}}); do\
-echo "%%license %{?1:../%{pkgnamever}/}$i" >> %{basepkg}.files\
+echo "%%license %{?1:%{pkgnamever}/}$i" >> %{basepkg}.files\
 done\
 %endif\
 for i in %{basepkg}.files %{basepkg}-devel.files; do\
@@ -120,7 +120,7 @@ install -D --mode=0644 %{pkgnamever}.conf %{buildroot}%{ghclibdir}/package.conf.
 # ghc_lib_build_without_haddock [name] [version]
 %ghc_lib_build_without_haddock()\
 %global debug_package %{nil}\
-%cabal_configure %{!?without_prof:-p} %{!?ghc_without_shared:--enable-shared} %{?ghc_without_shared:--disable-shared} %{?pkg_name:--htmldir=%{ghclibdocdir}/%{pkg_name}-%{version}} %{?1:--docdir=%{?_defaultlicensedir}%{!?_defaultlicensedir:%_docdir}/ghc-%1%{!?fedora:-%2} --htmldir=%{ghclibdocdir}/%1-%2} %{!?1:--global} %{?ghc_with_lib_for_ghci:--enable-library-for-ghci}\
+%cabal_configure %{!?without_prof:-p} %{!?ghc_without_shared:--enable-shared} %{?ghc_without_shared:--disable-shared} %{?pkg_name:--htmldir=%{ghclibdocdir}/%{pkg_name}-%{version}} %{?1:--docdir=%{?_defaultlicensedir}%{!?_defaultlicensedir:%_docdir}/ghc-%1%{!?fedora:-%2} --htmldir=%{ghclibdocdir}/%1-%2} %{?ghc_subpackaging:--user}%{!?ghc_subpackaging:--global} %{?ghc_with_lib_for_ghci:--enable-library-for-ghci}\
 %cabal build %{_smp_mflags} %{?cabal_build_options}\
 %{nil}
 
