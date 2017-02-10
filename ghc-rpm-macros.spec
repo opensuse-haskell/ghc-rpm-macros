@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.6.99
+Version:        1.7.0
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -110,6 +110,9 @@ EOF
 
 
 %changelog
+* Fri Feb 10 2017 Jens Petersen <petersen@redhat.com> - 1.7.0-1
+- if ghc_subpackaging set configure with --user otherwise --global
+
 * Tue Feb  7 2017 Jens Petersen <petersen@redhat.com> - 1.6.99-1
 - cabal-tweak-drop-dep now checks if safe to remove matching lines
 
