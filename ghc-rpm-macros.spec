@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.6.95
+Version:        1.7.1
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -29,6 +29,7 @@ Source8:        ghc-pkg-wrapper
 # put your distro macros here
 Source9:        macros.ghc-fedora
 Source10:       ghc-dirs.sh
+Source11:       cabal-tweak-drop-dep
 Requires:       redhat-rpm-config
 # for ghc_version
 Requires:       ghc-compiler
@@ -77,6 +78,7 @@ install -p -D -m 0644 %{SOURCE7} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc.a
 
 install -p -D -m 0755 %{SOURCE4} %{buildroot}/%{_bindir}/cabal-tweak-dep-ver
 install -p -D -m 0755 %{SOURCE5} %{buildroot}/%{_bindir}/cabal-tweak-flag
+install -p -D -m 0755 %{SOURCE11} %{buildroot}/%{_bindir}/cabal-tweak-drop-dep
 install -p -D -m 0755 %{SOURCE8} %{buildroot}/%{_prefix}/lib/rpm/ghc-pkg-wrapper
 
 %if 0%{?rhel} && 0%{?rhel} < 7
@@ -99,6 +101,7 @@ EOF
 %{_prefix}/lib/rpm/ghc-dirs.sh
 %{_prefix}/lib/rpm/ghc-pkg-wrapper
 %{_bindir}/cabal-tweak-dep-ver
+%{_bindir}/cabal-tweak-drop-dep
 %{_bindir}/cabal-tweak-flag
 
 
@@ -107,6 +110,27 @@ EOF
 
 
 %changelog
+* Tue Feb 14 2017 Jens Petersen <petersen@redhat.com> - 1.7.1-1
+- add -d option to ghc_lib_subpackage to use .files in topdir
+
+* Fri Feb 10 2017 Jens Petersen <petersen@redhat.com> - 1.7.0-1
+- if ghc_subpackaging set configure with --user otherwise --global
+
+* Tue Feb  7 2017 Jens Petersen <petersen@redhat.com> - 1.6.99-1
+- cabal-tweak-drop-dep now checks if safe to remove matching lines
+
+* Sun Jan 29 2017 Jens Petersen <petersen@redhat.com> - 1.6.98-1
+- no longer use a topdir for subpackage building
+
+* Sat Jan 28 2017 Jens Petersen <petersen@redhat.com> - 1.6.97-1
+- autopackage license if subpackaging
+- add new cabal-tweak-drop-dep script for excluding trivial deps
+
+* Thu Jan 19 2017 Jens Petersen <petersen@redhat.com> - 1.6.96-1
+- move uniq to ghc-pkg-wrapper
+- drop dynlibdir override for now
+- do not also add LICENSE to files file
+
 * Thu Dec 22 2016 Jens Petersen <petersen@fedoraproject.org> - 1.6.95-1
 - move gen_contents_index back to macros.ghc and use it again for lib
   installs for now for back compatibility with existing spec files
@@ -120,7 +144,7 @@ EOF
 - replace cabal_verbose with cabal_configure_verbose, cabal_build_verbose,
   cabal_install_verbose, cabal_haddock_verbose, and cabal_test_verbose
 - for ghc-8.0.2 install dynlibs in _libdir
-- new _ghcdocdir,
+- new _ghcdocdir
 - new _ghcdynlibdir and _ghcpkglibdir defined by ghc-dirs.sh
 - move ghc_gen_filelists to macros.ghc-extra and no longer use by default
 

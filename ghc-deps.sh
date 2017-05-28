@@ -19,7 +19,7 @@ esac
 
 files=$(cat)
 
-cabal_ver=$(ghc-pkg --global --simple-output list Cabal | sed -e "s/Cabal-//")
+#cabal_ver=$(ghc-pkg --global --simple-output list Cabal | sed -e "s/Cabal-//")
 
 for i in $files; do
     case $i in
@@ -32,7 +32,7 @@ for i in $files; do
 		case $d in
 		    *-*) echo "ghc-devel($d)" ;;
 		    *) ;;
-                esac
+		esac
 	    done
 	    ;;
         *)

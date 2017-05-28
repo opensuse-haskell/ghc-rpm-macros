@@ -1,8 +1,8 @@
 # RPM Macros for packaging Haskell packages with multiple libs  -*-rpm-spec-*-
 
-# ghc_lib_subpackage [-c cdepslist] [-l licensetag] [-x] [name-version]
+# ghc_lib_subpackage [-c cdepslist] [-d] [-l licensetag] [-x] [name-version]
 # for backward compat also support: ghc_lib_subpackage name version
-%ghc_lib_subpackage(c:l:x)\
+%ghc_lib_subpackage(c:dl:x)\
 %define pkgname %{?2:%{1}}%{!?2:%{lua:\
 local pv = rpm.expand("%1")\
 local _, _, name = string.find(pv, "^([%a-]+)-")\
@@ -51,13 +51,13 @@ This package provides the Haskell %{pkgname} library development files.\
 %postun -n %{basepkg}-devel\
 %ghc_pkg_recache\
 \
-%files -n %{basepkg} -f %{basepkg}.files\
+%files -n %{basepkg} -f %{!-d:%{pkgname}-%{pkgver}/}%{basepkg}.files\
 %if 0%{?rhel} && 0%{?rhel} < 7\
 %defattr(-,root,root,-)\
 %endif\
 %{?base_doc_files:%doc %base_doc_files}\
 \
-%files -n %{basepkg}-devel -f %{basepkg}-devel.files\
+%files -n %{basepkg}-devel -f %{!-d:%{pkgname}-%{pkgver}/}%{basepkg}-devel.files\
 %if 0%{?rhel} && 0%{?rhel} < 7\
 %defattr(-,root,root,-)\
 %endif\
@@ -67,7 +67,7 @@ This package provides the Haskell %{pkgname} library development files.\
 # ghc_libs_build [name-version] ...
 %ghc_libs_build()\
 HOME=$PWD\
-%define cabal_configure_options --user\
+%global ghc_subpackaging 1\
 for i in %*; do\
 name=$(echo $i | sed -e "s/\\(.*\\)-.*/\\1/")\
 ver=$(echo $i | sed -e "s/.*-\\(.*\\)/\\1/")\
@@ -94,7 +94,6 @@ cd $i\
 name=$(echo $i | sed -e "s/\\(.*\\)-.*/\\1/")\
 ver=$(echo $i | sed -e "s/.*-\\(.*\\)/\\1/")\
 %ghc_lib_install $name $ver\
-mv *.files ..\
 cd ..\
 done\
 %ghc_fix_rpath $args\
