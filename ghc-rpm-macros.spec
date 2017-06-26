@@ -111,7 +111,9 @@ EOF
 
 %changelog
 * Thu Jun 22 2017 Jens Petersen <petersen@redhat.com> - 1.7.2-1
-- add _ghclicensedir and ghc_smp_mflags macros
+- add _ghclicensedir macro
+- add ghc_smp_mflags macro, since -j4 breaks reproducible-builds.org completely
+  (report by Bernhard Wiedemann)
 
 * Tue Feb 14 2017 Jens Petersen <petersen@redhat.com> - 1.7.1-1
 - add -d option to ghc_lib_subpackage to use .files in topdir
