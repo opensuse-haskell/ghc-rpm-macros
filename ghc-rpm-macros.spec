@@ -27,7 +27,11 @@ Source6:        macros.ghc-extra
 Source7:        ghc.attr
 Source8:        ghc-pkg-wrapper
 # put your distro macros here
+%if 0%{?fedora} || 0%{?rhel}
 Source9:        macros.ghc-fedora
+%else
+Source9:        macros.ghc-suse
+%endif
 Source10:       ghc-dirs.sh
 Source11:       cabal-tweak-drop-dep
 Requires:       redhat-rpm-config
