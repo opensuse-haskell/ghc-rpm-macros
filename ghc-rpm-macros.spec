@@ -106,6 +106,7 @@ EOF
 
 %changelog
 * Fri May 25 2018 Jens Petersen <petersen@redhat.com> - 1.9.50-1
+- simplify the handling of internal libraries
 - ghc_check_bootstrap should be redundant now according to upstream
 - rename ghc_bootstrap to ghc_quick_build (disables prof and haddock)
 - drop hash from libsubdir
