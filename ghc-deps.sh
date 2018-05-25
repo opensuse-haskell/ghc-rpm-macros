@@ -23,7 +23,6 @@ esac
 ghc_ver=$(basename $pkgbasedir | sed -e s/ghc-//)
 
 files=$(cat)
-#cabal_ver=$(ghc-pkg --global --simple-output list Cabal | sed -e "s/Cabal-//")
 
 declare -a exclude_dep
 all_files=$(ls $pkgconfdir/*)

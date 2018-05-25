@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.7.4
+Version:        1.9.50
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -26,13 +26,7 @@ Source5:        cabal-tweak-flag
 Source6:        macros.ghc-extra
 Source7:        ghc.attr
 Source8:        ghc-pkg-wrapper
-# put your distro macros here
-%if 0%{?fedora} || 0%{?rhel}
-Source9:        macros.ghc-fedora
-%else
-Source9:        macros.ghc-suse
-%endif
-Source10:       ghc-dirs.sh
+Source9:        macros.ghc-os
 Source11:       cabal-tweak-drop-dep
 Requires:       redhat-rpm-config
 # for ghc_version
@@ -73,7 +67,6 @@ install -p -D -m 0644 %{SOURCE6} %{buildroot}/%{macros_dir}/macros.ghc-extra
 install -p -D -m 0644 %{SOURCE9} %{buildroot}/%{macros_dir}/macros.ghc-os
 
 install -p -D -m 0755 %{SOURCE3} %{buildroot}/%{_prefix}/lib/rpm/ghc-deps.sh
-install -p -D -m 0755 %{SOURCE10} %{buildroot}/%{_prefix}/lib/rpm/ghc-dirs.sh
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
 install -p -D -m 0644 %{SOURCE7} %{buildroot}/%{_prefix}/lib/rpm/fileattrs/ghc.attr
@@ -101,7 +94,6 @@ EOF
 %{_prefix}/lib/rpm/fileattrs/ghc.attr
 %endif
 %{_prefix}/lib/rpm/ghc-deps.sh
-%{_prefix}/lib/rpm/ghc-dirs.sh
 %{_prefix}/lib/rpm/ghc-pkg-wrapper
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-drop-dep
@@ -113,6 +105,17 @@ EOF
 
 
 %changelog
+* Fri May 25 2018 Jens Petersen <petersen@redhat.com> - 1.9.50-1
+- ghc_check_bootstrap should be redundant now according to upstream
+- rename ghc_bootstrap to ghc_quick_build (disables prof and haddock)
+- drop hash from libsubdir
+- cabal-tweak-drop-dep: quote grep pattern to allow whitespace
+- ghc_fix_rpath: remove leading or trailing ':'
+- add _ghcdynlibdir for Cabal --dynlibdir
+
+* Thu May 24 2018 Ondřej Súkup <mimi.vx@gmail.com>
+- initial implementation handling bundled internal libraries
+
 * Thu Dec 14 2017 Jens Petersen <petersen@redhat.com> - 1.7.4-1
 - add ghc_set_cflags macro
 - rename macros.ghc-fedora to macros.ghc-os
