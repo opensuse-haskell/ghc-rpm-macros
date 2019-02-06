@@ -10,7 +10,7 @@
 #%%global without_hscolour 1
 
 Name:           ghc-rpm-macros
-Version:        1.9.50
+Version:        1.9.51
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -105,6 +105,9 @@ EOF
 
 
 %changelog
+* Wed Feb  6 2019 Jens Petersen <petersen@redhat.com> - 1.9.51-1
+- older rhel rpm does not handle macro "recursive args"
+
 * Fri May 25 2018 Jens Petersen <petersen@redhat.com> - 1.9.50-1
 - simplify the handling of internal libraries
 - ghc_check_bootstrap should be redundant now according to upstream
