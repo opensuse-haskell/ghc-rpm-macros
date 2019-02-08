@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # find rpm provides and requires for Haskell GHC libraries
 
 [ $# -ne 2 ] && echo "Usage: $(basename $0) [--provides|--requires] %{buildroot}%{ghclibdir}" && exit 1
