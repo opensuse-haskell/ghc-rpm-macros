@@ -8,7 +8,7 @@
 
 Name:           ghc-rpm-macros
 Version:        2.2.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPLv3+
@@ -174,6 +174,10 @@ EOF
 
 
 %changelog
+* Sun Aug  8 2021 Tim Landscheidt <tim@tim-landscheidt.de> - 2.2.3-4
+- Update license from https://www.gnu.org/licenses/
+- Use https for subpackage URLs
+
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
