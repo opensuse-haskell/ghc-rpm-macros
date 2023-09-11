@@ -11,7 +11,7 @@ Version:        2.5.3
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 # Currently source is only in pkg git but tarballs could be made if it helps
 URL:            https://src.fedoraproject.org/rpms/ghc-rpm-macros/
 Source0:        macros.ghc
