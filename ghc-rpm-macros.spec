@@ -124,6 +124,7 @@ Obsoletes:      ghc-regex-compat-tdfa < 0.95.1.4-38, ghc-regex-compat-tdfa-devel
 %endif
 %if 0%{?fedora} >= 39
 Obsoletes:      ghc-geniplate-mirror < 0.7.9-39, ghc-geniplate-mirror-devel < 0.95.1.4-38, ghc-geniplate-mirror-doc < 0.95.1.4-38, ghc-geniplate-mirror-prof < 0.95.1.4-38
+Obsoletes:      ghc-data-array-byte < 0.1.0.1-3, ghc-data-array-byte-devel < 0.1.0.1-3, ghc-data-array-byte-doc < 0.1.0.1-3, ghc-data-array-byte-prof < 0.1.0.1-3
 %endif
 
 %description -n ghc-obsoletes
