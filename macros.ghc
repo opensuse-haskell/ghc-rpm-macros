@@ -78,11 +78,12 @@ fi\
 %ghc_set_gcc_flags\
 %global _lto_cflags %{nil}\
 %global __brp_strip_lto %{nil}\
-# -Wunused-label is extremely noisy\
-%ifarch s390x\
-CFLAGS="$(echo ${CFLAGS:-%optflags} | sed -e 's/-Wall //' -e 's/-Werror=format-security //')"\
-%else\
 CFLAGS="${CFLAGS:-%optflags}"\
+%ifarch s390x\
+%if %[v"%{ghc_version}" < v"9.2"]\
+# -Wunused-label is extremely noisy\
+CFLAGS="$(echo ${CFLAGS:-%optflags} | sed -e 's/-Wall //' -e 's/-Werror=format-security //')"\
+%endif\
 %endif\
 export CFLAGS\
 %undefine _package_note_flags\
