@@ -8,7 +8,7 @@
 
 Name:           ghc-rpm-macros
 Version:        2.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -207,6 +207,10 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Mon Sep 18 2023 Jens Petersen <petersen@redhat.com> - 2.5.3-2
+- obsolete ghc-data-array-byte
+- migrate to SPDX license tag
+
 * Fri Aug  4 2023 Jens Petersen <petersen@redhat.com> - 2.5.3-1
 - ghc-deps.sh: correctly map internal library id to internal package .conf
 - tweak cabal_configure to only set --htmldir once for subpackaging
