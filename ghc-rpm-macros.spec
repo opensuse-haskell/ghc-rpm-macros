@@ -7,8 +7,8 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.5.3
-Release:        2%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -27,6 +27,7 @@ Source9:        macros.ghc-os
 Source10:       Setup.hs
 Source11:       cabal-tweak-drop-dep
 Source12:       cabal-tweak-remove-upperbound
+Source13:       ghc-info.sh
 Requires:       redhat-rpm-config
 # ghc_version needs ghc-compiler or ghcX.Y-compiler-default
 Requires:       chrpath
@@ -127,6 +128,7 @@ echo -e "\n%%_ghcdynlibdir %%{_libdir}" >> %{buildroot}%{macros_dir}/macros.ghc-
 %endif
 
 install -p -D -m 0755 %{SOURCE3} %{buildroot}%{_prefix}/lib/rpm/ghc-deps.sh
+install -p -D -m 0755 %{SOURCE13} %{buildroot}%{_prefix}/lib/rpm/ghc-info.sh
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
 install -p -D -m 0644 %{SOURCE7} %{buildroot}%{_prefix}/lib/rpm/fileattrs/ghc.attr
@@ -154,6 +156,7 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %{_prefix}/lib/rpm/fileattrs/ghc.attr
 %endif
 %{_prefix}/lib/rpm/ghc-deps.sh
+%{_prefix}/lib/rpm/ghc-info.sh
 %{_prefix}/lib/rpm/ghc-pkg-wrapper
 %{_bindir}/cabal-tweak-dep-ver
 %{_bindir}/cabal-tweak-drop-dep
@@ -182,6 +185,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Mon Sep 18 2023 Jens Petersen <petersen@redhat.com> - 2.6.0-1
+- add ghc-info.sh to read fields from ghc --info
+
 * Mon Sep 18 2023 Jens Petersen <petersen@redhat.com> - 2.5.3-2
 - obsolete ghc-data-array-byte
 - migrate to SPDX license tag
