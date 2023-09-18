@@ -63,6 +63,7 @@ Summary:        Dummy package to obsolete deprecated Haskell packages
 %if 0%{?fedora} >= 32
 Obsoletes:      ghc-derive < 2.6.5-5, ghc-derive-devel < 2.6.5-5, ghc-derive-prof < 2.6.5-5
 Obsoletes:      ghc-here < 1.2.13-17, ghc-here-devel < 1.2.13-17, ghc-here-prof < 1.2.13-17
+Obsoletes:      ghc-iwlib < 0.1.0-16, ghc-iwlib-devel < 0.1.0-16, ghc-iwlib-prof < 0.1.0-16
 %endif
 %if 0%{?fedora} >= 33
 Obsoletes:      ghc-easytest < 0.2.1-4, ghc-easytest-devel < 0.2.1-4, ghc-easytest-prof < 0.2.1-4,
@@ -70,7 +71,6 @@ Obsoletes:      ghc-EdisonAPI < 1.3.1-23, ghc-EdisonAPI-devel < 1.3.1-23, ghc-Ed
 Obsoletes:      ghc-EdisonCore < 1.3.2.1-23, ghc-EdisonCore-devel < 1.3.2.1-23, ghc-EdisonCore-prof < 1.3.2.1-23
 Obsoletes:      ghc-gtksourceview2 < 0.13.3.1-14, ghc-gtksourceview2-devel < 0.13.3.1-14, ghc-gtksourceview2-prof < 0.13.3.1-14
 %endif
-Obsoletes:      ghc-iwlib < 0.1.0-16, ghc-iwlib-devel < 0.1.0-16, ghc-iwlib-prof < 0.1.0-16
 %if 0%{?fedora} >= 35
 Obsoletes:      pandoc-citeproc < 0.18, ghc-pandoc-citeproc < 0.18, ghc-pandoc-citeproc-devel < 0.18, ghc-pandoc-citeproc-doc < 0.18, ghc-pandoc-citeproc-prof < 0.18, pandoc-citeproc-common < 0.18
 Obsoletes:      ghc-base-noprelude < 4.13.0.1, ghc-base-noprelude-devel < 4.13.0.1, ghc-base-noprelude-doc < 4.13.0.1, ghc-base-noprelude-prof < 4.13.0.1
