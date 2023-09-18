@@ -60,31 +60,6 @@ Haskell libraries documentation.
 # this is a last resort when there is no such appropriate package
 %package -n ghc-obsoletes
 Summary:        Dummy package to obsolete deprecated Haskell packages
-%if 0%{?fedora} >= 29
-Obsoletes:      ghc-content-store < 0.2.1-3, ghc-content-store-devel < 0.2.1-3
-Obsoletes:      ghc-bdcs < 0.6.1-3, ghc-bdcs-devel < 0.6.1-3
-Obsoletes:      ghc-bdcs-api < 0.1.3-3, ghc-bdcs-api-devel < 0.1.3-3
-%endif
-%if 0%{?fedora} >= 30
-# ghc
-Obsoletes:      ghc-hoopl < 3.10.2.2-74, ghc-hoopl-devel < 3.10.2.2-74
-# language-ecmascript
-Obsoletes:      ghc-tagshare < 0.0-10, ghc-tagshare-devel < 0.0-10
-Obsoletes:      ghc-testing-feat < 0.4.0.3-10, ghc-testing-feat-devel < 0.4.0.3-10
-# enumerator
-Obsoletes:      ghc-enumerator < 0.4.20-12, ghc-enumerator-devel < 0.4.20-12
-Obsoletes:      ghc-attoparsec-enumerator < 0.3.4-10, ghc-attoparsec-enumerator-devel < 0.3.4-10
-Obsoletes:      ghc-blaze-builder-enumerator < 0.2.1.0-8, ghc-blaze-builder-enumerator-devel < 0.2.1.0-8
-Obsoletes:      ghc-zlib-enum < 0.2.3.1-12, ghc-zlib-enum-devel < 0.2.3.1-12
-# Agda
-Obsoletes:      ghc-monadplus < 1.4.2-17, ghc-monadplus-devel < 1.4.2-17
-# conduit-combinators
-Obsoletes:      ghc-conduit-combinators < 1.3.1
-%endif
-%if 0%{?fedora} >= 31
-# base package obsoleted above in f30
-Obsoletes:      ghc-conduit-combinators-devel < 1.3.1
-%endif
 %if 0%{?fedora} >= 32
 Obsoletes:      ghc-derive < 2.6.5-5, ghc-derive-devel < 2.6.5-5, ghc-derive-prof < 2.6.5-5
 Obsoletes:      ghc-here < 1.2.13-17, ghc-here-devel < 1.2.13-17, ghc-here-prof < 1.2.13-17
