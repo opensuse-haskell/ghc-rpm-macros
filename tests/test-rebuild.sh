@@ -64,7 +64,7 @@ TMP=test-tmp
 
 mkdir -p $TMP/
 
-PKGS=$(cd $ARCH; rpm -qp $(ls *-$VERREL*.rpm))
+PKGS=$(cd $ARCH; rpm -qp *-$VERREL.*.rpm)
 
 for i in $PKGS; do
   # FIXME: should check NVR is same before building
