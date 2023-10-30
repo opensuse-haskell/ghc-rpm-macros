@@ -8,7 +8,7 @@
 
 Name:           ghc-rpm-macros
 Version:        2.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -185,6 +185,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Mon Oct 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.6.1-2
+- Fix flatpak builds
+
 * Tue Oct 24 2023 Jens Petersen <petersen@redhat.com> - 2.6.1-1
 - ghc_gen_filelists: tweak pkgdir for ghc-9.8 short hash suffices
 
