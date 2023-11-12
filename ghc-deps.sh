@@ -45,9 +45,16 @@ for i in $files; do
                 esac
             done
             ;;
-        */libHS*_p.a)
-            pkgver=$(basename "$(dirname "$i")")
-            if [ -e "$BUILDROOT$PKGCONFDIR/$pkgver.conf" ]; then
+        $BUILDROOT$PKGBASELIB/*/libHS*_p.a)
+            pkgverhash=$(basename "$(dirname "$i")")
+            case $i in
+                $BUILDROOT$PKGBASELIB/*-linux-ghc-9.8.*)
+                    pkgver=$(echo $pkgverhash | sed -e "s/\(.*\)-.*/\\1/")
+                    ;;
+                *)  pkgver=$pkgverhash
+                    ;;
+            esac
+            if [ -e "$BUILDROOT$PKGCONFDIR/$pkgverhash.conf" ]; then
                 ids=$($GHC_PKG field "$pkgver" "$field" | sed -e "s/\(^\| \)rts\( \|$\)/ /" -e "s/bin-package-db-[^ ]\+//")
             else
                 conf=$(basename "$i" | sed -e "s%libHS%$BUILDROOT$PKGCONFDIR/%" -e 's%_p.a%.conf%')
@@ -64,7 +71,7 @@ for i in $files; do
                                 ;;
                             *)
                                 for f in "$PKGBASELIB"/*/libHS"${d}"_p.a "$BUILDROOT$PKGBASELIB"/*/libHS"${d}"_p.a "$PKGBASELIB"/*/*/libHS"${d}"_p.a "$BUILDROOT$PKGBASELIB"/*/*/libHS"${d}"_p.a; do
-                                    if [ -f $f ]; then
+                                    if [ -f "$f" ]; then
                                         echo "$GHCPREFIX-prof($d)"
                                         break
                                     fi
