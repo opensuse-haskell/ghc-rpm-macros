@@ -23,17 +23,19 @@ ARCH=$(arch)
 
 if [ -f /etc/os-release ]; then
     eval $(grep VERSION_ID /etc/os-release)
-    if git branch -a | grep -q f$VERSION_ID; then
-        BRANCH=f$VERSION_ID
+    if rpm -q --quiet epel-release; then
+        PREFIX=epel
+    else
+        PREFIX=f
+    fi
+    if git branch -a | grep -q $PREFIX$VERSION_ID; then
+        BRANCH=$PREFIX$VERSION_ID
     else
         case $VERSION_ID in
             7.*) BRANCH=epel7 ;;
             *) BRANCH=rawhide ;;
         esac
     fi
-else
-# assume RHEL6
-    BRANCH=el6
 fi
 
 if [ "* $BRANCH" != "$(git branch | grep '^*')" ]; then
