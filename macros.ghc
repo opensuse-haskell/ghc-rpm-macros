@@ -109,10 +109,7 @@ fi\
 %cabal_install %cabal copy --destdir=%{buildroot} %{?cabal_install_options}
 
 # tests
-%cabal_test\
-%if %{with tests}\
-%cabal test %{?cabal_test_options}\
-%endif
+%cabal_test %cabal test %{?cabal_test_options}
 
 # no _pkgdocdir in EPEL <= 7
 %ghc_pkgdocdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
