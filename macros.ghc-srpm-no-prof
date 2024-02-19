@@ -1,0 +1,2 @@
+# enable profiling libraries in prof subpkgs
+with_ghc_prof 0
