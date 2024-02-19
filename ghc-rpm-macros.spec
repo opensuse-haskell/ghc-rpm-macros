@@ -195,7 +195,7 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %endif
 
 
-%if 0%{?fedora} >= 29
+%if 0%{?fedora}
 %files -n ghc-obsoletes
 %endif
 
