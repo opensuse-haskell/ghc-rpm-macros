@@ -93,9 +93,10 @@ export LDFLAGS="${LDFLAGS:-%{?__global_ldflags}}"\
 
 # configure
 %cabal_configure\
-%if %{defined 1}\
-echo ==== Building %{1}%{?2:-%2} ====\
-%endif\
+%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define pkgver %{?2}%{!?2:%{version}}\
+%define pkgnamever %{pkgname}-%{pkgver}\
+echo -e "\\n==== Build %{pkgnamever} ===="\
 %ghc_set_gcc_flags\
 if ! [ -f Setup.hs -o -f Setup.lhs ]; then\
 # datadir hardcoded for flatpaks\
