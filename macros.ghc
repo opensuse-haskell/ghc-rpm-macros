@@ -93,6 +93,9 @@ export LDFLAGS="${LDFLAGS:-%{?__global_ldflags}}"\
 
 # configure
 %cabal_configure\
+%if %{defined 1}\
+echo ==== Building %{1}%{?2:-%2} ====\
+%endif\
 %ghc_set_gcc_flags\
 if ! [ -f Setup.hs -o -f Setup.lhs ]; then\
 # datadir hardcoded for flatpaks\
