@@ -1,2 +1,3 @@
 # disable profiling libraries and prof subpkgs
-%with_ghc_prof %{nil}
+%ghc_profiling\
+%bcond ghc_prof 0
