@@ -7,7 +7,7 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.6.7.1
+Version:        2.6.8
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -201,8 +201,12 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
-* Tue Feb 27 2024 Jens Petersen <petersen@redhat.com> - 2.6.7.1-1
+* Thu Feb 29 2024 Jens Petersen <petersen@redhat.com> - 2.6.8-1
 - fixup cabal_configure: when subpackaging print subpackage header
+- ghc_set_gcc_flags: no need to redefine/re-export CFLAGS and LDFLAGS
+- cabal_configure: drop cabal --version
+- os: define ghc_haddocks for haskell_setup
+- no-prof: add a ghc_profiling override
 
 * Tue Feb 27 2024 Jens Petersen <petersen@redhat.com> - 2.6.7-1
 - fix no-prof subpackage to undefine with_ghc_prof properly
