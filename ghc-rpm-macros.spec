@@ -7,7 +7,7 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.7.0
+Version:        2.7.1
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -205,6 +205,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Sat Jun 15 2024 Jens Petersen <petersen@redhat.com> - 2.7.1-1
+- build macros now undefine debug_package rather than _enable_debug_packages
+
 * Mon Mar 18 2024 Jens Petersen <petersen@redhat.com> - 2.7.0-1
 - rename no-prof subpackage to quick
 - quick: add ghc_haddocks override
