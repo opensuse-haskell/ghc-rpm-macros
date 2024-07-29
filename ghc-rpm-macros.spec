@@ -206,6 +206,7 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 %changelog
 * Mon Jul 29 2024 Jens Petersen <petersen@redhat.com> - 2.7.2-1
+- improve ghc_delete_rpaths to delete trailing :_libdir
 - extra: add ghc_merge_filelist from ghc.spec
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-2
