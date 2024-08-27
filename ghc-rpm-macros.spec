@@ -8,7 +8,7 @@
 
 Name:           ghc-rpm-macros
 Version:        2.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -71,51 +71,61 @@ This package provides some common directories used for
 Haskell libraries documentation.
 %endif
 
+%global ghc_obsoletes_binlib()\
+Obsoletes: %1 < %2, %1-common < %2\
+%ghc_obsoletes_lib %1 %2
+
+%global ghc_obsoletes_lib() Obsoletes: ghc-%1 < %2, ghc-%1-devel < %2, ghc-%1-doc < %2, ghc-%1-prof < %2
 
 # ideally packages should be obsoleted by some relevant package
 # this is a last resort when there is no such appropriate package
 %package -n ghc-obsoletes
 Summary:        Dummy package to obsolete deprecated Haskell packages
-%if 0%{?fedora} >= 32
-Obsoletes:      ghc-derive < 2.6.5-5, ghc-derive-devel < 2.6.5-5, ghc-derive-prof < 2.6.5-5
-Obsoletes:      ghc-here < 1.2.13-17, ghc-here-devel < 1.2.13-17, ghc-here-prof < 1.2.13-17
-Obsoletes:      ghc-iwlib < 0.1.0-16, ghc-iwlib-devel < 0.1.0-16, ghc-iwlib-prof < 0.1.0-16
-%endif
-%if 0%{?fedora} >= 33
-Obsoletes:      ghc-easytest < 0.2.1-4, ghc-easytest-devel < 0.2.1-4, ghc-easytest-prof < 0.2.1-4,
-Obsoletes:      ghc-EdisonAPI < 1.3.1-23, ghc-EdisonAPI-devel < 1.3.1-23, ghc-EdisonAPI-prof < 1.3.1-23
-Obsoletes:      ghc-EdisonCore < 1.3.2.1-23, ghc-EdisonCore-devel < 1.3.2.1-23, ghc-EdisonCore-prof < 1.3.2.1-23
-Obsoletes:      ghc-gtksourceview2 < 0.13.3.1-14, ghc-gtksourceview2-devel < 0.13.3.1-14, ghc-gtksourceview2-prof < 0.13.3.1-14
-%endif
 %if 0%{?fedora} >= 35
-Obsoletes:      pandoc-citeproc < 0.18, ghc-pandoc-citeproc < 0.18, ghc-pandoc-citeproc-devel < 0.18, ghc-pandoc-citeproc-doc < 0.18, ghc-pandoc-citeproc-prof < 0.18, pandoc-citeproc-common < 0.18
-Obsoletes:      ghc-base-noprelude < 4.13.0.1, ghc-base-noprelude-devel < 4.13.0.1, ghc-base-noprelude-doc < 4.13.0.1, ghc-base-noprelude-prof < 4.13.0.1
-Obsoletes:      ghc-HsYAML-aeson < 0.2.0.1, ghc-HsYAML-aeson-devel < 0.2.0.1, ghc-HsYAML-aeson-doc < 0.2.0.1, ghc-HsYAML-aeson-prof < 0.2.0.1
-Obsoletes:      ghc-chalmers-lava2000 < 1.6.2, ghc-chalmers-lava2000-devel < 1.6.2, ghc-chalmers-lava2000-doc < 1.6.2, ghc-chalmers-lava2000-prof < 1.6.2
-Obsoletes:      ghc-codec-rpm < 0.2.3, ghc-codec-rpm-devel < 0.2.3, ghc-codec-rpm-doc < 0.2.3, ghc-codec-rpm-prof < 0.2.3
-Obsoletes:      ghc-cpio-conduit < 0.7.1, ghc-cpio-conduit-devel < 0.7.1, ghc-cpio-conduit-doc < 0.7.1, ghc-cpio-conduit-prof < 0.7.1
-Obsoletes:      ghc-failure < 0.2.0.4, ghc-failure-devel < 0.2.0.4, ghc-failure-doc < 0.2.0.4, ghc-failure-prof < 0.2.0.4
-Obsoletes:      ghc-attempt < 0.4.0.2, ghc-attempt-devel < 0.4.0.2, ghc-attempt-doc < 0.4.0.2, ghc-attempt-prof < 0.4.0.2
+%ghc_obsoletes_binlib pandoc-citeproc 0.18
+%ghc_obsoletes_lib base-noprelude 4.13.0.1
+%ghc_obsoletes_lib HsYAML-aeson 0.2.0.1
+%ghc_obsoletes_lib chalmers-lava2000 1.6.2
+%ghc_obsoletes_lib codec-rpm 0.2.3
+%ghc_obsoletes_lib cpio-conduit 0.7.1
+%ghc_obsoletes_lib failure 0.2.0.4
+%ghc_obsoletes_lib attempt 0.4.0.2
 %endif
 %if 0%{?fedora} >= 36
-Obsoletes:      ghc-regex-applicative-text < 0.1.0.1-16, ghc-regex-applicative-text-devel < 0.1.0.1-16, ghc-regex-applicative-text-doc < 0.1.0.1-16, ghc-regex-applicative-text-prof < 0.1.0.1-16
+%ghc_obsoletes_lib regex-applicative-text 0.1.0.1-16
 %endif
 %if 0%{?fedora} >= 38
-Obsoletes:      ghc-bytestring-show < 0.3.5.7, ghc-bytestring-show-devel < 0.3.5.7, ghc-bytestring-show-doc < 0.3.5.7, ghc-bytestring-show-prof < 0.3.5.7
-Obsoletes:      ghc-djinn-ghc < 0.1, ghc-djinn-ghc-devel < 0.1, ghc-djinn-ghc-doc < 0.1, ghc-djinn-ghc-prof < 0.1
-Obsoletes:      ghc-ghc-mtl < 1.2.2, ghc-ghc-mtl-devel < 1.2.2, ghc-ghc-mtl-doc < 1.2.2, ghc-ghc-mtl-prof < 1.2.2
-Obsoletes:      ghc-ghc-syb-utils < 0.3.1, ghc-ghc-syb-utils-devel < 0.3.1, ghc-ghc-syb-utils-doc < 0.3.1, ghc-ghc-syb-utils-prof < 0.3.1
-Obsoletes:      ghc-cabal-helper < 1.2, ghc-cabal-helper-devel < 1.2, ghc-cabal-helper-doc < 1.2, ghc-cabal-helper-prof < 1.2
-Obsoletes:      ghc-cabal-plan < 0.8, ghc-cabal-plan-devel < 0.8, ghc-cabal-plan-doc < 0.8, ghc-cabal-plan-prof < 0.8
-Obsoletes:      ghc-optics-core < 0.4, ghc-optics-core-devel < 0.4, ghc-optics-core-doc < 0.4, ghc-optics-core-prof < 0.4
-Obsoletes:      ghc-semialign < 1.2, ghc-semialign-devel < 1.2, ghc-semialign-doc < 1.2, ghc-semialign-prof < 1.2
-Obsoletes:      ghc-topograph < 1.0.0.2, ghc-topograph-devel < 1.0.0.2, ghc-topograph-doc < 1.0.0.2, ghc-topograph-prof < 1.0.0.2
-Obsoletes:      ghc-indexed-profunctors < 0.1.1-18, ghc-indexed-profunctors-devel < 0.1.1-18, ghc-indexed-profunctors-doc < 0.1.1-18, ghc-indexed-profunctors-prof < 0.1.1-18
-Obsoletes:      ghc-regex-compat-tdfa < 0.95.1.4-38, ghc-regex-compat-tdfa-devel < 0.95.1.4-38, ghc-regex-compat-tdfa-doc < 0.95.1.4-38, ghc-regex-compat-tdfa-prof < 0.95.1.4-38
+%ghc_obsoletes_lib bytestring-show 0.3.5.7
+%ghc_obsoletes_lib djinn-ghc 0.1
+%ghc_obsoletes_lib ghc-mtl 1.2.2
+%ghc_obsoletes_lib ghc-syb-utils 0.3.1
+%ghc_obsoletes_lib cabal-helper 1.2
+%ghc_obsoletes_lib cabal-plan 0.8
+%ghc_obsoletes_lib optics-core 0.4
+%ghc_obsoletes_lib semialign 1.2
+%ghc_obsoletes_lib topograph 1.0.0.2
+%ghc_obsoletes_lib indexed-profunctors 0.1.1-18
+%ghc_obsoletes_lib regex-compat-tdfa 0.95.1.4-38
 %endif
 %if 0%{?fedora} >= 39
-Obsoletes:      ghc-geniplate-mirror < 0.7.9-39, ghc-geniplate-mirror-devel < 0.95.1.4-38, ghc-geniplate-mirror-doc < 0.95.1.4-38, ghc-geniplate-mirror-prof < 0.95.1.4-38
-Obsoletes:      ghc-data-array-byte < 0.1.0.1-3, ghc-data-array-byte-devel < 0.1.0.1-3, ghc-data-array-byte-doc < 0.1.0.1-3, ghc-data-array-byte-prof < 0.1.0.1-3
+%ghc_obsoletes_lib geniplate-mirror 0.7.9-39
+%ghc_obsoletes_lib data-array-byte 0.1.0.1-3
+%endif
+%if 0%{?fedora} >= 41
+%ghc_obsoletes_lib ConfigFile 1.1.4.1
+%ghc_obsoletes_lib MonadCatchIO-mtl 0.3.1.1
+%ghc_obsoletes_lib MonadCatchIO-transformers 0.3.1.4
+%ghc_obsoletes_lib cprng-aes 0.6.1.1
+%ghc_obsoletes_lib crypto-random 0.0.9.1
+%ghc_obsoletes_lib cryptohash 0.11.9.1
+%ghc_obsoletes_lib x509 1.7.7.1
+%ghc_obsoletes_lib x509-store 1.6.9.1
+%ghc_obsoletes_lib x509-system 1.6.7.1
+%ghc_obsoletes_lib x509-validation 1.6.12.1
+%ghc_obsoletes_lib highlighting-kate 0.6.4.1
+%ghc_obsoletes_lib libxml-sax 0.7.5.1
+%ghc_obsoletes_lib monad-journal 0.8.1.1
+%ghc_obsoletes_lib regexpr 0.5.4.1
 %endif
 
 %description -n ghc-obsoletes
@@ -205,6 +215,11 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Tue Aug 27 2024 Jens Petersen <petersen@redhat.com> - 2.7.2-2
+- Obsoletes for F41 (with macro): ConfigFile, MonadCatchIO-*, cprng-aes,
+  crypto-random, cryptohash, x509*, highlighting-kate, libxml-sax,
+  monad-journal, regexpr
+
 * Mon Jul 29 2024 Jens Petersen <petersen@redhat.com> - 2.7.2-1
 - improve ghc_delete_rpaths to delete trailing :_libdir
 - extra: add ghc_merge_filelist from ghc.spec
