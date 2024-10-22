@@ -220,6 +220,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Tue Oct 22 2024 Jens Petersen <petersen@redhat.com> - 2.7.2-4
+- fix f41 obsolete bounds for fedora-dists, pdc, and connection
+
 * Tue Oct  1 2024 Jens Petersen <petersen@redhat.com> - 2.7.2-3
 - more F41 obsoletes: connection, fedora-dists, foldable1-classes-compat (#2315865), pdc
 
