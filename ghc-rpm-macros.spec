@@ -8,7 +8,7 @@
 
 Name:           ghc-rpm-macros
 Version:        2.7.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -75,7 +75,8 @@ Haskell libraries documentation.
 Obsoletes: %1 < %2, %1-common < %2\
 %ghc_obsoletes_lib %1 %2
 
-%global ghc_obsoletes_lib() Obsoletes: ghc-%1 < %2, ghc-%1-devel < %2, ghc-%1-doc < %2, ghc-%1-prof < %2
+%global ghc_obsoletes_lib()\
+Obsoletes: ghc-%1 < %2, ghc-%1-devel < %2, ghc-%1-doc < %2, ghc-%1-prof < %2
 
 # ideally packages should be obsoleted by some relevant package
 # this is a last resort when there is no such appropriate package
@@ -112,24 +113,24 @@ Summary:        Dummy package to obsolete deprecated Haskell packages
 %ghc_obsoletes_lib data-array-byte 0.1.0.1-3
 %endif
 %if 0%{?fedora} >= 41
-%ghc_obsoletes_lib ConfigFile 1.1.4.1
+%ghc_obsoletes_lib ConfigFile 1.1.4.0
 %ghc_obsoletes_lib MonadCatchIO-mtl 0.3.1.1
 %ghc_obsoletes_lib MonadCatchIO-transformers 0.3.1.4
-%ghc_obsoletes_lib connection 0.3.1
-%ghc_obsoletes_lib cprng-aes 0.6.1.1
-%ghc_obsoletes_lib crypto-random 0.0.9.1
-%ghc_obsoletes_lib cryptohash 0.11.9.1
-%ghc_obsoletes_lib fedora-dists 2.1.1
-%ghc_obsoletes_lib foldable1-classes-compat 0.1-5
-%ghc_obsoletes_lib highlighting-kate 0.6.4.1
-%ghc_obsoletes_lib libxml-sax 0.7.5.1
-%ghc_obsoletes_lib monad-journal 0.8.1.1
-%ghc_obsoletes_lib pdc 0.1.1
-%ghc_obsoletes_lib regexpr 0.5.4.1
-%ghc_obsoletes_lib x509 1.7.7.1
-%ghc_obsoletes_lib x509-store 1.6.9.1
-%ghc_obsoletes_lib x509-system 1.6.7.1
-%ghc_obsoletes_lib x509-validation 1.6.12.1
+%ghc_obsoletes_lib connection 0.3.1.0
+%ghc_obsoletes_lib cprng-aes 0.6.1.0
+%ghc_obsoletes_lib crypto-random 0.0.9.0
+%ghc_obsoletes_lib cryptohash 0.11.9.0
+%ghc_obsoletes_lib fedora-dists 2.1.1.0
+%ghc_obsoletes_lib foldable1-classes-compat 0.1.0
+%ghc_obsoletes_lib highlighting-kate 0.6.4.0
+%ghc_obsoletes_lib libxml-sax 0.7.5.0
+%ghc_obsoletes_lib monad-journal 0.8.1.0
+%ghc_obsoletes_lib pdc 0.1.1.0
+%ghc_obsoletes_lib regexpr 0.5.4.0
+%ghc_obsoletes_lib x509 1.7.7.0
+%ghc_obsoletes_lib x509-store 1.6.9.0
+%ghc_obsoletes_lib x509-system 1.6.7.0
+%ghc_obsoletes_lib x509-validation 1.6.12.0
 %endif
 
 %description -n ghc-obsoletes
