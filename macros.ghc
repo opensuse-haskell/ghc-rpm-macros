@@ -19,19 +19,19 @@ LANG=C.utf8\
 %cabal build %{?ghc_smp_mflags} %{?cabal_build_options}
 
 # ghc_lib_build_without_haddock [name] [version]
-%ghc_lib_build_without_haddock()\
+%ghc_lib_build_without_haddock(PW)\
 %ghc_fix_doc_perms\
 %{?!ghc_debuginfo:%global debug_package %{nil}}\
 %if 0%{?rhel} && 0%{?rhel} < 8\
 licensedirversion=%{?2:-%2}\
 %endif\
-%cabal_configure %{?with_ghc_prof:--enable-library-profiling} %{!?ghc_without_shared:--enable-shared} %{?ghc_without_shared:--disable-shared} %{!?1:%{?pkg_name:--htmldir=%{ghclibdocdir}/%{pkg_name}-%{version}}} %{?1:--docdir=%{_ghclicensedir}/ghc-%1${licensedirversion} --htmldir=%{ghclibdocdir}/%1-%2} %{?ghc_subpackaging:--user}%{!?ghc_subpackaging:--global} %{?ghc_with_lib_for_ghci:--enable-library-for-ghci}\
+%cabal_configure %{!-P:%{?with_ghc_prof:--enable-library-profiling}} %{!?ghc_without_shared:--enable-shared} %{?ghc_without_shared:--disable-shared} %{!?1:%{?pkg_name:--htmldir=%{ghclibdocdir}/%{pkg_name}-%{version}}} %{?1:--docdir=%{_ghclicensedir}/ghc-%1${licensedirversion} --htmldir=%{ghclibdocdir}/%1-%2} %{?ghc_subpackaging:--user}%{!?ghc_subpackaging:--global} %{?ghc_with_lib_for_ghci:--enable-library-for-ghci}\
 %cabal build %{?ghc_smp_mflags} %{?cabal_build_options}\
 %{nil}
 
 # ghc_lib_build [name] [version]
-%ghc_lib_build()\
-%ghc_lib_build_without_haddock %{?1} %{?2}\
+%ghc_lib_build(W)\
+%ghc_lib_build_without_haddock %{-W} %{?1} %{?2}\
 %if %{with haddock}\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define pkgver %{?2}%{!?2:%{version}}\

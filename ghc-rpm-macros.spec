@@ -7,8 +7,8 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.7.2
-Release:        4%{?dist}
+Version:        2.7.3
+Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -220,6 +220,12 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Sun Nov 10 2024 Jens Petersen <petersen@redhat.com> - 2.7.3-1
+- changes for ghc-9.12
+- add -W option (no ghc override) to: ghc_lib_build_without_haddock,
+  ghc_lib_build, and ghc_libs_build
+- add -P option (no prof) to ghc_lib_build_without_haddock
+
 * Tue Oct 22 2024 Jens Petersen <petersen@redhat.com> - 2.7.2-4
 - fix f41 obsolete bounds for fedora-dists, pdc, and connection
 
