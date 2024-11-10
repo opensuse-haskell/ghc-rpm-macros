@@ -225,6 +225,7 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 - add -W option (no ghc override) to: ghc_lib_build_without_haddock,
   ghc_lib_build, and ghc_libs_build
 - add -P option (no prof) to ghc_lib_build_without_haddock
+- append short hash to ghcplatform
 
 * Tue Oct 22 2024 Jens Petersen <petersen@redhat.com> - 2.7.2-4
 - fix f41 obsolete bounds for fedora-dists, pdc, and connection

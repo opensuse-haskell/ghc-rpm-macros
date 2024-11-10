@@ -145,7 +145,7 @@ fi\
 %ghclibplatform %{ghcliblib}%{?with_hadrian:/%{ghcplatform}}
 
 # Cabal has specific arch names
-%ghcplatform %(echo %{_arch} | sed -e "s/ppc64le/ppc64/")-linux-ghc-%{ghc_version}
+%ghcplatform %(echo $(echo %{_arch} | sed -e "s/ppc64le/ppc64/")-linux-ghc-%{ghc_version}*)
 
 # ghc_gen_filelists [-m] [name] [version]
 %ghc_gen_filelists(m)\
