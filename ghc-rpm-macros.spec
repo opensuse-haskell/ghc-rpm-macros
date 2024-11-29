@@ -7,7 +7,7 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.7.3
+Version:        2.7.4
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -220,6 +220,10 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Fri Nov 29 2024 Jens Petersen <petersen@redhat.com> - 2.7.4-1
+- add -P to ghc_libs_build and ghc_lib_build to disable profiling
+- extra: remove haskell-platform special case from ghc_libs_build
+
 * Sun Nov 10 2024 Jens Petersen <petersen@redhat.com> - 2.7.3-1
 - changes for ghc-9.12
 - add -W option (no ghc override) to: ghc_lib_build_without_haddock,
