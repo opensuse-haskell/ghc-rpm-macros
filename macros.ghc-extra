@@ -98,15 +98,8 @@ for i in %*; do\
 name=$(echo $i | sed -e "s/\\(.*\\)-.*/\\1/")\
 ver=$(echo $i | sed -e "s/.*-\\(.*\\)/\\1/")\
 cd $name-$ver\
-case $name in\
-haskell-platform)\
-%ghc_lib_build_without_haddock $name $ver\
-;;\
-*)\
 %ghc_lib_build %{-W} $name $ver\
 ./Setup register --inplace\
-;;\
-esac\
 cd ..\
 done\
 %{nil}
