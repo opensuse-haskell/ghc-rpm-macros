@@ -91,14 +91,14 @@ This package provides the Haskell %{pkgname} profiling library.\
 %{nil}
 
 # ghc_libs_build [name-version] ...
-%ghc_libs_build(W)\
+%ghc_libs_build(PW)\
 HOME=$PWD\
 %global ghc_subpackaging 1\
 for i in %*; do\
 name=$(echo $i | sed -e "s/\\(.*\\)-.*/\\1/")\
 ver=$(echo $i | sed -e "s/.*-\\(.*\\)/\\1/")\
 cd $name-$ver\
-%ghc_lib_build %{-W} $name $ver\
+%ghc_lib_build %{-P} %{-W} $name $ver\
 ./Setup register --inplace\
 cd ..\
 done\

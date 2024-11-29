@@ -30,8 +30,8 @@ licensedirversion=%{?2:-%2}\
 %{nil}
 
 # ghc_lib_build [name] [version]
-%ghc_lib_build(W)\
-%ghc_lib_build_without_haddock %{-W} %{?1} %{?2}\
+%ghc_lib_build(PW)\
+%ghc_lib_build_without_haddock %{-P} %{-W} %{?1} %{?2}\
 %if %{with haddock}\
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define pkgver %{?2}%{!?2:%{version}}\
