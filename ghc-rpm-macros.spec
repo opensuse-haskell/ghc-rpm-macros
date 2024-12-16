@@ -1,10 +1,6 @@
 %global debug_package %{nil}
 
-%if 0%{?fedora} || 0%{?rhel} >= 7
 %global macros_dir %{_rpmconfigdir}/macros.d
-%else
-%global macros_dir %{_sysconfdir}/rpm
-%endif
 
 Name:           ghc-rpm-macros
 Version:        2.7.4
@@ -161,9 +157,7 @@ echo -e "\n%%_ghcdynlibdir %%{_libdir}" >> %{buildroot}%{macros_dir}/macros.ghc-
 install -p -D -m 0755 %{SOURCE3} %{buildroot}%{_prefix}/lib/rpm/ghc-deps.sh
 install -p -D -m 0755 %{SOURCE13} %{buildroot}%{_prefix}/lib/rpm/ghc-info.sh
 
-%if 0%{?fedora} || 0%{?rhel} >= 7
 install -p -D -m 0644 %{SOURCE7} %{buildroot}%{_prefix}/lib/rpm/fileattrs/ghc.attr
-%endif
 
 install -p -D -m 0644 %{SOURCE10} %{buildroot}%{_datadir}/%{name}/Setup.hs
 
@@ -183,9 +177,7 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %doc AUTHORS
 %{macros_dir}/macros.ghc
 %{macros_dir}/macros.ghc-os
-%if 0%{?fedora} || 0%{?rhel} >= 7
 %{_prefix}/lib/rpm/fileattrs/ghc.attr
-%endif
 %{_prefix}/lib/rpm/ghc-deps.sh
 %{_prefix}/lib/rpm/ghc-info.sh
 %{_prefix}/lib/rpm/ghc-pkg-wrapper
