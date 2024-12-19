@@ -91,7 +91,7 @@ This package provides the Haskell %{pkgname} profiling library.\
 %{nil}
 
 # ghc_libs_build [name-version] ...
-%ghc_libs_build(PW)\
+%ghc_libs_build(HPW)\
 HOME=$PWD\
 %global ghc_subpackaging 1\
 for i in %*; do\
