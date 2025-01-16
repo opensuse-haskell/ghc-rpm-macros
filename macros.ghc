@@ -32,7 +32,7 @@ LANG=C.utf8\
 # -W disables overriding default ghc
 %ghc_lib_build(HPW)\
 %ghc_lib_build_without_haddock %{-P} %{-W} %{?1} %{?2}\
-%if %{with haddock} && 0%{!?-H} \
+%if %{with haddock} && 0%{!?-H:1} \
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define pkgver %{?2}%{!?2:%{version}}\
 if [ -n dist/build/libHS%{pkgname}-%{pkgver}*.so ]; then\
