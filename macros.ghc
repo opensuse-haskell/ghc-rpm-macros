@@ -93,7 +93,8 @@ CFLAGS="$(echo ${CFLAGS:-%optflags} | sed -e 's/-Wall //' -e 's/-Werror=format-s
 %define pkgname %{?1}%{!?1:%{pkg_name}}\
 %define pkgver %{?2}%{!?2:%{version}}\
 %define pkgnamever %{pkgname}-%{pkgver}\
-echo -e "\\n==== Build %{pkgnamever} ===="\
+echo\
+echo "==== Build %{pkgnamever} ===="\
 %ghc_set_gcc_flags\
 if ! [ -f Setup.hs -o -f Setup.lhs ]; then\
 # datadir hardcoded for flatpaks\
