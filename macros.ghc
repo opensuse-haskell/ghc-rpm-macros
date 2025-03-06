@@ -302,7 +302,7 @@ done\
 # bindir hardcoded for flatpaks
 %ghc_pkg_recache /usr/bin/ghc-pkg-%{ghc_version} recache --no-user-package-db || :
 
-# skip prof libs and documentation
+# skip prof libs and documentation (deprecated by `haskell_setup -q`)
 %ghc_quick_build\
 %undefine with_ghc_prof\
 %undefine with_haddock
