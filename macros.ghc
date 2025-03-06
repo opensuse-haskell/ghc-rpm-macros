@@ -90,7 +90,7 @@ CFLAGS="$(echo ${CFLAGS:-%optflags} | sed -e 's/-Wall //' -e 's/-Werror=format-s
 
 # configure
 %cabal_configure\
-%define pkgname %{?1}%{!?1:%{pkg_name}}\
+%define pkgname %{?1}%{!?1:%{?pkg_name}%{!?pkg_name:%{name}}}\
 %define pkgver %{?2}%{!?2:%{version}}\
 %define pkgnamever %{pkgname}-%{pkgver}\
 echo\
