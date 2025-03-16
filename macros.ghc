@@ -174,7 +174,10 @@ fi\
 %endif\
 for i in %{buildroot}%{?_ghcdynlibdir}%{!?_ghcdynlibdir:%{ghcliblib}${subsubdir}%{?with_hadrian:/%{ghcplatform}}%{!?with_hadrian:%{?base_ver:/%{pkgnamever}}}}/libHS%{pkgnamever}-*ghc%{ghc_version}.so; do\
 if [ -x "$i" ]; then\
-echo $i >> %{basepkg}.files\
+    case "$i" in\
+        */libHS%{pkgnamever}-*_p-ghc%{ghc_version}.so) echo $i >> %{basepkg}-prof.files ;;\
+        *) echo $i >> %{basepkg}.files ;;\
+    esac\
 else\
 echo "$i: not found"\
 %if 0%{!-m:1}\
