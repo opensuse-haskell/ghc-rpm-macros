@@ -256,6 +256,7 @@ for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 
          *$PWD/*) chrpath -r "%{ghclibdir}/lib:%{ghclibdir}/lib/%{ghcplatform}" $i ;;\
          *:%{_libdir}) chrpath -r $(echo "$rpath" | sed -e 's!:%{_libdir}$!!') $i ;;\
          %{_libdir}:*) chrpath -r $(echo "$rpath" | sed -e 's!^%{_libdir}:!!') $i ;;\
+         *:%{_libdir}:*) chrpath -r $(echo "$rpath" | sed -e 's!:%{_libdir}:!:!') $i ;;\
          *) ;;\
     esac\
 %endif\
