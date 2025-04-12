@@ -219,7 +219,7 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 %changelog
 * Sun Apr 13 2025 Jens Petersen <petersen@redhat.com> - 2.8.1-2
-- F43 obsoletes: aeson-compat, fclabels, system-fileio
+- F43 obsoletes: aeson-compat, fclabels, libiserv, system-fileio
 
 * Sun Mar 30 2025 Jens Petersen  <petersen@redhat.com> - 2.8.1-1
 - ghc_delete_rpaths: also remove system libdir from middle of rpath
