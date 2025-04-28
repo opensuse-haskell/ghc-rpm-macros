@@ -58,7 +58,7 @@ locally.
 This should not be used in official Fedora builds.
 
 
-%if 0%{?fedora} < 37
+%if %{defined el9} || %{defined el8}
 %package -n ghc-filesystem
 Summary:        Shared directories for Haskell documentation
 
@@ -156,7 +156,7 @@ install -p -D -m 0644 %{SOURCE6} %{buildroot}%{macros_dir}/macros.ghc-extra
 install -p -D -m 0644 %{SOURCE9} %{buildroot}%{macros_dir}/macros.ghc-os
 install -p -D -m 0644 %{SOURCE14} %{buildroot}%{macros_dir}/macros.ghc-srpm-quick
 
-%if 0%{?fedora} < 38
+%if %{defined el9} || %{defined el8}
 echo -e "\n%%_ghcdynlibdir %%{_libdir}" >> %{buildroot}%{macros_dir}/macros.ghc-os
 %endif
 
@@ -173,7 +173,7 @@ install -p -D -m 0755 %{SOURCE11} %{buildroot}%{_bindir}/cabal-tweak-drop-dep
 install -p -D -m 0755 %{SOURCE12} %{buildroot}%{_bindir}/cabal-tweak-remove-upperbound
 install -p -D -m 0755 %{SOURCE8} %{buildroot}%{_prefix}/lib/rpm/ghc-pkg-wrapper
 
-%if 0%{?fedora} < 37
+%if %{defined el9} || %{defined el8}
 mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %endif
 
@@ -202,7 +202,7 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %{macros_dir}/macros.ghc-srpm-quick
 
 
-%if 0%{?fedora} < 37
+%if %{defined el9} || %{defined el8}
 %files -n ghc-filesystem
 %dir %{_docdir}/ghc
 # %%{ghc_html_dir}
