@@ -3,7 +3,7 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-rpm-macros
-Version:        2.9.0
+Version:        2.9.1
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -208,6 +208,10 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Mon Apr 28 2025 Jens Petersen <petersen@redhat.com> - 2.9.1-1
+- update spec conditionals for rhel10
+- drop f35 obsoletes
+
 * Fri Apr 18 2025 Jens Petersen <petersen@redhat.com> - 2.9.0-1
 - when subpackaging don't use -no-user-package-db for compiling Setup
 
