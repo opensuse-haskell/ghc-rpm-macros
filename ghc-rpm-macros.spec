@@ -210,6 +210,7 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %changelog
 * Fri Jul 25 2025 Jens Petersen <petersen@redhat.com> - 2.9.2-1
 - drop duplicate ghc_merge_filelist definition (mimi1vx)
+- ghc_set_gcc_flags: also silence C backend for riscv64
 
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild

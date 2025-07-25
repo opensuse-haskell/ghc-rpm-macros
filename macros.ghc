@@ -78,7 +78,7 @@ fi\
 %ghc_set_gcc_flags\
 %global _lto_cflags %{nil}\
 %global __brp_strip_lto %{nil}\
-%ifarch s390x\
+%ifarch s390x riscv64\
 %if %[v"%{ghc_version}" < v"9.2"]\
 # -Wunused-label is extremely noisy\
 CFLAGS="$(echo ${CFLAGS:-%optflags} | sed -e 's/-Wall //' -e 's/-Werror=format-security //')"\
