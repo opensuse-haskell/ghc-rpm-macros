@@ -208,7 +208,8 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
-* Fri Jul 25 2025 Jens Petersen <petersen@redhat.com> - 2.9.2-1
+* Fri Aug 22 2025 Jens Petersen <petersen@redhat.com> - 2.9.2-1
+- place .p_dyn_hi files in prof subpkg
 - drop duplicate ghc_merge_filelist definition (mimi1vx)
 - ghc_set_gcc_flags: also silence C backend for riscv64
 

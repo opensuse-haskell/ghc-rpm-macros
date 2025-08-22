@@ -179,7 +179,7 @@ pkgdir="${pkgdir}-*"\
 fi\
 %endif\
 if [ -d ${pkgdir} ]; then\
-find ${pkgdir} -type d -fprintf %{basepkg}-devel.files '%%%%dir %p\\n' -o \\( -name '*.p_hi' -o -name 'libHS*_p.a' \\) -fprint %{basepkg}-prof.files -o -fprint %{basepkg}-devel.files\
+find ${pkgdir} -type d -fprintf %{basepkg}-devel.files '%%%%dir %p\\n' -o \\( -name '*.p_hi' -o -name '*.p_dyn_hi' -o -name 'libHS*_p.a' \\) -fprint %{basepkg}-prof.files -o -fprint %{basepkg}-devel.files\
 else\
 rm -f %{basepkg}-devel.files %{basepkg}-prof.files\
 touch %{basepkg}-devel.files %{basepkg}-prof.files\
