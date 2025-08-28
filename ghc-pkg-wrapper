@@ -14,7 +14,7 @@ fi
 
 # for a ghc build use the new ghc-pkg
 if [ -x "$PKGBASEDIR/bin/ghc-pkg" ]; then
-    GHC_PKG="env LD_LIBRARY_PATH=$(dirname $PKGBASEDIR) $PKGBASEDIR/bin/ghc-pkg --global-package-db=$PKGCONFDIR"
+    GHC_PKG="ghc-pkg --global-package-db=$PKGCONFDIR"
 else
     GHC_VER=$(basename $PKGBASEDIR | sed -e s/ghc-//)
     GHC_PKG="/usr/bin/ghc-pkg-${GHC_VER} -f $PKGCONFDIR"

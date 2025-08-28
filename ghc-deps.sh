@@ -1,22 +1,25 @@
 #!/bin/sh
 # find rpm provides and requires for Haskell GHC libraries
 
-[ $# -lt 3 ] && echo "Usage: $(basename "$0") [--provides|--requires] %{buildroot} %{ghclibdir} [ghc-<version>]" && exit 1
+[ $# -lt 3 ] && echo "Usage: $(basename "$0") [--provides|--requires] %{buildroot} %{ghclibdir} [ghc-version]" && exit 1
 
 set +x -e
 
 MODE=$1
 BUILDROOT=$2
 PKGBASEDIR=$3
+
 if [ -z "$4" ];
-then GHCPREFIX=ghc
-else GHCPREFIX=$4
+  then GHCPREFIX=ghc
+  else GHCPREFIX=$4
 fi
 if [ -d "$BUILDROOT$PKGBASEDIR/lib" ];
-then PKGBASELIB=$PKGBASEDIR/lib
-else PKGBASELIB=$PKGBASEDIR
+  then PKGBASELIB=$PKGBASEDIR/lib
+  else PKGBASELIB=$PKGBASEDIR
 fi
+
 PKGCONFDIR=$PKGBASELIB/package.conf.d
+
 
 GHC_PKG="/usr/lib/rpm/ghc-pkg-wrapper $BUILDROOT$PKGBASEDIR"
 
@@ -45,15 +48,13 @@ for i in $files; do
                 esac
             done
             ;;
-        $BUILDROOT$PKGBASELIB/*/libHS*_p.a)
+        */libHS*_p.a)
             pkgverhash=$(basename "$(dirname "$i")")
-            case $i in
-                $BUILDROOT$PKGBASELIB/*-linux-ghc-9.8.*)
-                    pkgver=$(echo $pkgverhash | sed -e "s/\(.*\)-.*/\\1/")
-                    ;;
-                *)  pkgver=$pkgverhash
-                    ;;
-            esac
+            if [ -x "$BUILDROOT$PKGBASEDIR/bin/ghc-pkg" ]; then
+                pkgver=$(echo "$pkgverhash" | sed -e "s/\(.*\)-.*/\\1/")
+            else
+                pkgver=$pkgverhash
+            fi
             if [ -e "$BUILDROOT$PKGCONFDIR/$pkgverhash.conf" ]; then
                 ids=$($GHC_PKG field "$pkgver" "$field" | sed -e "s/\(^\| \)rts\( \|$\)/ /" -e "s/bin-package-db-[^ ]\+//")
             else

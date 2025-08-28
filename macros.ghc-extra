@@ -74,6 +74,9 @@ Supplements:    (%{basepkg}-devel and %{ghc_prefix}-prof)\
 This package provides the Haskell %{pkgname} profiling library.\
 %endif\
 \
+%post -n %{basepkg} -p /sbin/ldconfig\
+%postun -n %{basepkg} -p /sbin/ldconfig\
+\
 %files -n %{basepkg} -f %{!-d:%{pkgname}-%{pkgver}/}%{basepkg}.files\
 \
 %endif\
